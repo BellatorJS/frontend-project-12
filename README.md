@@ -2,8 +2,9 @@
 [![Actions Status](https://github.com/BellatorJS/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/BellatorJS/frontend-project-12/actions)
 
 
-## Railway 
-[![Railway Link](https://railway.app/brand/logo-light.svg)](
-https://frontend-project-12-production-fd1e.up.railway.app/)
+## Railway
+
+[![Railway Link](https://railway.app/brand/logo-dark.svg)]
+(https://frontend-project-12-production-fd1e.up.railway.app/)
 
 
