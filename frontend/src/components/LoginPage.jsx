@@ -9,7 +9,7 @@ import { useState, useRef, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useDispatch } from "react-redux";
-import {postlogin} from '../feachers/dataSlice'
+import {postlogin} from '../feachers/channels-slice'
 
 export const LoginPage = () => {
   const dispatch = useDispatch();

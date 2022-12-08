@@ -1,8 +1,22 @@
 
-
+  import { normalize, schema } from 'normalizr';
 import axios from 'axios';
 
 const BASE_URL = '/api/v1/'
+
+const getNormalalized = (data) => {
+  const channel = new schema.Entity('channels')
+  const message = new schema.Entity('messages')
+
+  const contentSchema = { 
+    channels: [channel],
+    messages:[message] 
+  
+  };
+  const normalizedData = normalize(data, contentSchema);
+
+  return normalizedData;
+};
 
 export const postLogin = async (values) => {
   const res = await axios.post([BASE_URL, 'login'].join('/'), values);
@@ -11,10 +25,10 @@ export const postLogin = async (values) => {
       
 }
 export const fetchData = async (getAuth) => {
-  const { data } = await axios.get([BASE_URL, 'data'].join('/'), { headers: getAuth() })
-
-
-  return data
+  const { data } = await axios.get([BASE_URL, 'data'].join('/'), { headers: getAuth() });
+  const normalizedData = await getNormalalized(data);
+ // console.log(data)
+  return normalizedData;
 }
 
 
