@@ -21,17 +21,11 @@ const getAuthHeader = () => {
 };
 
 const PrivatePage = () => {
-  
-// BEGIN (write your solution here)
+
+const username = JSON.parse(window.localStorage.getItem('userId'))
+
+console.log(username.username, "@#!!!!!!!!!!!!!")
 const dispatch = useDispatch();
-
-/*const channels = useSelector((state) => {
-  // BEGIN (write your solution here)
-  return Object.values(state.chats.entities);
- 
-  // END
-});*/
-
 
 useEffect(()=> {
 
@@ -41,13 +35,16 @@ dispatch(fetchMessages(getAuthHeader))
 
 },[dispatch]);
 
-const xxx = useSelector(state=>state.chats.currentChannelId)
+
+
+
+const currentChannelId = useSelector(state=>state.chats.currentChannelId)
 const channels = useSelector(channelsSelectors.selectAll)
 const messages = useSelector(messagesSelectors.selectAll)
 //const currentChannelId= useSelector(currentChannelSelectors)
 //const messagesIds = useSelector(messagesSelectors.selectTotal)
 //console.log(currentChannelId)
-console.log(xxx)
+console.log(currentChannelId)
   return (
     <div class="d-flex flex-column h-100"> 
     <div class="container h-100 my-4 overflow-hidden rounded shadow">
@@ -57,9 +54,9 @@ console.log(xxx)
     
         <div class="col p-0 h-100">
               <div class="col p-0 h-100"><div class="d-flex flex-column h-100">    
-               <Messages messages={messages} />
+               <Messages messages={messages} currentChannelId={currentChannelId} username={username}/>
                 <div class="mt-auto px-5 py-3">
-                <FormMessage />
+                <FormMessage currentChannelId={currentChannelId} />
                   </div>    
             </div>
             </div>

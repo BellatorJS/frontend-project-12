@@ -4,30 +4,50 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
 import { io } from "socket.io-client";
-
+import { useDispatch } from 'react-redux';
+import {messageAdded} from '../feachers/messages-slice'
+import { useRef, useEffect } from 'react';
 
 const socket = io("ws://localhost:3000");
 
 
-export const FormMessage = () => {
+export const FormMessage = ({currentChannelId} ) => {
+  const dispatch = useDispatch()
+  const user = JSON.parse(window.localStorage.getItem('userId'))
+  const username = user.username
+  const inputRef = useRef();
 
-   
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
         const formik = useFormik({
           initialValues: {
             message: '',
           },
-          onSubmit: values => {
+          onSubmit: (values, {resetForm}) => {
+          
+        
+            console.log(username)
             console.log(values.message)
+            console.log({ body: values.message, channelId: currentChannelId, username: username })
             //{ body: "message text", channelId: 1, username: 'admin' }
            // { post: "new message", autor: "admin" }
-            socket.emit('newMessage', { body: values.message, channelId: 1, username: 'admin' })
+            socket.emit('newMessage', { body: values.message, channelId: currentChannelId, username: username })
+            resetForm();
+            inputRef.current.focus();
           },
+        });
+        socket.on('newMessage', (payload) => {
+          dispatch(messageAdded(payload))
+       
         });
     
   return (
     <Form onSubmit={formik.handleSubmit} novalidate="" className="py-1 border rounded-2">
         <InputGroup htmlFor="form" className="input-group has-validation">
         <Form.Control
+          ref={inputRef}
           controlId="form"
           placeholder = "Введите сообщение..." 
           aria-label = "Новое сообщение"

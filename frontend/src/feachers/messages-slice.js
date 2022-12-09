@@ -20,15 +20,9 @@
 
  const messagesSlice = createSlice({
     name: 'messages',
-    initialState:messagesAdapter.getInitialState()  ,
+    initialState:messagesAdapter.getInitialState(),
     reducers: {
-      setChannels(state, { payload }) {
-        // BEGIN (write your solution here)
-        const { entities, ids } = payload;
-        state.entities = entities;
-        state.ids = ids;
-        // END
-      },
+      messageAdded: messagesAdapter.addOne,
     },
     extraReducers: (builder) => {
       builder
@@ -58,7 +52,7 @@
   });
   
   export const messagesSelectors = messagesAdapter.getSelectors((state) => state.messages)
-
+  export const {messageAdded} = messagesSlice.actions
   
   export const messageReducer = messagesSlice.reducer;
 
