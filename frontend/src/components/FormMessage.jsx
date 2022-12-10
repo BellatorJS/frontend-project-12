@@ -33,11 +33,20 @@ export const FormMessage = ({currentChannelId} ) => {
             console.log({ body: values.message, channelId: currentChannelId, username: username })
             //{ body: "message text", channelId: 1, username: 'admin' }
            // { post: "new message", autor: "admin" }
-            socket.emit('newMessage', { body: values.message, channelId: currentChannelId, username: username })
+            socket.emit('newMessage', 
+            { body: values.message, channelId: currentChannelId, username: username },
+            (response) => {
+              console.log(response); // ok
+            } )
             resetForm();
             inputRef.current.focus();
           },
         });
+
+  
+
+
+
         socket.on('newMessage', (payload) => {
           dispatch(messageAdded(payload))
        
