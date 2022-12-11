@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 //import { Buttons } from './Buttons';
- // import { useImmer } from "use-immer";
+// import { useImmer } from "use-immer";
 import { Modals } from './Modals';
 
 export const Chanels = ({channels}) => {

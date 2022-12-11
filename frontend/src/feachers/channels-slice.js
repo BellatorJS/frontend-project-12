@@ -31,6 +31,7 @@
     initialState: chatAdapter.getInitialState(
     ),
     reducers: {
+      channelAdded: chatAdapter.addOne,
       setChannels(state, { payload }) {
         // BEGIN (write your solution here)
         const { entities, ids } = payload;
@@ -38,6 +39,7 @@
         state.ids = ids;
         // END
       },
+  
     },
     extraReducers: (builder) => {
       builder

@@ -52,6 +52,7 @@
   });
   
   export const messagesSelectors = messagesAdapter.getSelectors((state) => state.messages)
+  export const messagesNamesSelectors = messagesAdapter.getSelectors((state) => state.name)
   export const {messageAdded} = messagesSlice.actions
   
   export const messageReducer = messagesSlice.reducer;
