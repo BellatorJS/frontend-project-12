@@ -8,8 +8,8 @@ import { useDispatch } from 'react-redux';
 import {messageAdded} from '../feachers/messages-slice'
 import { useRef, useEffect } from 'react';
 
-const socket = io("ws://localhost:3000");
-
+//const socket = io("ws://localhost:3000");
+const socket = io()
 
 export const FormMessage = ({currentChannelId} ) => {
   const dispatch = useDispatch()

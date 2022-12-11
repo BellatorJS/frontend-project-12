@@ -33,11 +33,11 @@
     reducers: {
       channelAdded: chatAdapter.addOne,
       setChannels(state, { payload }) {
-        // BEGIN (write your solution here)
+   
         const { entities, ids } = payload;
         state.entities = entities;
         state.ids = ids;
-        // END
+    
       },
   
     },
@@ -85,6 +85,7 @@
   
   export const channelsSelectors = chatAdapter.getSelectors((state) => state.chats);
 
+  export const {channelAdded} = chatSlice.actions
   //export const currentChannelSelectors = chatAdapter.getSelectors((state) => state.chats)
   
   export const chatReducer = chatSlice.reducer;
