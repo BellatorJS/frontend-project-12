@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -6,12 +7,17 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from "react-redux";
 import {channelsSelectors,channelAdded} from '../feachers/channels-slice'
-import { io } from "socket.io-client";
+import {useSocket} from '../hooks/useSockect'
 
-const socket = io();
+
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
+
 
 export const Modals = (props) => {
-
+const useSocket22 = useSocket()
+  
 
 const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>channel.name)
 
@@ -19,7 +25,7 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
     name: Yup.string().notOneOf(channelsNames),
   });
 
-  const dispatch = useDispatch()
+
 
     const {onHide:handleClose} = props;
 
@@ -30,15 +36,11 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
         validationSchema,
 
         onSubmit: values => {
+        const channel ={name:values.name};
         
+        useSocket22.dispatchingSockets.addChanel(channel)
        
-         socket.emit('newChannel',  {  name: values.name } );
-          console.log("LA")
-         socket.on('newChannel', (values) => {
-            console.log("LA")
-            dispatch(channelAdded({  name: values.name }))
-            // { id: 6, name: "new channel", removable: true }
-          });
+
           
           
 

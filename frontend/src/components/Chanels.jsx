@@ -1,8 +1,12 @@
 import React from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 //import { Buttons } from './Buttons';
 // import { useImmer } from "use-immer";
+
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Modals } from './Modals';
 
 export const Chanels = ({channels}) => {
@@ -13,9 +17,11 @@ export const Chanels = ({channels}) => {
 
   const [state, setActive] = useState(buttons);
   console.log(state)
+
+
 const handleClick=(id)=>{
   setActive({...buttons, [id]:!state.id })
-console.log(state)
+
 }
 
 const [show, setShow] = useState(false);
@@ -33,8 +39,6 @@ const handleShow = () => setShow(true);
           <span>Каналы</span>
           <button
            onClick={handleShow}
-
-          
           type="button"
            class="p-0 text-primary btn btn-group-vertical">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
@@ -46,14 +50,40 @@ const handleShow = () => setShow(true);
               <ul class="nav flex-column nav-pills nav-fill px-2">
              {channels.map((channel)=>  
              <li key={channel.id}
-             class="nav-item w-100">
+             className="nav-item w-100">
+              <ButtonGroup vertical>
+                {!channel.removable &&
                 <Button type="button"
                     onClick={()=>handleClick(channel.id)}
                     variant = {state[channel.id] ? "secondary" : "light" } 
                     className="w-100 rounded-0 text-start ">
                     <span class="me-1">#</span>
                     {channel.name}
+                 </Button>}
+                 {channel.removable &&
+               <Dropdown as={ButtonGroup}>
+               <Button type="button"
+                    onClick={()=>handleClick(channel.id)}
+                    variant = {state[channel.id] ? "secondary" : "light" } 
+                    className="w-100 rounded-0 text-start ">
+                    <span class="me-1">#</span>
+                    {channel.name}
                  </Button>
+               <Dropdown.Toggle split
+               id={channel.id}
+               aria-expanded="false"
+               className="flex-grow-0 dropdown-toggle dropdown-toggle-split btn"
+                variant = {state[channel.id] ? "secondary" : "light" }
+                />
+               <Dropdown.Menu>
+                 <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                 <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                 <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+               </Dropdown.Menu>
+             </Dropdown>
+                 
+                 }
+                 </ButtonGroup>
                     </li>
                     )}
                       </ul>
@@ -64,4 +94,3 @@ const handleShow = () => setShow(true);
 
   )
 }
-

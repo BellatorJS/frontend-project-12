@@ -4,17 +4,19 @@ import {Route, Routes} from 'react-router-dom';
 import {HomePage, } from './components/HomePage'
 import {Layout} from './components/Layout'
 import { LoginPage} from './components/LoginPage'
-import {NotFoundPage} from './components/NotFoundPage'
-import {AuthProvider} from './components/AuthProvider'
+import { NotFoundPage} from './components/NotFoundPage'
+import { AuthProvider } from './providers/AuthProvider'
 import PrivatePage from './components/PrivatePage'
 import { PrivateRoute } from './components/PrivateRoute'
-
+import  {SocketProvider}  from './providers/SocketProvider'
 
 function App() {
   return (
 
 <AuthProvider>
-    <div className="App">
+
+  <SocketProvider> 
+     <div className="App">
       <Routes>
         <Route path='/' element={<Layout />}>
 
@@ -28,8 +30,9 @@ function App() {
         </Route>
       </Routes>
     </div>
+ </SocketProvider> 
 </AuthProvider>
-
+  
   );
 }
 
