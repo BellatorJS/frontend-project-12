@@ -51,34 +51,35 @@ const handleShow = () => setShow(true);
              {channels.map((channel)=>  
              <li key={channel.id}
              className="nav-item w-100">
-              <ButtonGroup vertical>
+              <ButtonGroup vertical className="d-flex">
                 {!channel.removable &&
                 <Button type="button"
                     onClick={()=>handleClick(channel.id)}
+                    aria-expanded="false"
                     variant = {state[channel.id] ? "secondary" : "light" } 
-                    className="w-100 rounded-0 text-start ">
+                    className="w-100 rounded-0 text-start text-truncate ">
                     <span class="me-1">#</span>
                     {channel.name}
                  </Button>}
                  {channel.removable &&
                <Dropdown as={ButtonGroup}>
                <Button type="button"
+      
                     onClick={()=>handleClick(channel.id)}
                     variant = {state[channel.id] ? "secondary" : "light" } 
-                    className="w-100 rounded-0 text-start ">
+                    className="w-100 rounded-0   text-start text-truncate">
                     <span class="me-1">#</span>
                     {channel.name}
                  </Button>
                <Dropdown.Toggle split
                id={channel.id}
                aria-expanded="false"
-               className="flex-grow-0 dropdown-toggle dropdown-toggle-split btn"
+               className="flex-grow-0  dropdown-toggle dropdown-toggle-split btn"
                 variant = {state[channel.id] ? "secondary" : "light" }
                 />
                <Dropdown.Menu>
-                 <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                 <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                 <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                 <Dropdown.Item href="#/action-1">Удалить</Dropdown.Item>
+                 <Dropdown.Item href="#/action-2">Переименовать</Dropdown.Item>
                </Dropdown.Menu>
              </Dropdown>
                  

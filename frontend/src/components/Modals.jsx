@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from "react-redux";
 import {channelsSelectors,channelAdded} from '../feachers/channels-slice'
 import {useSocket} from '../hooks/useSockect'
-
+import { useRef, useEffect } from 'react';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -25,6 +25,12 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
     name: Yup.string().notOneOf(channelsNames),
   });
 
+ 
+
+  
+  useEffect(() => {
+  
+  }, []);
 
 
     const {onHide:handleClose} = props;
@@ -39,7 +45,8 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
         const channel ={name:values.name};
         
         useSocket22.dispatchingSockets.addChanel(channel)
-       
+        formik.resetForm()
+        handleClose()
 
           
           
@@ -63,9 +70,10 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control
+            
                 type="text"
                 placeholder="Введите имя канала"
-                autoFocus
+               
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
