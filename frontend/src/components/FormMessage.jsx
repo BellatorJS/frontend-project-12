@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import {messageAdded} from '../feachers/messages-slice'
 import { useRef, useEffect } from 'react';
 import {useSocket} from '../hooks/useSockect'
+import { nanoid } from '@reduxjs/toolkit';
 //const socket = io("ws://localhost:3000");
 const socket = io()
 
@@ -28,6 +29,7 @@ export const FormMessage = ({currentChannelId} ) => {
           },
           onSubmit: (values, {resetForm}) => {
             const newMessage = {
+              id: nanoid(),
               body: values.message,
               channelId: currentChannelId,
               username: username

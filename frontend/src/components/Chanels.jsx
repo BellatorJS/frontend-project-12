@@ -2,32 +2,38 @@ import React from 'react'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-//import { Buttons } from './Buttons';
-// import { useImmer } from "use-immer";
+import { setChannel } from '../feachers/channels-slice';
+import { useDispatch } from 'react-redux';
+import {ModalRemove} from './ModalRemove'
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Modals } from './Modals';
 
 export const Chanels = ({channels}) => {
+
+  const dispatch = useDispatch()
  
   const buttons = channels.reduce((acc, channel) => {
     return { ...acc, [channel.id]: false };
   }, {});
 
   const [state, setActive] = useState(buttons);
-  console.log(state)
 
-
-const handleClick=(id)=>{
+const handleClick=(id)=> {
+  console.log(id)
   setActive({...buttons, [id]:!state.id })
-
+  dispatch(setChannel(id))
 }
 
 const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
 
+
+const [ShowRemoveModal1, ShowRemoveModal] = useState(false);
+const handleCloseRemove = () => ShowRemoveModal(false);
+const handleShowRemove = () => ShowRemoveModal(true);
 
 
 
@@ -78,7 +84,7 @@ const handleShow = () => setShow(true);
                 variant = {state[channel.id] ? "secondary" : "light" }
                 />
                <Dropdown.Menu>
-                 <Dropdown.Item href="#/action-1">Удалить</Dropdown.Item>
+                 <Dropdown.Item onClick={handleShowRemove} href="#/action-1">Удалить</Dropdown.Item>
                  <Dropdown.Item href="#/action-2">Переименовать</Dropdown.Item>
                </Dropdown.Menu>
              </Dropdown>
@@ -88,6 +94,8 @@ const handleShow = () => setShow(true);
                     </li>
                     )}
                       </ul>
+                      <ModalRemove  show={ShowRemoveModal1} onHide={handleCloseRemove}    
+                    />
                       <Modals show={show} onHide={handleClose}/>
          
       </div>

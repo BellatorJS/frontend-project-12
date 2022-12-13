@@ -24,14 +24,10 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
   const validationSchema = Yup.object().shape({
     name: Yup.string().notOneOf(channelsNames),
   });
-
  
-
-  
   useEffect(() => {
   
   }, []);
-
 
     const {onHide:handleClose} = props;
 
@@ -48,11 +44,6 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
         formik.resetForm()
         handleClose()
 
-          
-          
-
-
-          
         },
       });
 
@@ -70,10 +61,8 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label></Form.Label>
               <Form.Control
-            
                 type="text"
                 placeholder="Введите имя канала"
-               
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.name}

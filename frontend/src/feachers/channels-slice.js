@@ -33,12 +33,10 @@
     reducers: {
       channelAdded: chatAdapter.addOne,
       channelRemoved: chatAdapter.removeOne,
-      setChannels(state, { payload }) {
-   
-        const { entities, ids } = payload;
-        state.entities = entities;
-        state.ids = ids;
-    
+      setChannel(state, { payload }) {
+        console.log(payload)
+        state.currentChannelId = payload;
+  
       },
   
     },
@@ -86,7 +84,7 @@
   
   export const channelsSelectors = chatAdapter.getSelectors((state) => state.chats);
 
-  export const {channelAdded , channelRemoved} = chatSlice.actions
+  export const {channelAdded , channelRemoved, setChannel} = chatSlice.actions
   //export const currentChannelSelectors = chatAdapter.getSelectors((state) => state.chats)
   
   export const chatReducer = chatSlice.reducer;
