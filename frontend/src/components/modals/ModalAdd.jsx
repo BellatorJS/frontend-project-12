@@ -6,8 +6,8 @@ import Modal from 'react-bootstrap/Modal';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from "react-redux";
-import {channelsSelectors,channelAdded} from '../feachers/channels-slice'
-import {useSocket} from '../hooks/useSockect'
+import {channelsSelectors,channelAdded} from '../../feachers/channels-slice'
+import {useSocket} from '../../hooks/useSockect'
 import { useRef, useEffect } from 'react';
 
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -15,21 +15,31 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
 
-export const Modals = (props) => {
-const useSocket22 = useSocket()
+export const ModalAdd = (props) => {
+   const {onHide} = props;
+
+  console.log("FFFFFFFFFFFFFFFFFFFFFFFF")
+const useSockets = useSocket()
   
 
 const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>channel.name)
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().notOneOf(channelsNames),
+    name: Yup
+    .string()
+    .notOneOf(channelsNames)
+    .trim()
+    .required()
+    .min(3)
+    .max(20)
+
   });
  
   useEffect(() => {
   
   }, []);
 
-    const {onHide:handleClose} = props;
+ 
 
     const formik = useFormik({
         initialValues: {
@@ -39,21 +49,17 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
 
         onSubmit: values => {
         const channel ={name:values.name};
-        
-        useSocket22.dispatchingSockets.addChanel(channel)
+        useSockets.dispatchingSockets.addChanel(channel)
         formik.resetForm()
-        handleClose()
-
+        onHide()
         },
       });
 
 
   return (
     <>
-  
-
-      <Modal {...props} >
-        <Modal.Header closeButton >
+      <Modal show >
+        <Modal.Header closeButton onHide={onHide} >
           <Modal.Title>Добавить канал</Modal.Title>
         </Modal.Header>
         <Modal.Body >
@@ -75,7 +81,7 @@ const channelsNames = useSelector(channelsSelectors.selectAll).map(channel=>chan
             <div className="d-flex justify-content-between">
          <Button 
           variant="secondary" 
-          onClick={handleClose}>
+          onClick={onHide}>
             Отменить
           </Button>
           <Button 

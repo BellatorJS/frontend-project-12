@@ -4,11 +4,12 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { setChannel } from '../feachers/channels-slice';
 import { useDispatch } from 'react-redux';
-import {ModalRemove} from './ModalRemove'
+//import {ModalRemove} from './ModalRemove'
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { Modals } from './Modals';
+//import { Modals } from './modals/ModalAdd';
+import getModal from './modals/index';
 
 export const Chanels = ({channels}) => {
 
@@ -26,16 +27,32 @@ const handleClick=(id)=> {
   dispatch(setChannel(id))
 }
 
-const [show, setShow] = useState(false);
+/*const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
 const handleShow = () => setShow(true);
-
+ /*  <ModalRemove  show={ShowRemoveModal1} onHide={handleCloseRemove}    
+                    />
+                      <Modals show={show} onHide={handleClose}/>*
 
 const [ShowRemoveModal1, ShowRemoveModal] = useState(false);
 const handleCloseRemove = () => ShowRemoveModal(false);
-const handleShowRemove = () => ShowRemoveModal(true);
+const handleShowRemove = () => ShowRemoveModal(true);*/
+
+const [modalInfo, setModalInfo] = useState({ type: null, id: null });
+  const hideModal = () => setModalInfo({ type: null, id: null });
+  const showModal = (type, id = null) => setModalInfo({ type, id });
 
 
+const renderModal = ({ modalInfo, hideModal, id }) => {
+  console.log(modalInfo.type)
+  if (!modalInfo.type) {
+    return null;
+  }
+ 
+  const Component = getModal(modalInfo.type);
+  console.log(Component)
+  return <Component modalInfo={modalInfo} id={id} onHide={hideModal} />;
+};
 
 
   return ( 
@@ -44,7 +61,9 @@ const handleShowRemove = () => ShowRemoveModal(true);
         <div class="d-flex justify-content-between mb-2 ps-4 pe-2">
           <span>Каналы</span>
           <button
-           onClick={handleShow}
+           onClick={() => {
+            console.log("dsf")
+            showModal('adding')}}
           type="button"
            class="p-0 text-primary btn btn-group-vertical">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
@@ -70,7 +89,6 @@ const handleShowRemove = () => ShowRemoveModal(true);
                  {channel.removable &&
                <Dropdown as={ButtonGroup}>
                <Button type="button"
-      
                     onClick={()=>handleClick(channel.id)}
                     variant = {state[channel.id] ? "secondary" : "light" } 
                     className="w-100 rounded-0   text-start text-truncate">
@@ -84,8 +102,8 @@ const handleShowRemove = () => ShowRemoveModal(true);
                 variant = {state[channel.id] ? "secondary" : "light" }
                 />
                <Dropdown.Menu>
-                 <Dropdown.Item onClick={handleShowRemove} href="#/action-1">Удалить</Dropdown.Item>
-                 <Dropdown.Item href="#/action-2">Переименовать</Dropdown.Item>
+                 <Dropdown.Item onClick={() => showModal('removing',channel.id)} href="#/action-1">Удалить</Dropdown.Item>
+                 <Dropdown.Item onClick={() => showModal('renaming',channel.id)} href="#/action-2">Переименовать</Dropdown.Item>
                </Dropdown.Menu>
              </Dropdown>
                  
@@ -94,9 +112,8 @@ const handleShowRemove = () => ShowRemoveModal(true);
                     </li>
                     )}
                       </ul>
-                      <ModalRemove  show={ShowRemoveModal1} onHide={handleCloseRemove}    
-                    />
-                      <Modals show={show} onHide={handleClose}/>
+                      {renderModal({ modalInfo, hideModal })}
+                   
          
       </div>
       
