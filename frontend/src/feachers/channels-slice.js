@@ -31,8 +31,9 @@
     initialState: chatAdapter.getInitialState(
     ),
     reducers: {
-      channelAdded: chatAdapter.addOne,
+      channelAdded:   chatAdapter.addOne,
       channelRemoved: chatAdapter.removeOne,
+      channelUpdated: chatAdapter.updateOne,
       setChannel(state, { payload }) {
         console.log(payload)
         state.currentChannelId = payload;
@@ -62,19 +63,10 @@
           state.error = 'Something went wrong!'
         })
         .addCase(fetchChannels.fulfilled, (state, action) => {
-         //console.log("Я тут")
          console.log(action.payload)
           state.entities=action.payload.entities.channels;
           state.ids= action.payload.result.channels;
           state.currentChannelId = action.payload.result.currentChannelId
-     
-     
-          
-         //const {channels} = action.payload.entities
-        // const {channels:ids} = action.payload.result
-         //console.log(channels, ids)
-         //
-       
      
       
         })
@@ -84,7 +76,7 @@
   
   export const channelsSelectors = chatAdapter.getSelectors((state) => state.chats);
 
-  export const {channelAdded , channelRemoved, setChannel} = chatSlice.actions
+  export const {channelAdded ,channelUpdated, channelRemoved, setChannel} = chatSlice.actions
   //export const currentChannelSelectors = chatAdapter.getSelectors((state) => state.chats)
   
   export const chatReducer = chatSlice.reducer;

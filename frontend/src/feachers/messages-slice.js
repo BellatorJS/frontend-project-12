@@ -1,6 +1,6 @@
 
   import {createSlice, createAsyncThunk, createEntityAdapter} from '@reduxjs/toolkit';
-
+  import {channelsSelectors,channelAdded, channelRemoved, channelUpdated} from '../feachers/channels-slice'
 
 
   export const fetchMessages = createAsyncThunk(
@@ -23,29 +23,20 @@
     initialState:messagesAdapter.getInitialState(),
     reducers: {
       messageAdded: messagesAdapter.addOne,
+      
     },
     extraReducers: (builder) => {
       builder
-        .addCase(fetchMessages.pending, (state, action) => {
-          //state.loading = 'loading';
-         // state.error = null;
-        })
-        .addCase(fetchMessages.rejected, (state) => {
-          //state.loading = 'idle';
-         // state.error = 'Something went wrong!'
-        })
-        .addCase(fetchMessages.fulfilled, (state, action) => {
-        //  console.log("Я fetchMessages")
-        //  console.log(action.payload)
-          state.entities=action.payload.entities.messages;
-          state.ids= action.payload.result.messages
-         //const {channels} = action.payload.entities
-        // const {channels:ids} = action.payload.result
-         //console.log(channels, ids)
-         //
-       
-     
-      
+        .addCase(channelRemoved, (state, action) => {
+          //const removedID= action.payload;
+          //const removingMsg = state.messages.entities.filter((m=>m.channelId === removedID))
+          console.log(state.messages.entities)
+          console.log(messagesAdapter.messages.entities)
+         //const restMsgs = Object.values(state.messages.entities).filter((e) => e.postId !== postId);
+         // setAll удаляет текущие сущности и добавляет новые
+         //postCommentsAdapter.setAll(state, restMsgs);
+
+
         })
   
     }

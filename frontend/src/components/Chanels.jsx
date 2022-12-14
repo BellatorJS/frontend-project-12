@@ -43,15 +43,15 @@ const [modalInfo, setModalInfo] = useState({ type: null, id: null });
   const showModal = (type, id = null) => setModalInfo({ type, id });
 
 
-const renderModal = ({ modalInfo, hideModal, id }) => {
-  console.log(modalInfo.type)
+const renderModal = ({ modalInfo, hideModal }) => {
+
   if (!modalInfo.type) {
     return null;
   }
  
   const Component = getModal(modalInfo.type);
-  console.log(Component)
-  return <Component modalInfo={modalInfo} id={id} onHide={hideModal} />;
+
+  return <Component id={modalInfo.id} onHide={hideModal} />;
 };
 
 

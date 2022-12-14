@@ -10,15 +10,13 @@ import {channelsSelectors,channelAdded} from '../../feachers/channels-slice'
 import {useSocket} from '../../hooks/useSockect'
 import { useRef, useEffect } from 'react';
 
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
 
 export const ModalAdd = (props) => {
    const {onHide} = props;
 
-  console.log("FFFFFFFFFFFFFFFFFFFFFFFF")
+
 const useSockets = useSocket()
   
 

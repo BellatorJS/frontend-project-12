@@ -1,7 +1,7 @@
 
 import {SocketContext} from '../contexts/SocketContext'
 import { io } from "socket.io-client";
-import {channelsSelectors,channelAdded, channelRemoved} from '../feachers/channels-slice'
+import {channelsSelectors,channelAdded, channelRemoved, channelUpdated} from '../feachers/channels-slice'
 import {messageAdded} from '../feachers/messages-slice'
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,17 +17,18 @@ const socket = io();
  socket.on('newChannel', (channel) => {
     dispatch(channelAdded(channel))
   })
-  socket.on('removeChannel', (id) => {
+  socket.on('removeChannel', (data) => {
+   const {id} = data
     dispatch(channelRemoved(id))  
   });
   socket.on('newMessage', (newMessage) => {
     dispatch(messageAdded(newMessage))
   });
-  /*socket.on('renameChannel', (payload) => {
-    console.log(payload); // { id: 7, name: "new name channel", removable: true }
+  socket.on('renameChannel', (renamedChannel) => {
+    const {id, name}= renamedChannel
+    dispatch(channelUpdated({id, changes:{name}}))
   });
-  // emit rename channel
-  socket.emit('renameChannel', { id: 7, name: "new name channel" });*/
+
 
 
 const dispatchingSockets = {
