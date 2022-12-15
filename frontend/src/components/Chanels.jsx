@@ -22,7 +22,6 @@ export const Chanels = ({channels}) => {
   const [state, setActive] = useState(buttons);
 
 const handleClick=(id)=> {
-  console.log(id)
   setActive({...buttons, [id]:!state.id })
   dispatch(setChannel(id))
 }
@@ -62,7 +61,6 @@ const renderModal = ({ modalInfo, hideModal }) => {
           <span>Каналы</span>
           <button
            onClick={() => {
-            console.log("dsf")
             showModal('adding')}}
           type="button"
            class="p-0 text-primary btn btn-group-vertical">

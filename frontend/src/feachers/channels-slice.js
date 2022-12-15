@@ -63,11 +63,11 @@
           state.error = 'Something went wrong!'
         })
         .addCase(fetchChannels.fulfilled, (state, action) => {
-         console.log(action.payload)
+         
           state.entities=action.payload.entities.channels;
           state.ids= action.payload.result.channels;
           state.currentChannelId = action.payload.result.currentChannelId
-     
+    // console.log(state.entities)
       
         })
   
@@ -76,8 +76,16 @@
   
   export const channelsSelectors = chatAdapter.getSelectors((state) => state.chats);
 
+
   export const {channelAdded ,channelUpdated, channelRemoved, setChannel} = chatSlice.actions
   //export const currentChannelSelectors = chatAdapter.getSelectors((state) => state.chats)
   
   export const chatReducer = chatSlice.reducer;
 
+/* export const {
+    selectById: selectUserById,
+    selectIds: selectUserIds,
+    selectEntities: selectUserEntities,
+    selectAll: selectAllUsers,
+    selectTotal: selectTotalUsers
+  } = usersAdapter.getSelectors(state => state.users)*/

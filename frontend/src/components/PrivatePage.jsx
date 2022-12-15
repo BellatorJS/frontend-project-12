@@ -44,7 +44,7 @@ const messages = useSelector(messagesSelectors.selectAll)
 //const currentChannelId= useSelector(currentChannelSelectors)
 //const messagesIds = useSelector(messagesSelectors.selectTotal)
 //console.log(currentChannelId)
-console.log(currentChannelId)
+console.log(currentChannelId,"currentChannelId !!!!!!!!!!!!!")
   return (
     <div class="d-flex flex-column h-100"> 
     <div class="container h-100 my-4 overflow-hidden rounded shadow">
@@ -54,7 +54,7 @@ console.log(currentChannelId)
     
         <div class="col p-0 h-100">
               <div class="col p-0 h-100"><div class="d-flex flex-column h-100">    
-               <Messages messages={messages} currentChannelId={currentChannelId} username={username}/>
+               <Messages messages={messages} id={currentChannelId} />
                 <div class="mt-auto px-5 py-3">
                 <FormMessage currentChannelId={currentChannelId} />
                   </div>    

@@ -44,7 +44,6 @@ export const LoginPage = () => {
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
-        console.log(values)
         dispatch(postlogin(values))
         auth.logIn();
         const { from } = location.state || { from: { pathname: '/' } };
