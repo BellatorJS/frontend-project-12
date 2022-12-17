@@ -3,17 +3,14 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
-import { io } from "socket.io-client";
-import { useDispatch } from 'react-redux';
-import {messageAdded} from '../feachers/messages-slice'
+
 import { useRef, useEffect } from 'react';
 import {useSocket} from '../hooks/useSockect'
 import { nanoid } from '@reduxjs/toolkit';
-//const socket = io("ws://localhost:3000");
-const socket = io()
+
 
 export const FormMessage = ({currentChannelId} ) => {
-  const dispatch = useDispatch()
+
   const user = JSON.parse(window.localStorage.getItem('userId'))
   const username = user.username
   const inputRef = useRef();
@@ -31,7 +28,7 @@ export const FormMessage = ({currentChannelId} ) => {
             const newMessage = {
               id: nanoid(),
               body: values.message,
-              channelId: currentChannelId,
+              channelId: currentChannelId,/////////!!!!!!!!!!!!!!
               username: username
             }
             useSockets.dispatchingSockets.addMessage(newMessage)         

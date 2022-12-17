@@ -3,6 +3,8 @@
   import {channelsSelectors,channelAdded, channelRemoved, channelUpdated} from '../feachers/channels-slice'
   import { useSelector } from 'react-redux';
   import produce from "immer"
+
+
   export const fetchMessages = createAsyncThunk(
     '@@fetchContent',
     async (getAuth, {extra: api}) => {
@@ -29,23 +31,16 @@
     extraReducers: (builder) => {
       builder
         .addCase(channelRemoved, (state, action) => {
-          console.log(action.payload)
-       
-       const cccc=  produce(state.entities, draft => {
-
+         
+       const msg=  produce(state.entities, draft => {
           for (const x in draft) {
-           if (draft[x].channelId == action.payload ) {
-            console.log(draft)
-            console.log("DELETE", draft)
+           if (draft[x].channelId === action.payload ) {
+
             delete draft[x]
-           }
-         
-         
-          }
-       // return Object.values(draft).filter((x) => x.channelId !== action.payload)
+           }}
           
          })
-messagesAdapter.setAll(state, cccc)
+messagesAdapter.setAll(state, msg)
          // console.log(action.payload, "action.payload")
          
           /*

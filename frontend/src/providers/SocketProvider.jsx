@@ -1,7 +1,7 @@
 
 import {SocketContext} from '../contexts/SocketContext'
 import { io } from "socket.io-client";
-import {channelsSelectors,channelAdded, channelRemoved, channelUpdated} from '../feachers/channels-slice'
+import {channelsSelectors,channelAdded, channelRemoved,setChannel, channelUpdated} from '../feachers/channels-slice'
 import {messageAdded} from '../feachers/messages-slice'
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,17 +9,19 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 export const SocketProvider = ({ children }) => {
-
+  const defaultChannelId = 1
 const dispatch = useDispatch()
      
 const socket = io();
     
  socket.on('newChannel', (channel) => {
     dispatch(channelAdded(channel))
+    dispatch(setChannel(channel.id))
   })
   socket.on('removeChannel', (data) => {
    const {id} = data
-    dispatch(channelRemoved(id))  
+    dispatch(channelRemoved(id));
+    dispatch(setChannel(defaultChannelId))  
   });
   socket.on('newMessage', (newMessage) => {
     dispatch(messageAdded(newMessage))

@@ -21,11 +21,11 @@ const getAuthHeader = () => {
 };
 
 const PrivatePage = () => {
-
-const username = JSON.parse(window.localStorage.getItem('userId'))
-
-console.log(username.username, "@#!!!!!!!!!!!!!")
 const dispatch = useDispatch();
+/*const username = JSON.parse(window.localStorage.getItem('userId'))
+
+console.log(username.username, "@#!!!!!!!!!!!!!")*/
+
 
 useEffect(()=> {
 
@@ -38,14 +38,13 @@ dispatch(fetchMessages(getAuthHeader))
 
 
 
-const currentChannelId = useSelector(state=>state.chats.currentChannelId)
+const currentChannelId = useSelector(state=>state.channels.currentChannelId)
 const channels = useSelector(channelsSelectors.selectAll)
 const messages = useSelector(messagesSelectors.selectAll)
-//const currentChannelId= useSelector(currentChannelSelectors)
-//const messagesIds = useSelector(messagesSelectors.selectTotal)
-//console.log(currentChannelId)
-console.log(currentChannelId,"currentChannelId !!!!!!!!!!!!!")
+console.log(channels)
   return (
+    currentChannelId &&
+    <>
     <div class="d-flex flex-column h-100"> 
     <div class="container h-100 my-4 overflow-hidden rounded shadow">
       <div class="row h-100 bg-white flex-md-row">
@@ -54,7 +53,7 @@ console.log(currentChannelId,"currentChannelId !!!!!!!!!!!!!")
     
         <div class="col p-0 h-100">
               <div class="col p-0 h-100"><div class="d-flex flex-column h-100">    
-               <Messages messages={messages} id={currentChannelId} />
+            { <Messages messages={messages} id={currentChannelId} />}   
                 <div class="mt-auto px-5 py-3">
                 <FormMessage currentChannelId={currentChannelId} />
                   </div>    
@@ -64,7 +63,7 @@ console.log(currentChannelId,"currentChannelId !!!!!!!!!!!!!")
           </div>
         </div>
       </div>    
-
+</>
  
 
 )

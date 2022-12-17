@@ -26,7 +26,7 @@
 
 
 
- const chatSlice = createSlice({
+ const channelsSlice = createSlice({
     name: 'channels',
     initialState: chatAdapter.getInitialState(
     ),
@@ -35,9 +35,7 @@
       channelRemoved: chatAdapter.removeOne,
       channelUpdated: chatAdapter.updateOne,
       setChannel(state, { payload }) {
-        console.log(payload)
         state.currentChannelId = payload;
-  
       },
   
     },
@@ -64,8 +62,9 @@
         })
         .addCase(fetchChannels.fulfilled, (state, action) => {
          
-          state.entities=action.payload.entities.channels;
-          state.ids= action.payload.result.channels;
+          state.entities = action.payload.entities.channels;
+          //state.entities.channels.messages =[]
+          state.ids = action.payload.result.channels;
           state.currentChannelId = action.payload.result.currentChannelId
     // console.log(state.entities)
       
@@ -74,13 +73,13 @@
     }
   });
   
-  export const channelsSelectors = chatAdapter.getSelectors((state) => state.chats);
+  export const channelsSelectors = chatAdapter.getSelectors((state) => state.channels);
 
 
-  export const {channelAdded ,channelUpdated, channelRemoved, setChannel} = chatSlice.actions
+  export const {channelAdded ,channelUpdated, channelRemoved, setChannel} = channelsSlice.actions
   //export const currentChannelSelectors = chatAdapter.getSelectors((state) => state.chats)
   
-  export const chatReducer = chatSlice.reducer;
+  export const channelsReducer = channelsSlice.reducer;
 
 /* export const {
     selectById: selectUserById,

@@ -26,16 +26,6 @@ const handleClick=(id)=> {
   dispatch(setChannel(id))
 }
 
-/*const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
- /*  <ModalRemove  show={ShowRemoveModal1} onHide={handleCloseRemove}    
-                    />
-                      <Modals show={show} onHide={handleClose}/>*
-
-const [ShowRemoveModal1, ShowRemoveModal] = useState(false);
-const handleCloseRemove = () => ShowRemoveModal(false);
-const handleShowRemove = () => ShowRemoveModal(true);*/
 
 const [modalInfo, setModalInfo] = useState({ type: null, id: null });
   const hideModal = () => setModalInfo({ type: null, id: null });
@@ -81,7 +71,7 @@ const renderModal = ({ modalInfo, hideModal }) => {
                     aria-expanded="false"
                     variant = {state[channel.id] ? "secondary" : "light" } 
                     className="w-100 rounded-0 text-start text-truncate ">
-                    <span class="me-1">#</span>
+                    <span class="me-1"># </span>
                     {channel.name}
                  </Button>}
                  {channel.removable &&
@@ -90,7 +80,7 @@ const renderModal = ({ modalInfo, hideModal }) => {
                     onClick={()=>handleClick(channel.id)}
                     variant = {state[channel.id] ? "secondary" : "light" } 
                     className="w-100 rounded-0   text-start text-truncate">
-                    <span class="me-1">#</span>
+                    <span class="me-1"># </span>
                     {channel.name}
                  </Button>
                <Dropdown.Toggle split

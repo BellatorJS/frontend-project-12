@@ -9,6 +9,7 @@ import { AuthProvider } from './providers/AuthProvider'
 import PrivatePage from './components/PrivatePage'
 import { PrivateRoute } from './components/PrivateRoute'
 import  {SocketProvider}  from './providers/SocketProvider'
+import { RegistrationPage} from './components/RegisytationPage'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             </PrivateRoute>
           } />
         <Route path='/login' element={<LoginPage />}></Route>
+        <Route path='/registartion' element={<RegistrationPage />}></Route>
         <Route path='*' element={<NotFoundPage />}></Route>
         </Route>
       </Routes>

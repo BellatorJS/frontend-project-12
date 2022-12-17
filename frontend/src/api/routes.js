@@ -17,7 +17,6 @@ const getNormalalized = (data) => {
 
   return normalizedData;
 };
-
 export const postLogin = async (values) => {
   const res = await axios.post([BASE_URL, 'login'].join('/'), values);
   const data = await res.data;
@@ -27,7 +26,6 @@ export const postLogin = async (values) => {
 export const fetchData = async (getAuth) => {
   const { data } = await axios.get([BASE_URL, 'data'].join('/'), { headers: getAuth() });
   const normalizedData = await getNormalalized(data);
- // console.log(data)
   return normalizedData;
 }
 
