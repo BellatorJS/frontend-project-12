@@ -27,7 +27,7 @@ function App() {
             </PrivateRoute>
           } />
         <Route path='/login' element={<LoginPage />}></Route>
-        <Route path='/registartion' element={<RegistrationPage />}></Route>
+        <Route path='/registration' element={<RegistrationPage />}></Route>
         <Route path='*' element={<NotFoundPage />}></Route>
         </Route>
       </Routes>

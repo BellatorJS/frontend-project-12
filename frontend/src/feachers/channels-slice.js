@@ -1,5 +1,6 @@
 
   import {createSlice, createAsyncThunk, createEntityAdapter} from '@reduxjs/toolkit';
+import { postSignup } from '../api/routes';
 
 
   
@@ -15,6 +16,31 @@
       return api.fetchData(getAuth)
     }
   )
+  export const createNewUser = createAsyncThunk(
+    '@@createNewUser',
+    async (values, {
+      rejectWithValue, extra: api
+    }) => {
+      try {
+        console.log("AAAAAAAAAAAA")
+        return api.postSignup(values);
+      } catch(err) {
+        console.log(err)
+        return rejectWithValue('Failed to fetch all todos.')
+      }
+    },
+    {
+      condition: (_, {getState, extra}) => {
+        const {loading} = getState().todos;
+  
+        if (loading === 'loading') {
+          return false;
+        }
+      }
+    }
+  );
+
+
 
 
 
@@ -28,7 +54,9 @@
 
  const channelsSlice = createSlice({
     name: 'channels',
-    initialState: chatAdapter.getInitialState(
+    initialState: chatAdapter.getInitialState({
+      error:""
+    }
     ),
     reducers: {
       channelAdded:   chatAdapter.addOne,
@@ -51,6 +79,19 @@
         })
         .addCase(postlogin.fulfilled, (state, action) => {
           //chatAdapter.addMany(state, action.payload);
+        })
+        .addCase(createNewUser.pending, (state, action) => {
+          console.log(" FAIL postSignup.pending")
+
+        })
+        .addCase(createNewUser.rejected, (state) => {
+          console.log("Такой пользователь уже существует")
+          state.error = 'Такой пользователь уже существует'
+        
+        })
+        .addCase(createNewUser.fulfilled, (state, action) => {
+          state.error = 'Something went wrong!'
+          console.log("FAIL!!!!!!!!!")
         })
         .addCase(fetchChannels.pending, (state, action) => {
           state.loading = 'loading';
