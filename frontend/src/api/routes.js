@@ -17,12 +17,9 @@ const getNormalalized = (data) => {
 
   return normalizedData;
 };
-export const postLogin = async (values) => {
-  const res = await axios.post([BASE_URL, 'login'].join('/'), values);
-  const data = await res.data;
-  return window.localStorage.setItem('userId', JSON.stringify(data))
-      
-}
+
+
+
 export const fetchData = async (getAuth) => {
   const { data } = await axios.get([BASE_URL, 'data'].join('/'), { headers: getAuth() });
   const normalizedData = await getNormalalized(data);
@@ -32,7 +29,6 @@ export const fetchData = async (getAuth) => {
 
 
 export const postSignup = async (values) => {
-  console.log("asdsdadas")
   const res = await axios.post([BASE_URL, 'signup'].join('/'), values);
   const newUser =await res.data;
   return window.localStorage.setItem(newUser.username, JSON.stringify(newUser))

@@ -4,12 +4,12 @@ import { postSignup } from '../api/routes';
 
 
   
-  export const postlogin = createAsyncThunk(
+ /* export const postlogin = createAsyncThunk(
     '@@login',
     async (value, {extra: api}) => {
       return api.postLogin(value)
     }
-  );
+  );*/
   export const fetchChannels = createAsyncThunk(
     '@@fetchContent',
     async (getAuth, {extra: api}) => {
@@ -19,25 +19,18 @@ import { postSignup } from '../api/routes';
   export const createNewUser = createAsyncThunk(
     '@@createNewUser',
     async (values, {
-      rejectWithValue, extra: api
+       extra: api
     }) => {
       try {
-        console.log("AAAAAAAAAAAA")
         return api.postSignup(values);
-      } catch(err) {
-        console.log(err)
-        return rejectWithValue('Failed to fetch all todos.')
+      } catch(error) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        return (error)
       }
     },
-    {
-      condition: (_, {getState, extra}) => {
-        const {loading} = getState().todos;
-  
-        if (loading === 'loading') {
-          return false;
-        }
-      }
-    }
+ 
   );
 
 
@@ -69,24 +62,20 @@ import { postSignup } from '../api/routes';
     },
     extraReducers: (builder) => {
       builder
-        .addCase(postlogin.pending, (state, action) => {
-          state.loading = 'loading';
-          state.error = null;
-        })
-        .addCase(postlogin.rejected, (state) => {
-          state.loading = 'idle';
-          state.error = 'Something went wrong!'
-        })
-        .addCase(postlogin.fulfilled, (state, action) => {
-          //chatAdapter.addMany(state, action.payload);
-        })
         .addCase(createNewUser.pending, (state, action) => {
           console.log(" FAIL postSignup.pending")
 
         })
-        .addCase(createNewUser.rejected, (state) => {
-          console.log("Такой пользователь уже существует")
-          state.error = 'Такой пользователь уже существует'
+        .addCase(createNewUser.rejected, (state, action) => {
+         // console.log(action)
+        //  console.log(action.error)
+        //  console.log(action.error.message)
+         const error = 
+         (action.error.message === "Request failed with status code 409")
+         ? 'Такой пользователь уже существует'
+         : 'Непредвиденная ошибка решистрации'
+
+          state.error = error
         
         })
         .addCase(createNewUser.fulfilled, (state, action) => {

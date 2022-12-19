@@ -8,19 +8,22 @@ import { Chanels } from './Chanels';
 import { Messages } from './Messages';
 import {FormMessage} from './FormMessage'
 import {messagesSelectors} from '../feachers/messages-slice'
-
+import useAuth from '../hooks/useAuth';
 const getAuthHeader = () => {
 
-  const userId = JSON.parse(window.localStorage.getItem('userId'));
-
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
+  const user = JSON.parse(window.localStorage.getItem('user'));
+console.log("FFFFFFFFFFFFFFFFFFFF")
+  if (user && user.token) {
+    return { Authorization: `Bearer ${user.token}` };
   }
 
   return {};
 };
 
-const PrivatePage = () => {
+export const PrivatePage = () => {
+
+  const { user, logIn, logOut } = useAuth();
+console.log(user)
 const dispatch = useDispatch();
 /*const username = JSON.parse(window.localStorage.getItem('userId'))
 
@@ -41,9 +44,9 @@ dispatch(fetchMessages(getAuthHeader))
 const currentChannelId = useSelector(state=>state.channels.currentChannelId)
 const channels = useSelector(channelsSelectors.selectAll)
 const messages = useSelector(messagesSelectors.selectAll)
-console.log(channels)
-  return (
-    currentChannelId &&
+console.log(user)
+  return  (
+      currentChannelId && 
     <>
     <div class="d-flex flex-column h-100"> 
     <div class="container h-100 my-4 overflow-hidden rounded shadow">
@@ -70,4 +73,3 @@ console.log(channels)
 // END
 };
 
-export default PrivatePage;

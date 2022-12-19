@@ -8,7 +8,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import { createNewUser } from '../feachers/channels-slice';
 import { useDispatch, useSelector } from 'react-redux';
-
+import Card from 'react-bootstrap/Card';
 
 
 
@@ -27,15 +27,16 @@ const validationSchema =  Yup.object().shape({
     .required('Обязательное поле')
     .oneOf([Yup.ref('password')],"Пароли должны совпадать"),
 })
-const RegistrationForm=()=> {
-  const {error:alla, loading} = useSelector(state => state.channels);
-  console.log(alla,"zacczc")
+const SignUpForm=()=> {
+  const {error, loading} = useSelector(state => state.channels);
+ 
   const dispatch = useDispatch()
   return (
     <Formik
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        const data = {username:values.username, password:values.password};
+        const { username, password } = values;
+        const data = {username, password};
         dispatch(createNewUser(data))
    
       }}
@@ -46,7 +47,7 @@ const RegistrationForm=()=> {
       }}
     >
       {({
-        alla,
+   
         handleSubmit,
         handleChange,
         handleBlur,
@@ -132,16 +133,25 @@ const RegistrationForm=()=> {
                       value={values.confirmPassword}
                       onBlur={handleBlur}
                      // autoComplete="current-password"
-                      isInvalid={touched.confirmPassword && errors.confirmPassword}
+                      isInvalid={(touched.confirmPassword && errors.confirmPassword) || error}
                       required
                     />
-                   <Form.Control.Feedback type="invalid" tooltip>
+                    {console.log(error,'100')}
+            {error && <Form.Control.Feedback type="invalid" tooltip>
+                   {error}
+                </Form.Control.Feedback>}
+                   
+                
+                  <Form.Control.Feedback type="invalid" tooltip>
                    {errors.confirmPassword}
-                </Form.Control.Feedback>        
+                </Form.Control.Feedback>   
+
+
+
                       </FloatingLabel>
-       {alla && (<Form.Control.Feedback type="invalid" tooltip>
-                   {alla}
-                </Form.Control.Feedback> )} 
+
+
+        
                 </Form.Group>
              <Button type="submit" class="w-100 btn btn-outline-primary mb-5 ">
                                 Зарегистрироваться
@@ -152,29 +162,40 @@ const RegistrationForm=()=> {
     </Formik>
   );
 }
-export const RegistrationPage = () => {
+export const SignUp = () => {
 
      return (
       <div class="container-fluid h-100">
         <div class="row justify-content-center align-content-center h-100">
           <div class="col-12 col-md-8 col-xxl-6">
            
-            <div class="card shadow-sm">
-              
-              <div class="card-body d-flex flex-column flex-md-row 
+            <Card className='shadow-sm'>        
+              <Card.Body className="d-flex flex-column flex-md-row 
               justify-content-around align-items-center p-5">
                 
                <div>
                <img src="https://lastfm.freetls.fastly.net/i/u/ar0/3972fec593824dffcdcf2310a6879198.png"  class="rounded-circle" alt="Регистрация"/>
                   </div>
-<RegistrationForm />
+<SignUpForm />
 
                  <div>  
                   </div>
+                  </Card.Body>
+                  </Card>
+
+
+
+
+
+
+
+
+
+
                   </div>
+
                   </div>
-                  </div>
-                  </div>
+
                   </div>
  
      )
