@@ -47,7 +47,7 @@ const LoginForm = ()=> {
       const res = await axios.post(['/api/v1/', 'login'].join('/'), values);
       const data = await res.data;
       logIn(data);
-      console.log(location.state )
+
       const { from } = location.state || { from: { pathname: '/' } };  
       navigate(from);
     } catch (err) {

@@ -1,16 +1,15 @@
 import Button from 'react-bootstrap/Button';
 
 import Form from 'react-bootstrap/Form';
-
+import axios from 'axios';
 import * as Yup from 'yup';
 import { FloatingLabel } from 'react-bootstrap';
 import React from 'react';
 import { Formik } from 'formik';
-import { createNewUser } from '../feachers/channels-slice';
-import { useDispatch, useSelector } from 'react-redux';
 import Card from 'react-bootstrap/Card';
-
-
+import { useNavigate, useLocation } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import { useState } from 'react';
 
 const validationSchema =  Yup.object().shape({
   username: Yup
@@ -28,23 +27,49 @@ const validationSchema =  Yup.object().shape({
     .oneOf([Yup.ref('password')],"Пароли должны совпадать"),
 })
 const SignUpForm=()=> {
-  const {error, loading} = useSelector(state => state.channels);
- 
-  const dispatch = useDispatch()
+
+  //const {error, loading} = useSelector(state => state.channels);
+  const {logIn } = useAuth();
+
+  const [registrationFailed, setRegistrationFailed] = useState(false);
+
+  // const rollbar = useRollbar();
+  const navigate = useNavigate();
+  const location = useLocation()
+
   return (
     <Formik
+    initialValues={{
+      username: '',
+      password: '',
+      confirmPassword: '',
+    }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
+        setRegistrationFailed(false);
         const { username, password } = values;
-        const data = {username, password};
-        dispatch(createNewUser(data))
+        try {
+        const res = await axios.post(['/api/v1/', 'signup'].join('/'), {
+          username,
+          password,
+        });
+        const data = await res.data;
+        logIn(data);
+        const { from } = location.state || { from: { pathname: '/' } };  
+        navigate(from);
+        }
+        catch (err) {
+          // rollbar.error(err);
+          if (err.response.status === 409) {
+            setRegistrationFailed(true);
+          } else {
+            console.error(err);
+          }
+        }
+     
    
       }}
-      initialValues={{
-        username: '',
-        password: '',
-        confirmPassword: '',
-      }}
+
     >
       {({
    
@@ -74,7 +99,7 @@ const SignUpForm=()=> {
                       // placeholder={errors.username}
                         name="username"
                       // autoComplete="username"
-                        isInvalid={touched.username && errors.username}
+                        isInvalid={(touched.username && errors.username) || registrationFailed}
                         required
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -104,7 +129,7 @@ const SignUpForm=()=> {
                       onBlur={handleBlur}
                       value={values.password}
                      // autoComplete="current-password"
-                      isInvalid={touched.password && errors.password}
+                      isInvalid={(touched.password && errors.password) || registrationFailed}
                       required
                     />
                 <Form.Control.Feedback type="invalid" tooltip>
@@ -133,15 +158,13 @@ const SignUpForm=()=> {
                       value={values.confirmPassword}
                       onBlur={handleBlur}
                      // autoComplete="current-password"
-                      isInvalid={(touched.confirmPassword && errors.confirmPassword) || error}
+                      isInvalid={(touched.confirmPassword && errors.confirmPassword) || registrationFailed}
                       required
                     />
-                    {console.log(error,'100')}
-            {error && <Form.Control.Feedback type="invalid" tooltip>
-                   {error}
+            {registrationFailed && <Form.Control.Feedback type="invalid" tooltip>
+                   {'Такой пользователь уже существует'}
                 </Form.Control.Feedback>}
-                   
-                
+
                   <Form.Control.Feedback type="invalid" tooltip>
                    {errors.confirmPassword}
                 </Form.Control.Feedback>   
@@ -182,16 +205,6 @@ export const SignUp = () => {
                   </div>
                   </Card.Body>
                   </Card>
-
-
-
-
-
-
-
-
-
-
                   </div>
 
                   </div>
@@ -200,3 +213,51 @@ export const SignUp = () => {
  
      )
      }
+/*
+     async (values) => {
+      setAuthFailed(false);
+      try {
+        const res = await axios.post(['/api/v1/', 'login'].join('/'), values);
+        const data = await res.data;
+        logIn(data);
+        console.log(location.state )
+        const { from } = location.state || { from: { pathname: '/' } };  
+        navigate(from);
+      } catch (err) {
+        console.log(err)
+        formik.setSubmitting(false);
+          setAuthFailed(true);
+          inputRef.current.select();
+     
+      }
+    },
+  });  
+  
+        const res = await axios.post(['/api/v1/', 'login'].join('/'), values);
+      const data = await res.data;
+      logIn(data);
+      console.log(location.state )
+      const { from } = location.state || { from: { pathname: '/' } };  
+      navigate(from);
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  */

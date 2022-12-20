@@ -29,4 +29,11 @@ export const AuthProvider = ({ children }) => {
     );
   };
 
-  
+  /*try {
+    const response = await axios.post(routes.signupApiPath(), {
+      username,
+      password,
+    });
+    auth.logIn(response.data);
+    navigate(routes.mainPagePath());
+  } */

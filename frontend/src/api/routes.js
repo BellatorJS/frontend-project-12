@@ -27,10 +27,3 @@ export const fetchData = async (getAuth) => {
 }
 
 
-
-export const postSignup = async (values) => {
-  const res = await axios.post([BASE_URL, 'signup'].join('/'), values);
-  const newUser =await res.data;
-  return window.localStorage.setItem(newUser.username, JSON.stringify(newUser))
-
-}

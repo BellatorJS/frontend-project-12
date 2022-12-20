@@ -17,21 +17,34 @@
 
   const messagesAdapter = createEntityAdapter();
 
-
-
-
  const messagesSlice = createSlice({
     name: 'messages',
-    initialState:messagesAdapter.getInitialState(),
+    initialState:messagesAdapter.getInitialState({
+      status: 'idle', // or: 'loading', 'succeeded', 'failed'
+      error : null
+
+    }),
     reducers: {
-      messageAdded: messagesAdapter.addOne,
-    
-      
+      messageAdded: messagesAdapter.addOne, 
     },
     extraReducers: (builder) => {
       builder
-        .addCase(channelRemoved, (state, action) => {
-         
+      .addCase(fetchMessages.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(fetchMessages.rejected, (state) => {
+        state.status = 'failed';
+        state.error = 'Something went wrong!'
+      })
+      .addCase(fetchMessages.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.error = null;
+        console.log(action.payload.entities.messages)
+        state.entities=action.payload.entities.messages;
+        state.ids= action.payload.result.messages
+      })
+        .addCase(channelRemoved, (state, action) => {   
        const msg=  produce(state.entities, draft => {
           for (const x in draft) {
            if (draft[x].channelId === action.payload ) {
@@ -41,45 +54,14 @@
           
          })
 messagesAdapter.setAll(state, msg)
-         // console.log(action.payload, "action.payload")
-         
-          /*
-                ;
-      // Выбираем все комментарии кроме тех, что нужно удалить
-      const restEntities = Object.values(state.entities);
-      // setAll удаляет текущие сущности и добавляет новые
-      postCommentsAdapter.setAll(state, restEntities);
 
-
-      */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          //const removedID= action.payload;
-          //const removingMsg = state.messages.entities.filter((m=>m.channelId === removedID))
- 
-         //const restMsgs = Object.values(state.messages.entities).filter((e) => e.postId !== postId);
-         // setAll удаляет текущие сущности и добавляет новые
-         //postCommentsAdapter.setAll(state, restMsgs);
 
 
         })
   
     }
   });
-  
-  //const item = useSelector((state) => messagesSelectors.selectById(state, id));
+
 
   export const messagesSelectors = messagesAdapter.getSelectors((state) => state.messages)
 

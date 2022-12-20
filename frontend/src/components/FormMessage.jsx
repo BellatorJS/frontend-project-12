@@ -11,7 +11,7 @@ import { nanoid } from '@reduxjs/toolkit';
 
 export const FormMessage = ({currentChannelId} ) => {
 
-  const user = JSON.parse(window.localStorage.getItem('userId'))
+  const user = JSON.parse(window.localStorage.getItem('user'))
   const username = user.username
   const inputRef = useRef();
   const useSockets =useSocket()
