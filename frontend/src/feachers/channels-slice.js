@@ -1,25 +1,14 @@
 
-  import {createSlice, createAsyncThunk, createEntityAdapter} from '@reduxjs/toolkit';
+  import {createSlice, createEntityAdapter} from '@reduxjs/toolkit';
 
 
-  export const fetchChannels = createAsyncThunk(
-    '@@fetchContent',
-    async (getAuth, {extra: api}) => {
-      return api.fetchData(getAuth)
-    }
-  )
-
-  const chatAdapter = createEntityAdapter(/*{
-    selectId:(channel)=>channel.id
-  }*/
-    
-  )
-
-
-
- const channelsSlice = createSlice({
+  const chatAdapter = createEntityAdapter()
+  
+  const channelsSlice = createSlice({
     name: 'channels',
-    initialState: chatAdapter.getInitialState(
+    initialState: chatAdapter.getInitialState({
+      currentChannelId:'1'
+    }
     ),
     reducers: {
       channelAdded:   chatAdapter.addOne,
@@ -28,17 +17,14 @@
       setChannel(state, { payload }) {
         state.currentChannelId = payload;
       },
+      setFetchedChannels:(state,action) => {
+        const {channels:entities, currentChannelId } = action.payload
+        chatAdapter.setAll(state, entities)
+        state.currentChannelId = currentChannelId
+      }
   
     },
-    extraReducers: (builder) => {
-      builder
-        .addCase(fetchChannels.fulfilled, (state, action) => {
-          state.entities = action.payload.entities.channels;
-          state.ids = action.payload.result.channels;
-          state.currentChannelId = action.payload.result.currentChannelId
-        })
-  
-    }
+
   });
   
   export const channelsSelectors = chatAdapter.getSelectors((state) => state.channels);
@@ -49,8 +35,8 @@
 
 
 
-  export const {channelAdded ,channelUpdated, channelRemoved, setChannel} = channelsSlice.actions
-  //export const currentChannelSelectors = chatAdapter.getSelectors((state) => state.chats)
+  export const {channelAdded , setFetchedChannels, channelUpdated, channelRemoved, setChannel} = channelsSlice.actions
+
   
   export const channelsReducer = channelsSlice.reducer;
 

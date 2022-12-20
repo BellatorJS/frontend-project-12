@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AuthContext from '../contexts/AuthContext'
 import React from "react";
-import { postLogin } from "../api/routes";
+
 
 
 export const AuthProvider = ({ children }) => {
@@ -11,6 +11,15 @@ export const AuthProvider = ({ children }) => {
   const isUser = currentUser ? { username: currentUser.username } : null
 
   const [user, setUser] = useState(isUser);
+
+  const getAuthHeader = () => {
+    const user = JSON.parse(window.localStorage.getItem('user'));
+    if (user && user.token) {
+      return { Authorization: `Bearer ${user.token}` };
+    }
+    return {};
+  };
+  
 
   const logIn = (userData) => {
     localStorage.setItem('user', JSON.stringify(userData));
@@ -23,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   };
   
     return (
-      <AuthContext.Provider value={{ user, logIn, logOut }}>
+      <AuthContext.Provider value={{ user, logIn, logOut, getAuthHeader }}>
         {children}
       </AuthContext.Provider>
     );

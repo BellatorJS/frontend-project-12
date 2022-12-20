@@ -19,8 +19,6 @@
     extraReducers: (builder) => {
       builder
         .addCase( (state, action) => {
-          //state.loading = 'loading';
-         // state.error = null;
         })
 
     }

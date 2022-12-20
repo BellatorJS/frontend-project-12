@@ -3,13 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useFormik } from 'formik';
 import { FloatingLabel } from 'react-bootstrap';
-import * as yup from 'yup';
 import useAuth from '../hooks/useAuth';
 import { useState, useRef, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch } from "react-redux";
-import {postlogin} from '../feachers/channels-slice'
+
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
