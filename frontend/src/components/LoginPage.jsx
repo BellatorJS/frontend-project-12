@@ -1,31 +1,30 @@
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useFormik } from 'formik';
 import { FloatingLabel } from 'react-bootstrap';
-import useAuth from '../hooks/useAuth';
-import { useState, useRef, useEffect} from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-
+import { useTranslation } from 'react-i18next';
 import Card from 'react-bootstrap/Card';
-import { Link } from "react-router-dom";
+import useAuth from '../hooks/useAuth';
 
-const Footer = () =>{
+const Footer = () => {
+  const { t } = useTranslation();
   return (
     <Card className="text-center p-4">
-      <Card.Footer >
-        <span>Нет аккаунта?</span>{' '}
-      <Link to={"/signup"}>Регистрация</Link>
-       </Card.Footer>
+      <Card.Footer>
+        <span>{t('footer.notHaveAnAccountYet')}</span>
+        {' '}
+        <Link to="/signup">{t('footer.signup')}</Link>
+      </Card.Footer>
     </Card>
   );
+};
 
-}
-
-const LoginForm = ()=> {
-
-  const { user, logIn, logOut } = useAuth();
+const LoginForm = () => {
+  const { t } = useTranslation();
+  const { logIn } = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   const location = useLocation();
@@ -35,109 +34,100 @@ const LoginForm = ()=> {
     inputRef.current.focus();
   }, []);
   const formik = useFormik({
-  initialValues: {
-    username: '',
-    password: '',
-  },
-  onSubmit: async (values) => {
-    setAuthFailed(false);
-    try {
-      const res = await axios.post(['/api/v1/', 'login'].join('/'), values);
-      const data = await res.data;
-      logIn(data);
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    onSubmit: async (values) => {
+      setAuthFailed(false);
+      try {
+        const res = await axios.post(['/api/v1/', 'login'].join('/'), values);
+        const data = await res.data;
+        logIn(data);
 
-      const { from } = location.state || { from: { pathname: '/' } };  
-      navigate(from);
-    } catch (err) {
-      console.log(err)
-      formik.setSubmitting(false);
+        const { from } = location.state || { from: { pathname: '/' } };
+        navigate(from);
+      } catch (err) {
+        console.log(err);
+        formik.setSubmitting(false);
         setAuthFailed(true);
         inputRef.current.select();
-   
-    }
-  },
-});
+      }
+    },
+  });
 
-return (
-  <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit} >
-  <fieldset disabled={formik.isSubmitting}>
-    <Form.Group>
-      <Form.Label htmlFor="username"></Form.Label>
-        <FloatingLabel
-          controlId="username"
-          label="Ваш ник"
-          className="mb-3"
+  return (
+    <Form
+      className="col-12 col-md-6 mt-3 mt-mb-0"
+      onSubmit={formik.handleSubmit}
+    >
+      <h1 className="text-center mb-4">{t('login.enter')}</h1>
+      <fieldset disabled={formik.isSubmitting}>
+        <Form.Group>
+          <Form.Label htmlFor="username" />
+          <FloatingLabel
+            controlId="username"
+            label={t('login.nickname')}
+            className="mb-3"
           >
-      <Form.Control
-        onChange={formik.handleChange}
-        value={formik.values.username}
-        placeholder="username"
-        name="username"
-        autoComplete="username"
-        isInvalid={authFailed}
-        required
-        ref={inputRef}
-      />
-      </FloatingLabel>
-    </Form.Group>
-    <Form.Group>
-      <Form.Label htmlFor="password"></Form.Label>
-      <FloatingLabel
-          controlId="password"
-          label="Пароль"
-          className="mb-3"
-        >
-      <Form.Control
-        type="password"
-        onChange={formik.handleChange}
-        value={formik.values.password}
-        placeholder="password"
-        name="password"
-        autoComplete="current-password"
-        isInvalid={authFailed}
-        required
-      />
-        <Form.Control.Feedback type="invalid" tooltip>
-        Неверные имя пользователя или пароль
-        </Form.Control.Feedback>
-      </FloatingLabel>
-    
-    </Form.Group>
-    <Button type="submit" variant="outline-primary">Submit</Button>
-  </fieldset>
-  </Form>
-)
-}
+            <Form.Control
+              onChange={formik.handleChange}
+              value={formik.values.username}
+              placeholder="username"
+              name="username"
+              autoComplete="username"
+              isInvalid={authFailed}
+              required
+              ref={inputRef}
+            />
+          </FloatingLabel>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label htmlFor="password" />
+          <FloatingLabel
+            controlId="password"
+            label={t('login.password')}
+            className="mb-3"
+          >
+            <Form.Control
+              type="password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              placeholder="password"
+              name="password"
+              autoComplete="current-password"
+              isInvalid={authFailed}
+              required
+            />
+            <Form.Control.Feedback type="invalid" tooltip>
+              {t('login.authFailed')}
+            </Form.Control.Feedback>
+          </FloatingLabel>
 
+        </Form.Group>
+        <Button type="submit" variant="outline-primary">{t('login.submit')}</Button>
+      </fieldset>
+    </Form>
+  );
+};
 
+export const LoginPage = () => (
+  <div className="d-flex flex-column h-100">
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center align-content-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <div className="card shadow-sm">
+            <div className="card-body row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <img src="https://lastfm.freetls.fastly.net/i/u/ar0/3972fec593824dffcdcf2310a6879198.png" className="rounded-circle" alt="Войти" />
 
-
-
-
-
-export const LoginPage = () => {
-
-    return (
-      <>
-      <div class="d-flex flex-column h-100">
-          <div class="container-fluid h-100">
-            <div class="row justify-content-center align-content-center h-100">
-              <div class="col-12 col-md-8 col-xxl-6">
-                  <div class="card shadow-sm">
-                    <div class="card-body row p-5">
-                    <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                      <img src="https://lastfm.freetls.fastly.net/i/u/ar0/3972fec593824dffcdcf2310a6879198.png" class="rounded-circle" alt="Войти"/>
-
-                    </div>
-                    <LoginForm />
-                    <Footer />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-</>
-  )}
-
-
+              </div>
+              <LoginForm />
+              <Footer />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);

@@ -1,0 +1,86 @@
+const ru = {
+  translation: {
+    loading: 'Загрузка...',
+    logout: 'Выйти',
+    login: {
+      nickname: 'Ваш ник',
+      password: 'Пароль',
+      submit: 'Войти',
+
+      authFailed: 'Неверные имя пользователя или пароль',
+      enter: 'Войти',
+    },
+    footer: {
+      signup: 'Регистрация',
+      notHaveAnAccountYet: 'Нет аккаунта?',
+    },
+    navbar: {
+      logout: 'Выйти',
+      chatName: 'Hexlet Chat',
+    },
+    notFound: {
+      header: 'Страница не найдена',
+      message: 'Но вы можете перейти ',
+      linkText: 'на главную страницу',
+    },
+    channels: {
+      channels: 'Каналы',
+      remove: 'Удалить',
+      rename: 'Переименовать',
+    },
+    messages: {
+      counter: {
+        key_zero: '{{count}} сообщений',
+        key_one: '{{count}} сообщение',
+        key_few: '{{count}} сообщения',
+        key_many: '{{count}} сообщений',
+      },
+
+      send: 'Отправить',
+    },
+    modalAdd: {
+      channelLength: 'От 3 до 20 символов',
+      uniqueName: 'Должно быть уникальным',
+      requiredField: 'Обязательное поле',
+      addChannel: 'Добавить канал',
+      name: 'Имя канала',
+      cancel: 'Отменить',
+      send: 'Отправить',
+
+    },
+    modalRename: {
+      channelLength: 'От 3 до 20 символов',
+      uniqueName: 'Должно быть уникальным',
+      requiredField: 'Обязательное поле',
+
+      renameChannel: 'Переименовать канал',
+      name: 'Имя канала',
+      cancel: 'Отменить',
+      send: 'Отправить',
+
+    },
+    modalRemove: {
+      remove: 'Удалить',
+      confirm: 'Уверены?',
+      cancel: 'Отменить',
+      removeChannel: 'Удалить канал',
+    },
+    signup: {
+      requiredField: 'Обязательное поле',
+
+      minPassLength: 'Не менее 6 символов',
+      submit: 'Зарегистрироваться',
+      registration: 'Регистрация',
+      hasAccount: 'Уже зарегистрированы?',
+      mustMatch: 'Пароли должны совпадать',
+      username: 'Имя пользователя',
+      confirmPassword: 'Подтвердите пароль',
+      isExists: 'Такой пользователь уже существует',
+      usernameLength: 'От 3 до 20 символов',
+      password: 'Пароль',
+
+    },
+  },
+};
+
+export default ru;
