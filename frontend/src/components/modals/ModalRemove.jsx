@@ -1,8 +1,9 @@
+import { toast } from 'react-toastify';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useTranslation } from 'react-i18next';
-import { useSocket } from '../../hooks/useSockect';
+import useSocket from '../../hooks/useSockect';
 
 const ModalRemove = (props) => {
   const { onHide, id } = props;
@@ -12,6 +13,7 @@ const ModalRemove = (props) => {
 
   const handleSubmit = () => {
     useSockets.dispatchingSockets.removeChannel({ id });
+    toast.success(t('modalRemove.removeCompleted'));
     onHide();
   };
 

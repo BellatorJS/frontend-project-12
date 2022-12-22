@@ -1,13 +1,15 @@
+import { toast } from 'react-toastify';
 import React, { useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import leoProfanity from 'leo-profanity';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { channelsSelectors } from '../../feachers/channels-slice';
-import { useSocket } from '../../hooks/useSockect';
+import useSocket from '../../hooks/useSockect';
 
 const ModalRename = (props) => {
   const { t } = useTranslation();
@@ -36,7 +38,9 @@ const ModalRename = (props) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      useSockets.dispatchingSockets.renameChannel({ id, name: values.name });
+      const filteredName = leoProfanity.clean(values.name);
+      useSockets.dispatchingSockets.renameChannel({ id, name: filteredName });
+      toast.success(t('modalRename.renameCompleted'));
       formik.resetForm();
       onHide();
     },

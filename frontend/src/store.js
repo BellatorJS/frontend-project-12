@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { configureStore } from '@reduxjs/toolkit';
 
 import { channelsReducer } from './feachers/channels-slice';

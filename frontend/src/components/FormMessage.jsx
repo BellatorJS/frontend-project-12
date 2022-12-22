@@ -5,8 +5,9 @@ import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { nanoid } from '@reduxjs/toolkit';
-import { toast, ToastContainer } from 'react-toastify';
-import { useSocket } from '../hooks/useSockect';
+import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
+import useSocket from '../hooks/useSockect';
 import 'react-toastify/dist/ReactToastify.css';
 
 const FormMessage = ({ currentChannelId }) => {
@@ -25,13 +26,17 @@ const FormMessage = ({ currentChannelId }) => {
       message: '',
     },
     onSubmit: (values, { resetForm }) => {
+      toast.success('🦄 Wow so easy!');
+      const filteredMsg = leoProfanity.clean(values.message);
+
       const newMessage = {
         id: nanoid(),
-        body: values.message,
-        channelId: currentChannelId, /// //////!!!!!!!!!!!!!!
+        body: filteredMsg,
+        channelId: currentChannelId,
         username,
 
       };
+
       useSockets.dispatchingSockets.addMessage(newMessage);
       resetForm();
       inputRef.current.focus();
@@ -45,7 +50,6 @@ const FormMessage = ({ currentChannelId }) => {
           controlId="form"
           placeholder="Введите сообщение..."
           aria-label="Новое сообщение"
-          // aria-describedby="basic-addon1"
           className="border-0 p-0 ps-2 form-control"
           value={formik.values.message}
           onChange={formik.handleChange}

@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { NavLink, Outlet } from 'react-router-dom';
-import { Navbar1 } from './Navbar';
+import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
 
-export const Layout = () => (
+const Layout = () => (
   <>
     <header>
-      <Navbar1 />
+      <Navbar />
     </header>
     <main className="container">
       <Outlet />
     </main>
-
   </>
-
 );
+
+export default Layout;

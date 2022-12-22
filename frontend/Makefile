@@ -1,8 +1,14 @@
 install:
 	npm ci
 
-start:
-	npm start
+start-frontend:
+	make -C frontend start
 
-build:
-	npm build
+start-backend:
+	npx start-server
+
+deploy:
+	git push railway main
+
+start:
+	make start-backend & make start-frontend

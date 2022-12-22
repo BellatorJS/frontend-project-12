@@ -40,6 +40,7 @@ const ru = {
     },
     modalAdd: {
       channelLength: 'От 3 до 20 символов',
+      channelCreated: 'Канал создан',
       uniqueName: 'Должно быть уникальным',
       requiredField: 'Обязательное поле',
       addChannel: 'Добавить канал',
@@ -48,12 +49,15 @@ const ru = {
       send: 'Отправить',
 
     },
+    loginErrors: {
+      network: 'Ошибка соединения',
+      unknown: 'Неизвестная ошибка',
+    },
     modalRename: {
       channelLength: 'От 3 до 20 символов',
       uniqueName: 'Должно быть уникальным',
       requiredField: 'Обязательное поле',
-
-      renameChannel: 'Переименовать канал',
+      renameCompleted: 'Переименовать канал',
       name: 'Имя канала',
       cancel: 'Отменить',
       send: 'Отправить',
@@ -64,6 +68,7 @@ const ru = {
       confirm: 'Уверены?',
       cancel: 'Отменить',
       removeChannel: 'Удалить канал',
+      removeCompleted: 'Канал удалён',
     },
     signup: {
       requiredField: 'Обязательное поле',

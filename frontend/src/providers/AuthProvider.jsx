@@ -1,14 +1,12 @@
-import { useState } from "react";
-import AuthContext from '../contexts/AuthContext'
-import React from "react";
+/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-no-constructed-context-values */
+import React, { useState } from 'react';
+import AuthContext from '../contexts/AuthContext';
 
-
-
-export const AuthProvider = ({ children }) => {
-
+const AuthProvider = ({ children }) => {
   const currentUser = JSON.parse(localStorage.getItem('user'));
 
-  const isUser = currentUser ? { username: currentUser.username } : null
+  const isUser = currentUser ? { username: currentUser.username } : null;
 
   const [user, setUser] = useState(isUser);
 
@@ -19,7 +17,6 @@ export const AuthProvider = ({ children }) => {
     }
     return {};
   };
-  
 
   const logIn = (userData) => {
     localStorage.setItem('user', JSON.stringify(userData));
@@ -30,19 +27,15 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     setUser(null);
   };
-  
-    return (
-      <AuthContext.Provider value={{ user, logIn, logOut, getAuthHeader }}>
-        {children}
-      </AuthContext.Provider>
-    );
-  };
 
-  /*try {
-    const response = await axios.post(routes.signupApiPath(), {
-      username,
-      password,
-    });
-    auth.logIn(response.data);
-    navigate(routes.mainPagePath());
-  } */
+  return (
+    <AuthContext.Provider value={{
+      user, logIn, logOut, getAuthHeader,
+    }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthProvider;

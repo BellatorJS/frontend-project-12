@@ -181,11 +181,8 @@ const SignUp = () => (
           </Card.Body>
         </Card>
       </div>
-
     </div>
-
   </div>
-
 );
 
 export default SignUp;

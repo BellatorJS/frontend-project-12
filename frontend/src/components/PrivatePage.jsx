@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import Spinner from 'react-bootstrap/Spinner';
 import PacmanLoader from 'react-spinners/PacmanLoader';
 import Alert from 'react-bootstrap/Alert';
-import { toast, ToastContainer } from 'react-toastify';
 import { setFetchedMessages, messagesSelectors } from '../feachers/messages-slice';
 import { channelsSelectors, setFetchedChannels } from '../feachers/channels-slice';
 import Channels from './Channels';
@@ -63,7 +61,7 @@ const PrivatePage = () => {
               <div className="col p-0 h-100">
                 <div className="d-flex flex-column h-100">
                   <Messages messages={messages} id={currentChannelId} />
-                  <div className="mt-auto px-5 py-3">
+                  <div className="mt-auto px-5 py-3 h-100">
                     <FormMessage currentChannelId={currentChannelId} />
                   </div>
                 </div>

@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useDispatch } from 'react-redux';
-// import {ModalRemove} from './ModalRemove'
-
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
 import { setChannel } from '../feachers/channels-slice';
-// import { Modals } from './modals/ModalAdd';
 import getModal from './modals/index';
-
-
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation();
@@ -29,6 +24,7 @@ const Channels = ({ channels }) => {
   const hideModal = () => setModalInfo({ type: null, id: null });
   const showModal = (type, id = null) => setModalInfo({ type, id });
 
+  // eslint-disable-next-line no-shadow
   const renderModal = ({ modalInfo, hideModal }) => {
     if (!modalInfo.type) {
       return null;

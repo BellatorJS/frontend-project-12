@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 import React, { useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +9,7 @@ import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { channelsSelectors } from '../../feachers/channels-slice';
-import { useSocket } from '../../hooks/useSockect';
+import useSocket from '../../hooks/useSockect';
 
 const ModalAdd = (props) => {
   const { t } = useTranslation();
@@ -36,7 +38,9 @@ const ModalAdd = (props) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      const channel = { name: values.name };
+      const filteredName = leoProfanity.clean(values.name);
+      toast.success(t('modalAdd.channelCreated'));
+      const channel = { name: filteredName };
       useSockets.dispatchingSockets.addChanel(channel);
       formik.resetForm();
       onHide();

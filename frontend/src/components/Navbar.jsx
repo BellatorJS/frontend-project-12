@@ -6,7 +6,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import useAuth from '../hooks/useAuth';
 
-export const Navbar1 = () => {
+const ChatHeader = () => {
   const { t } = useTranslation();
   const { logOut, user } = useAuth();
   console.log(user);
@@ -16,11 +16,11 @@ export const Navbar1 = () => {
         <Navbar.Brand>
           <Nav.Link href="/">{t('navbar.chatName')}</Nav.Link>
         </Navbar.Brand>
+        {user && <Button onClick={logOut}>{t('navbar.logout')}</Button>}
       </Container>
-      {user && <Button onClick={logOut}>{t('navbar.logout')}</Button>}
 
     </Navbar>
   );
 };
 
-export default Navbar1;
+export default ChatHeader;

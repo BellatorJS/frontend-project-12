@@ -3,10 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useFormik } from 'formik';
 import { FloatingLabel } from 'react-bootstrap';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import Card from 'react-bootstrap/Card';
+import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 
 const Footer = () => {
@@ -27,7 +28,6 @@ const LoginForm = () => {
   const { logIn } = useAuth();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,16 +44,22 @@ const LoginForm = () => {
         const res = await axios.post(['/api/v1/', 'login'].join('/'), values);
         const data = await res.data;
         logIn(data);
-
-        const { from } = location.state || { from: { pathname: '/' } };
-        navigate(from);
-      } catch (err) {
-        console.log(err);
-        formik.setSubmitting(false);
-        setAuthFailed(true);
-        inputRef.current.select();
+        navigate('/');
+      } catch (error) {
+        const { message, response } = error;
+        if (message === 'Network Error') {
+          toast.error(t('loginErrors.network'));
+        }
+        if (response.status === 401) {
+          setAuthFailed(true);
+          inputRef.current.select();
+        } else {
+          toast.error(t('loginErrors.unknown'));
+          throw error;
+        }
       }
     },
+
   });
 
   return (
@@ -111,7 +117,7 @@ const LoginForm = () => {
   );
 };
 
-export const LoginPage = () => (
+const LoginPage = () => (
   <div className="d-flex flex-column h-100">
     <div className="container-fluid h-100">
       <div className="row justify-content-center align-content-center h-100">
@@ -131,3 +137,5 @@ export const LoginPage = () => (
     </div>
   </div>
 );
+
+export default LoginPage;
