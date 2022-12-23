@@ -9,6 +9,7 @@ import { Formik } from 'formik';
 import Card from 'react-bootstrap/Card';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import registration from '../assets/registration.jpg';
 
 const SignUpForm = () => {
   const { t } = useTranslation();
@@ -165,24 +166,31 @@ const SignUpForm = () => {
     </Formik>
   );
 };
-const SignUp = () => (
-  <div className="container-fluid h-100">
-    <div className="row justify-content-center align-content-center h-100">
-      <div className="col-12 col-md-8 col-xxl-6">
-        <Card className="shadow-sm">
-          <Card.Body className="d-flex flex-column flex-md-row
+const SignUp = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center align-content-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <Card className="shadow-sm">
+            <Card.Body className="d-flex flex-column flex-md-row
               justify-content-around align-items-center p-5"
-          >
-            <div>
-              <img src="https://lastfm.freetls.fastly.net/i/u/ar0/3972fec593824dffcdcf2310a6879198.png" className="rounded-circle" alt="Регистрация" />
-            </div>
-            <SignUpForm />
-            <div />
-          </Card.Body>
-        </Card>
+            >
+              <div>
+                <img
+                  src={registration}
+                  className="rounded-circle"
+                  alt={t('signup.registrationImg')}
+                />
+              </div>
+              <SignUpForm />
+              <div />
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default SignUp;

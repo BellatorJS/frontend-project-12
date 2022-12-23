@@ -6,7 +6,7 @@ const ru = {
       nickname: 'Ваш ник',
       password: 'Пароль',
       submit: 'Войти',
-
+      loginImage: 'Войти',
       authFailed: 'Неверные имя пользователя или пароль',
       enter: 'Войти',
     },
@@ -72,10 +72,10 @@ const ru = {
     },
     signup: {
       requiredField: 'Обязательное поле',
-
       minPassLength: 'Не менее 6 символов',
       submit: 'Зарегистрироваться',
       registration: 'Регистрация',
+      registrationImg: 'Регистрация',
       hasAccount: 'Уже зарегистрированы?',
       mustMatch: 'Пароли должны совпадать',
       username: 'Имя пользователя',

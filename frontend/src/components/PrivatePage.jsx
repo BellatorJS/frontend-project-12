@@ -69,9 +69,7 @@ const PrivatePage = () => {
             </div>
           </div>
         </div>
-
       </div>
-
     )
       : (<LoadingPage />)
 

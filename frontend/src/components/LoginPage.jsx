@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import Card from 'react-bootstrap/Card';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
+import login from '../assets/login.jpg';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -117,25 +118,32 @@ const LoginForm = () => {
   );
 };
 
-const LoginPage = () => (
-  <div className="d-flex flex-column h-100">
-    <div className="container-fluid h-100">
-      <div className="row justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
-          <div className="card shadow-sm">
-            <div className="card-body row p-5">
-              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img src="https://lastfm.freetls.fastly.net/i/u/ar0/3972fec593824dffcdcf2310a6879198.png" className="rounded-circle" alt="Войти" />
+const LoginPage = () => {
+  const { t } = useTranslation();
 
+  return (
+    <div className="d-flex flex-column h-100">
+      <div className="container-fluid h-100">
+        <div className="row justify-content-center align-content-center h-100">
+          <div className="col-12 col-md-8 col-xxl-6">
+            <div className="card shadow-sm">
+              <div className="card-body row p-5">
+                <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                  <img
+                    src={login}
+                    className="rounded-circle"
+                    alt={t('login.loginImage')}
+                  />
+                </div>
+                <LoginForm />
+                <Footer />
               </div>
-              <LoginForm />
-              <Footer />
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default LoginPage;
