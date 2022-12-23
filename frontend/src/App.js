@@ -20,8 +20,8 @@ leoProfanity.add(leoProfanity.getDictionary('ru'));
 leoProfanity.add(leoProfanity.getDictionary('eng'));
 
 const rollbarConfig = {
-  accessToken: process.env.ACCESSTOKEN,
-  environment: 'production',
+  accessToken: '9ac3f8e0343b4e749d0d43a3dcb32e2a',
+  environment: 'testenv',
   captureUncaught: true,
   captureUnhandledRejections: true,
 };
