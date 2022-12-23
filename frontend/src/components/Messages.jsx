@@ -12,12 +12,6 @@ const Messages = (props) => {
   const allMsgs = useSelector((state) => messagesSelectors.selectEntities(state));
   const msgs = Object.values(allMsgs).filter((x) => x.channelId === id);
 
-  useEffect(() => {
-    msgRef.current.scrollIntoView({
-      behavior: 'smooth',
-    });
-  }, [msgs]);
-
   return (
     <>
       <div className="bg-light mb-4 p-3 shadow-sm small ">
