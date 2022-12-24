@@ -27,6 +27,7 @@ const ru = {
       channels: 'Каналы',
       remove: 'Удалить',
       rename: 'Переименовать',
+      management: 'Управление каналом',
     },
     messages: {
       counter: {

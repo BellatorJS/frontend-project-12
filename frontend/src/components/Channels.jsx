@@ -92,6 +92,7 @@ const Channels = ({ channels }) => {
                    className="flex-grow-0  dropdown-toggle dropdown-toggle-split btn"
                    variant={state[channel.id] ? 'secondary' : 'light'}
                  />
+                 <span className="visually-hidden">{t('channels.management')}</span>
                  <Dropdown.Menu>
                    <Dropdown.Item onClick={() => showModal('removing', channel.id)} href="#/action-1">{t('channels.remove')}</Dropdown.Item>
                    <Dropdown.Item onClick={() => showModal('renaming', channel.id)} href="#/action-2">{t('channels.rename')}</Dropdown.Item>
