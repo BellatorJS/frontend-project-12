@@ -81,10 +81,11 @@ const Channels = ({ channels }) => {
                    type="button"
                    onClick={() => handleClick(channel.id)}
                    variant={state[channel.id] ? 'secondary' : 'light'}
-                   className="w-100 rounded-0   text-start text-truncate"
+                   className="w-100 rounded-0 text-start text-truncate"
                  >
                    <span className="me-1"># </span>
                    {channel.name}
+                   <span className="visually-hidden">{t('channels.management')}</span>
                  </Button>
                  <Dropdown.Toggle
                    split
