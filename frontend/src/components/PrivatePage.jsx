@@ -2,20 +2,24 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
+import { useTranslation } from 'react-i18next';
 import { setFetchedMessages, messagesSelectors } from '../feachers/messages-slice';
 import { channelsSelectors, setFetchedChannels } from '../feachers/channels-slice';
 import Channels from './Channels';
 import Messages from './Messages';
 import FormMessage from './FormMessage';
 import useAuth from '../hooks/useAuth';
-
 import 'react-toastify/dist/ReactToastify.css';
 
-const LoadingPage = () => (
-  <div className="h-100 d-flex align-items-center flex-column bd-highlight mb-3">
-    <Spinner animation="border" role="status" variant="primary" />
-  </div>
-);
+const LoadingPage = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="h-100 d-flex justify-content-center align-items-center">
+      <Spinner animation="border" role="status" variant="primary" />
+      <span className="visually-hidden">{t('loading')}</span>
+    </div>
+  );
+};
 
 const PrivatePage = () => {
   const { user, getAuthHeader } = useAuth();
