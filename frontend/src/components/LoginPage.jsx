@@ -69,40 +69,36 @@ const LoginForm = () => {
     >
       <h1 className="text-center mb-4">{t('login.enter')}</h1>
       <fieldset disabled={formik.isSubmitting}>
-        <Form.Group>
-          <Form.Floating className="mb-3">
-            <Form.Control
-              id="username"
-              onChange={formik.handleChange}
-              value={formik.values.username}
-              placeholder="username"
-              name="username"
-              autoComplete="username"
-              isInvalid={authFailed}
-              required
-              ref={inputRef}
-            />
-            <Form.Label htmlFor="username">{t('login.nickname')}</Form.Label>
-          </Form.Floating>
+        <Form.Group className="form-floating mb-3">
+          <Form.Control
+            onChange={formik.handleChange}
+            value={formik.values.username}
+            name="username"
+            id="username"
+            autoComplete="username"
+            isInvalid={authFailed}
+            required
+            ref={inputRef}
+            placeholder={t('login.nickname')}
+          />
+          <Form.Label htmlFor="username">{t('login.nickname')}</Form.Label>
         </Form.Group>
-        <Form.Group>
-          <Form.Floating className="mb-3">
-            <Form.Control
-              id="password"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              placeholder="password"
-              name="password"
-              autoComplete="current-password"
-              isInvalid={authFailed}
-              required
-            />
-            <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
-            <Form.Control.Feedback type="invalid" tooltip>
-              {t('login.authFailed')}
-            </Form.Control.Feedback>
-          </Form.Floating>
+        <Form.Group className="form-floating mb-4">
+          <Form.Control
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            id="password"
+            isInvalid={authFailed}
+            name="password"
+            autoComplete="current-password"
+            type="password"
+            required
+            placeholder={t('login.password')}
+          />
+          <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
+          <Form.Control.Feedback type="invalid">
+            {t('login.authFailed')}
+          </Form.Control.Feedback>
         </Form.Group>
         <Button type="submit" variant="outline-primary">{t('login.submit')}</Button>
       </fieldset>
