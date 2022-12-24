@@ -54,18 +54,19 @@ const ModalRename = (props) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label className="visually-hidden" htmlFor="name">{t('modalRename.name')}</Form.Label>
             <Form.Control
               type="text"
               ref={inputRef}
               placeholder="Введите имя канала"
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              // onBlur={formik.handleBlur}
               value={formik.values.name}
+              id="name"
               name="name"
               isInvalid={formik.errors.name && formik.touched.name}
-              disabled={formik.isSubmitting}
+             // disabled={formik.isSubmitting}
             />
+            <Form.Label className="visually-hidden" htmlFor="name">{t('modalRename.name')}</Form.Label>
             <Form.Control.Feedback type="is-invalid">{formik.errors.name}</Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-between">
