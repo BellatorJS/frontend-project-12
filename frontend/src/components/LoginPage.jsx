@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useFormik } from 'formik';
-import { FloatingLabel } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -71,13 +70,9 @@ const LoginForm = () => {
       <h1 className="text-center mb-4">{t('login.enter')}</h1>
       <fieldset disabled={formik.isSubmitting}>
         <Form.Group>
-          <Form.Label htmlFor="username" />
-          <FloatingLabel
-            controlId="username"
-            label={t('login.nickname')}
-            className="mb-3"
-          >
+          <Form.Floating className="mb-3">
             <Form.Control
+              id="username"
               onChange={formik.handleChange}
               value={formik.values.username}
               placeholder="username"
@@ -87,16 +82,13 @@ const LoginForm = () => {
               required
               ref={inputRef}
             />
-          </FloatingLabel>
+            <Form.Label htmlFor="username">{t('login.nickname')}</Form.Label>
+          </Form.Floating>
         </Form.Group>
         <Form.Group>
-          <Form.Label htmlFor="password" />
-          <FloatingLabel
-            controlId="password"
-            label={t('login.password')}
-            className="mb-3"
-          >
+          <Form.Floating className="mb-3">
             <Form.Control
+              id="password"
               type="password"
               onChange={formik.handleChange}
               value={formik.values.password}
@@ -106,11 +98,11 @@ const LoginForm = () => {
               isInvalid={authFailed}
               required
             />
+            <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
             <Form.Control.Feedback type="invalid" tooltip>
               {t('login.authFailed')}
             </Form.Control.Feedback>
-          </FloatingLabel>
-
+          </Form.Floating>
         </Form.Group>
         <Button type="submit" variant="outline-primary">{t('login.submit')}</Button>
       </fieldset>
@@ -147,3 +139,39 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+/*
+<Form.Floating className="mb-3">
+<Form.Control
+  id="floatingInputCustom"
+  type="email"
+  placeholder="name@example.com"
+/>
+<label htmlFor="floatingInputCustom">Email address</label>
+</Form.Floating> */
+
+/*
+        <Form.Group>
+          <Form.Label htmlFor="password" />
+          <FloatingLabel
+            htmlFor="password"
+            controlId="password"
+            label={t('login.password')}
+            className="mb-3"
+          >
+            <Form.Control
+              type="password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              placeholder="password"
+              name="password"
+              autoComplete="current-password"
+              isInvalid={authFailed}
+              required
+            />
+            <Form.Control.Feedback type="invalid" tooltip>
+              {t('login.authFailed')}
+            </Form.Control.Feedback>
+          </FloatingLabel>
+
+        </Form.Group> */
