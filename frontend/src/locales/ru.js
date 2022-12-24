@@ -62,6 +62,7 @@ const ru = {
       name: 'Имя канала',
       cancel: 'Отменить',
       send: 'Отправить',
+      renameChannel: 'Переименовать канал',
 
     },
     modalRemove: {

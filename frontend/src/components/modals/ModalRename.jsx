@@ -21,6 +21,7 @@ const ModalRename = (props) => {
   }, []);
 
   const channelsNames = useSelector(channelsSelectors.selectAll).map((channel) => channel.name);
+  const channel = useSelector((state) => channelsSelectors.selectById(state, id));
 
   const validationSchema = Yup.object().shape({
     name: Yup
@@ -34,7 +35,7 @@ const ModalRename = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      name: channel.name,
     },
     validationSchema,
     onSubmit: (values) => {
