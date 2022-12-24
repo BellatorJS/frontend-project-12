@@ -14,7 +14,7 @@ import SocketProvider from './providers/SocketProvider';
 import SignUp from './components/SignUp';
 import I18nextProvider from './providers/i18nextProvider';
 import 'react-toastify/dist/ReactToastify.css';
-import routes from '../routes';
+import routes from './routes/routes';
 
 leoProfanity.clearList();
 leoProfanity.add(leoProfanity.getDictionary('ru'));
@@ -46,7 +46,7 @@ const App = () => (
                   />
                   <Route path={routes.loginPage()} element={<LoginPage />} />
                   <Route path={routes.signupPage()} element={<SignUp />} />
-                  <Route path={routes.pageNotFound()} element={<NotFoundPage />} />
+                  <Route path={routes.notFoundPage()} element={<NotFoundPage />} />
                 </Route>
               </Routes>
               <ToastContainer />

@@ -9,6 +9,7 @@ import Card from 'react-bootstrap/Card';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 import login from '../assets/login.jpg';
+import routes from '../routes/routes';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const LoginForm = () => {
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
-        const res = await axios.post(['/api/v1/', 'login'].join('/'), values);
+        const res = await axios.post(routes.loginPath(), values);
         const data = await res.data;
         logIn(data);
         navigate('/');

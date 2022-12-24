@@ -10,6 +10,7 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import registration from '../assets/registration.jpg';
+import routes from '../routes/routes';
 
 const SignUpForm = () => {
   const { t } = useTranslation();
@@ -55,7 +56,7 @@ const SignUpForm = () => {
         setRegistrationFailed(false);
         const { username, password } = values;
         try {
-          const res = await axios.post(['/api/v1/', 'signup'].join('/'), {
+          const res = await axios.post(routes.signupPath, {
             username,
             password,
           });
