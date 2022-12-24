@@ -56,9 +56,9 @@ const ModalRename = (props) => {
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Control
-              type="text"
+              // type="text"
               ref={inputRef}
-              //placeholder="Введите имя канала"
+              // placeholder="Введите имя канала"
               onChange={formik.handleChange}
               // onBlur={formik.handleBlur}
               value={formik.values.name}
