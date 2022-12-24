@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PacmanLoader from 'react-spinners/PacmanLoader';
-import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
 import { setFetchedMessages, messagesSelectors } from '../feachers/messages-slice';
 import { channelsSelectors, setFetchedChannels } from '../feachers/channels-slice';
 import Channels from './Channels';
@@ -14,12 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const LoadingPage = () => (
   <div className="h-100 d-flex align-items-center flex-column bd-highlight mb-3">
-    <PacmanLoader color="hsla(344, 67%, 53%, 1)" size={98} />
-    <Alert variant="primary">
-      <Alert.Heading> Идет загрузка чата</Alert.Heading>
-    </Alert>
+    <Spinner animation="border" role="status" variant="primary" />
   </div>
-
 );
 
 const PrivatePage = () => {
