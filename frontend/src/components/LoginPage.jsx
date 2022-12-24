@@ -96,7 +96,7 @@ const LoginForm = () => {
             placeholder={t('login.password')}
           />
           <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
-          <Form.Control.Feedback type="invalid">
+          <Form.Control.Feedback type="invalid" tooltip>
             {t('login.authFailed')}
           </Form.Control.Feedback>
         </Form.Group>
