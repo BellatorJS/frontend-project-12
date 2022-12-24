@@ -54,20 +54,18 @@ const ModalAdd = (props) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group className="mb-3">
-            <Form.Label className="visually-hidden" htmlFor="name">{t('modalAdd.name')}</Form.Label>
             <Form.Control
-              type="text"
-              ref={inputRef}
-              placeholder="Введите имя канала"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
+              id="name"
               name="name"
+              ref={inputRef}
+              onChange={formik.handleChange}
+             // onBlur={formik.handleBlur}
+              value={formik.values.name}
               isInvalid={formik.errors.name && formik.touched.name}
-              disabled={formik.isSubmitting}
+             // disabled={formik.isSubmitting}
             />
-            {' '}
-            <Form.Control.Feedback type="is-invalid">{formik.errors.name }</Form.Control.Feedback>
+            <Form.Label className="visually-hidden" htmlFor="name">{t('modalAdd.name')}</Form.Label>
+            <Form.Control.Feedback type="invalid">{formik.errors.name }</Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-between">
             <Button
