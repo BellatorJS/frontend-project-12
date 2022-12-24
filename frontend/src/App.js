@@ -14,6 +14,7 @@ import SocketProvider from './providers/SocketProvider';
 import SignUp from './components/SignUp';
 import I18nextProvider from './providers/i18nextProvider';
 import 'react-toastify/dist/ReactToastify.css';
+import routes from '../routes';
 
 leoProfanity.clearList();
 leoProfanity.add(leoProfanity.getDictionary('ru'));
@@ -21,7 +22,7 @@ leoProfanity.add(leoProfanity.getDictionary('eng'));
 
 const rollbarConfig = {
   accessToken: '9ac3f8e0343b4e749d0d43a3dcb32e2a',
-  environment: 'testenv',
+  environment: 'production',
   captureUncaught: true,
   captureUnhandledRejections: true,
 };
@@ -34,7 +35,7 @@ const App = () => (
           <SocketProvider>
             <div className="App">
               <Routes>
-                <Route path="/" element={<Layout />}>
+                <Route path={routes.homePage()} element={<Layout />}>
                   <Route
                     index
                     element={(
@@ -43,9 +44,9 @@ const App = () => (
                       </PrivateRoute>
           )}
                   />
-                  <Route path="login" element={<LoginPage />} />
-                  <Route path="signup" element={<SignUp />} />
-                  <Route path="*" element={<NotFoundPage />} />
+                  <Route path={routes.loginPage()} element={<LoginPage />} />
+                  <Route path={routes.signupPage()} element={<SignUp />} />
+                  <Route path={routes.pageNotFound()} element={<NotFoundPage />} />
                 </Route>
               </Routes>
               <ToastContainer />
