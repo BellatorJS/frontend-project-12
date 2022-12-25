@@ -15,8 +15,8 @@ const channelsSlice = createSlice({
     setChannel(state, { payload }) {
       state.currentChannelId = payload;
     },
-    setFetchedChannels: (state, action) => {
-      const { channels: entities, currentChannelId } = action.payload;
+    setFetchedChannels: (state, { payload }) => {
+      const { channels: entities, currentChannelId } = payload;
       chatAdapter.setAll(state, entities);
       state.currentChannelId = currentChannelId;
     },

@@ -12,9 +12,9 @@ const modalsSlice = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    addModal1: (state, action) => {
-      state.type = action.payload.type;
-      state.extra = action.payload.extra;
+    showModal: (state, { payload }) => {
+      state.type = payload.type;
+      state.extra = payload.extra;
       state.isOpened = !state.isOpened;
     },
     onHide: (state) => {
@@ -25,17 +25,6 @@ const modalsSlice = createSlice({
 
 });
 
-export const { addModal1, onHide } = modalsSlice.actions;
+export const { showModal, onHide } = modalsSlice.actions;
 
 export const modalsReducer = modalsSlice.reducer;
-
-/*
-modal: {
-    isOpened: true,
-    type: 'removeChannel',
-    extra: {
-      channelId: 4
-    }
-  }
-}
-} */

@@ -6,12 +6,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
 import { setChannel } from '../feachers/channels-slice';
 import getModal from './modals/index';
-import { addModal1 } from '../feachers/modals-slice';
+import { showModal } from '../feachers/modals-slice';
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const modalInf = useSelector((state) => state.modals);
+  const modalState = useSelector((state) => state.modals);
   const buttons = channels.reduce((acc, channel) => ({ ...acc, [channel.id]: false }), {});
 
   const [state, setActive] = useState(buttons);
@@ -26,10 +26,8 @@ const Channels = ({ channels }) => {
     if (!modalInfo.type) {
       return null;
     }
-
     const Component = getModal(modalInfo.type);
-
-    return <Component modalInfo />;
+    return <Component />;
   };
 
   return (
@@ -39,7 +37,7 @@ const Channels = ({ channels }) => {
         <span>{t('channels.channels')}</span>
         <button
           onClick={() => {
-            dispatch(addModal1(
+            dispatch(showModal(
               {
                 isOpened: false,
                 type: 'adding',
@@ -99,7 +97,7 @@ const Channels = ({ channels }) => {
                  />
                  <span className="visually-hidden">{t('channels.management')}</span>
                  <Dropdown.Menu>
-                   <Dropdown.Item onClick={() => dispatch(addModal1({
+                   <Dropdown.Item onClick={() => dispatch(showModal({
                      isOpened: false,
                      type: 'removing',
                      extra: {
@@ -110,7 +108,7 @@ const Channels = ({ channels }) => {
                      {t('channels.remove')}
 
                    </Dropdown.Item>
-                   <Dropdown.Item onClick={() => dispatch(addModal1({
+                   <Dropdown.Item onClick={() => dispatch(showModal({
                      isOpened: false,
                      type: 'renaming',
                      extra: {
@@ -129,7 +127,7 @@ const Channels = ({ channels }) => {
           </li>
         ))}
       </ul>
-      {renderModal(modalInf)}
+      {renderModal(modalState)}
 
     </div>
 

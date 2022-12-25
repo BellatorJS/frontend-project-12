@@ -8,15 +8,15 @@ const messagesSlice = createSlice({
   initialState: messagesAdapter.getInitialState(),
   reducers: {
     messageAdded: messagesAdapter.addOne,
-    setFetchedMessages: (state, action) => {
-      const { messages: entities } = action.payload;
+    setFetchedMessages: (state, { payload }) => {
+      const { messages: entities } = payload;
       messagesAdapter.setAll(state, entities);
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(channelRemoved, (state, action) => {
-        const channelId = action.payload;
+      .addCase(channelRemoved, (state, { payload }) => {
+        const channelId = payload;
         const restEntities = Object.values(state.entities).filter((e) => e.channelId !== channelId);
         messagesAdapter.setAll(state, restEntities);
       });

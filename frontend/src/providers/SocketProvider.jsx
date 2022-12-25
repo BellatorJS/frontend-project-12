@@ -17,7 +17,6 @@ const SocketProvider = ({ children }) => {
     dispatch(setChannel(channel.id));
   });
   socket.on('removeChannel', (data) => {
-    console.log(data, "SSSS")
     const { id } = data;
     dispatch(channelRemoved(id));
     dispatch(setChannel(defaultChannelId));
