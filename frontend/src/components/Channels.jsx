@@ -4,6 +4,10 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
+import {
+  Col,
+  Nav,
+} from 'react-bootstrap';
 import { setChannel } from '../feachers/channels-slice';
 import getModal from './modals/index';
 import { showModal } from '../feachers/modals-slice';
@@ -11,7 +15,7 @@ import { showModal } from '../feachers/modals-slice';
 const Channels = ({ channels }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const modalState = useSelector((state) => state.modals);
+  const modalInf = useSelector((state) => state.modals);
   const buttons = channels.reduce((acc, channel) => ({ ...acc, [channel.id]: false }), {});
 
   const [state, setActive] = useState(buttons);
@@ -26,13 +30,15 @@ const Channels = ({ channels }) => {
     if (!modalInfo.type) {
       return null;
     }
+
     const Component = getModal(modalInfo.type);
-    return <Component />;
+
+    return <Component modalInfo />;
   };
 
   return (
 
-    <div className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
+    <Col className="col-4 col-md-2 border-end pt-5 px-0 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span>{t('channels.channels')}</span>
         <button
@@ -55,9 +61,10 @@ const Channels = ({ channels }) => {
           <span className="visually-hidden">+</span>
         </button>
       </div>
-      <ul className="nav flex-column nav-pills nav-fill px-2">
+      <Nav className="d-flex flex-column px-2" fill variant="pills" as="ul">
         {channels.map((channel) => (
-          <li
+          <Nav.Item
+            as="li"
             key={channel.id}
             className="nav-item w-100"
           >
@@ -124,12 +131,12 @@ const Channels = ({ channels }) => {
                </Dropdown>
                )}
             </ButtonGroup>
-          </li>
+          </Nav.Item>
         ))}
-      </ul>
-      {renderModal(modalState)}
+      </Nav>
+      {renderModal(modalInf)}
 
-    </div>
+    </Col>
 
   );
 };
