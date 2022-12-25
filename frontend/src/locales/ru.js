@@ -58,7 +58,7 @@ const ru = {
       channelLength: 'От 3 до 20 символов',
       uniqueName: 'Должно быть уникальным',
       requiredField: 'Обязательное поле',
-      renameCompleted: 'Переименовать канал',
+      renameCompleted: 'Канал переименован',
       name: 'Имя канала',
       cancel: 'Отменить',
       send: 'Переименовать',
