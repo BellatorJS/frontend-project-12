@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
 import { setChannel } from '../feachers/channels-slice';
 import getModal from './modals/index';
+import { addModal1 } from '../feachers/modals-slice';
 
 const Channels = ({ channels }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
+  const modalInf = useSelector((state) => state.modals);
   const buttons = channels.reduce((acc, channel) => ({ ...acc, [channel.id]: false }), {});
 
   const [state, setActive] = useState(buttons);
@@ -20,19 +21,15 @@ const Channels = ({ channels }) => {
     dispatch(setChannel(id));
   };
 
-  const [modalInfo, setModalInfo] = useState({ type: null, id: null });
-  const hideModal = () => setModalInfo({ type: null, id: null });
-  const showModal = (type, id = null) => setModalInfo({ type, id });
-
-  // eslint-disable-next-line no-shadow
-  const renderModal = ({ modalInfo, hideModal }) => {
+  const renderModal = (modalInfo) => {
+    console.log(modalInfo);
     if (!modalInfo.type) {
       return null;
     }
 
     const Component = getModal(modalInfo.type);
 
-    return <Component id={modalInfo.id} onHide={hideModal} />;
+    return <Component modalInfo />;
   };
 
   return (
@@ -42,7 +39,13 @@ const Channels = ({ channels }) => {
         <span>{t('channels.channels')}</span>
         <button
           onClick={() => {
-            showModal('adding');
+            dispatch(addModal1(
+              {
+                isOpened: false,
+                type: 'adding',
+                extra: null,
+              },
+            ));
           }}
           type="button"
           className="p-0 text-primary btn btn-group-vertical"
@@ -96,16 +99,37 @@ const Channels = ({ channels }) => {
                  />
                  <span className="visually-hidden">{t('channels.management')}</span>
                  <Dropdown.Menu>
-                   <Dropdown.Item onClick={() => showModal('removing', channel.id)}>{t('channels.remove')}</Dropdown.Item>
-                   <Dropdown.Item onClick={() => showModal('renaming', channel.id)}>{t('channels.rename')}</Dropdown.Item>
+                   <Dropdown.Item onClick={() => dispatch(addModal1({
+                     isOpened: false,
+                     type: 'removing',
+                     extra: {
+                       channelId: channel.id,
+                     },
+                   }))}
+                   >
+                     {t('channels.remove')}
+
+                   </Dropdown.Item>
+                   <Dropdown.Item onClick={() => dispatch(addModal1({
+                     isOpened: false,
+                     type: 'renaming',
+                     extra: {
+                       channelId: channel.id,
+                     },
+                   }))}
+                   >
+                     {t('channels.rename')}
+
+                   </Dropdown.Item>
                  </Dropdown.Menu>
+
                </Dropdown>
                )}
             </ButtonGroup>
           </li>
         ))}
       </ul>
-      {renderModal({ modalInfo, hideModal })}
+      {renderModal(modalInf)}
 
     </div>
 

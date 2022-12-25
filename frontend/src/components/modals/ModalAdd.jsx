@@ -6,14 +6,15 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { channelsSelectors } from '../../feachers/channels-slice';
 import useSocket from '../../hooks/useSockect';
+import { onHide } from '../../feachers/modals-slice';
 
-const ModalAdd = (props) => {
+const ModalAdd = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { onHide } = props;
   const inputRef = useRef();
   const useSockets = useSocket();
   const channelsNames = useSelector(channelsSelectors.selectAll).map((channel) => channel.name);
@@ -43,12 +44,12 @@ const ModalAdd = (props) => {
       const channel = { name: filteredName };
       useSockets.dispatchingSockets.addChanel(channel);
       formik.resetForm();
-      onHide();
+      dispatch(onHide());
     },
   });
   return (
     <Modal show>
-      <Modal.Header closeButton onHide={onHide}>
+      <Modal.Header closeButton onHide={() => dispatch(onHide())}>
         <Modal.Title>{t('modalAdd.addChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -70,7 +71,7 @@ const ModalAdd = (props) => {
           <div className="d-flex justify-content-between">
             <Button
               variant="secondary"
-              onClick={onHide}
+              onClick={() => dispatch(onHide())}
             >
               {t('modalAdd.cancel')}
             </Button>

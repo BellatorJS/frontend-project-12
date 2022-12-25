@@ -6,20 +6,21 @@ import Modal from 'react-bootstrap/Modal';
 import leoProfanity from 'leo-profanity';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { channelsSelectors } from '../../feachers/channels-slice';
 import useSocket from '../../hooks/useSockect';
+import { onHide } from '../../feachers/modals-slice';
 
-const ModalRename = (props) => {
+const ModalRename = () => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { onHide, id } = props;
   const useSockets = useSocket();
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
+  const id = useSelector((state) => state.modals.extra.channelId);
   const channelsNames = useSelector(channelsSelectors.selectAll).map((channel) => channel.name);
   const channel = useSelector((state) => channelsSelectors.selectById(state, id));
 
@@ -43,13 +44,13 @@ const ModalRename = (props) => {
       useSockets.dispatchingSockets.renameChannel({ id, name: filteredName });
       toast.success(t('modalRename.renameCompleted'));
       formik.resetForm();
-      onHide();
+      dispatch(onHide());
     },
   });
 
   return (
     <Modal show>
-      <Modal.Header closeButton onHide={onHide}>
+      <Modal.Header closeButton onHide={() => dispatch(onHide())}>
         <Modal.Title>{t('modalRename.renameChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -73,7 +74,7 @@ const ModalRename = (props) => {
           <div className="d-flex justify-content-between">
             <Button
               variant="secondary"
-              onClick={onHide}
+              onClick={() => dispatch(onHide())}
             >
               {t('modalRename.cancel')}
             </Button>
@@ -83,7 +84,6 @@ const ModalRename = (props) => {
             >
               {t('modalRename.send')}
             </Button>
-
           </div>
         </Form>
       </Modal.Body>

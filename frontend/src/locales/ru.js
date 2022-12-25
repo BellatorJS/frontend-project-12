@@ -61,7 +61,7 @@ const ru = {
       renameCompleted: 'Переименовать канал',
       name: 'Имя канала',
       cancel: 'Отменить',
-      send: 'Отправить',
+      send: 'Переименовать',
       renameChannel: 'Переименовать канал',
 
     },
