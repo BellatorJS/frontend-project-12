@@ -76,7 +76,7 @@ const Channels = ({ channels }) => {
                   onClick={() => handleClick(channel.id)}
                   aria-expanded="false"
                   variant={state[channel.id] ? 'secondary' : 'light'}
-                  className="w-100 rounded-0 text-start text-truncate "
+                  className="w-100 rounded-0 text-start text-truncate"
                 >
                   <span className="me-1"># </span>
                   {channel.name}
@@ -93,7 +93,6 @@ const Channels = ({ channels }) => {
                  >
                    <span className="me-1"># </span>
                    {channel.name}
-                   <span className="visually-hidden">{t('channels.management')}</span>
                  </Button>
                  <Dropdown.Toggle
                    split
@@ -101,8 +100,9 @@ const Channels = ({ channels }) => {
                   // aria-expanded="false"
                    className="flex-grow-0  dropdown-toggle dropdown-toggle-split btn"
                    variant={state[channel.id] ? 'secondary' : 'light'}
-                 />
-                 <span className="visually-hidden">{t('channels.management')}</span>
+                 >
+                   <span className="visually-hidden">{t('channels.management')}</span>
+                 </Dropdown.Toggle>
                  <Dropdown.Menu>
                    <Dropdown.Item onClick={() => dispatch(showModal({
                      isOpened: false,
