@@ -68,10 +68,11 @@ const SignUpForm = () => {
       className="w-50"
       onSubmit={formik.handleSubmit}
     >
+
+      <h1 className="text-center mb-3">{t('signup.registration')}</h1>
       <Form.Group className=" form-floating mb-5 position-relative ">
-        <h1 className="text-center mb-3">{t('signup.registration')}</h1>
-        <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
         <Form.Control
+          placeholder={t('signup.username')}
           name="username"
           isInvalid={(formik.touched.username && formik.errors.username) || registrationFailed}
           required
@@ -80,12 +81,13 @@ const SignUpForm = () => {
           onBlur={formik.handleBlur}
           value={formik.values.username}
         />
+        <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>
           {formik.errors.username}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className=" form-floating mb-5 position-relative">
-        <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
+
         <Form.Control
           type="password"
           name="password"
@@ -93,15 +95,17 @@ const SignUpForm = () => {
           onBlur={formik.handleBlur}
           value={formik.values.password}
           isInvalid={(formik.touched.password && formik.errors.password) || registrationFailed}
+          placeholder={t('signup.password')}
           required
         />
+        <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
         <Form.Control.Feedback type="invalid" tooltip>
           {formik.errors.password}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="form-floating mb-5 position-relative">
-        <Form.Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Form.Label>
         <Form.Control
+          placeholder={t('signup.confirmPassword')}
           type="password"
           name="confirmPassword"
           onChange={formik.handleChange}
@@ -112,6 +116,7 @@ const SignUpForm = () => {
             || registrationFailed}
           required
         />
+        <Form.Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Form.Label>
         {registrationFailed && (
         <Form.Control.Feedback type="invalid" tooltip>
           {t('signup.isExists')}
@@ -132,7 +137,6 @@ const SignUp = () => {
   const { t } = useTranslation();
   return (
     <Container fluid h-100>
-
       <Row className="justify-content-center align-content-center h-100">
         <div className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">

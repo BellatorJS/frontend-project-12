@@ -9,7 +9,6 @@ import { messageAdded } from '../feachers/messages-slice';
 const SocketProvider = ({ children }) => {
   const defaultChannelId = 1;
   const dispatch = useDispatch();
-
   const socket = io();
 
   socket.on('newChannel', (channel) => {

@@ -6,10 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import useSocket from '../../hooks/useSockect';
 import { onHide, modalChannelIdSelector } from '../../feachers/modals-slice';
+import useModals from './useModals';
 
 const ModalRemove = () => {
   const dispatch = useDispatch();
-  const id = useSelector(modalChannelIdSelector);
+  const [id] = useModals();
+
   const useSockets = useSocket();
   const { t } = useTranslation();
 

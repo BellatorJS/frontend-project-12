@@ -1,24 +1,22 @@
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { channelsSelectors } from '../../feachers/channels-slice';
 import useSocket from '../../hooks/useSockect';
 import { onHide } from '../../feachers/modals-slice';
+import useModals from './useModals';
 
 const ModalAdd = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const inputRef = useRef();
   const useSockets = useSocket();
-  const channelsNames = useSelector(channelsSelectors.selectAll);
-  const uniqueNames = channelsNames.map((channel) => channel.name);
+  const [uniqueNames, inputRef] = useModals();
   const validationSchema = Yup.object().shape({
     name: Yup
       .string()
@@ -29,10 +27,6 @@ const ModalAdd = () => {
       .required(t('modalAdd.requiredField')),
 
   });
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -48,6 +42,10 @@ const ModalAdd = () => {
       dispatch(onHide());
     },
   });
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [inputRef]);
+
   return (
     <Modal show>
       <Modal.Header closeButton onHide={() => dispatch(onHide())}>

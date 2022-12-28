@@ -81,7 +81,7 @@ const LoginForm = () => {
             isInvalid={authFailed}
             required
             ref={inputRef}
-            placeholder={t('login.nickname')}
+
           />
           <Form.Label htmlFor="username">{t('login.nickname')}</Form.Label>
         </Form.Group>
@@ -95,7 +95,7 @@ const LoginForm = () => {
             autoComplete="current-password"
             type="password"
             required
-            placeholder={t('login.password')}
+
           />
           <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
           <Form.Control.Feedback type="invalid" tooltip>

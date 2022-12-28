@@ -1,10 +1,8 @@
-import React, { useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { Col } from 'react-bootstrap';
-import { messagesSelectors } from '../feachers/messages-slice';
 import MessagesHeader from './MesagesHeader';
 import FormMessage from './FormMessage';
-import { channelsSelectors, channelIdSelector } from '../feachers/channels-slice';
+import useMessage from './useMessage';
 
 const Message = ({
   username,
@@ -14,34 +12,19 @@ const Message = ({
     <b>
       {username}
     </b>
-
     {': '}
-
     {body}
   </div>
 );
 
 const Messages = () => {
-  // const messages = useSelector(messagesSelectors.selectAll);
-  const dummy = useRef();
-  // const { t } = useTranslation();
-  const id = useSelector(channelIdSelector);
-  const item = useSelector((state) => channelsSelectors.selectById(state, id));
-  const allMsgs = useSelector((state) => messagesSelectors.selectEntities(state));
-  const messages = Object.values(allMsgs).filter((x) => x.channelId === id);
-
-  useEffect(() => {
-    if (messages.length !== 0) {
-      dummy.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages]);
+  const [messages, item, dummy] = useMessage();
 
   return (
 
     <Col className="p-0 h-100">
       <div className="d-flex flex-column h-100">
         <MessagesHeader msgs={messages} item={item} />
-
         <div
           className="chat-messages overflow-auto px-5 "
           id="messages-box"

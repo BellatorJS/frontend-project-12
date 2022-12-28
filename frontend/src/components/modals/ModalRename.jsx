@@ -1,32 +1,26 @@
 import { toast } from 'react-toastify';
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import leoProfanity from 'leo-profanity';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { channelsSelectors, channelByIdSelector } from '../../feachers/channels-slice';
 import useSocket from '../../hooks/useSockect';
-import { onHide, modalChannelIdSelector } from '../../feachers/modals-slice';
+import { onHide } from '../../feachers/modals-slice';
+import useModals from './useModals';
 
 const ModalRename = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const useSockets = useSocket();
-  const inputRef = useRef();
+  const [uniqueNames, inputRef, id, channel] = useModals();
+
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
-
-  const id = useSelector(modalChannelIdSelector);
-
-  const channelsNames = useSelector(channelsSelectors.selectAll);
-  const uniqueNames = channelsNames.map((channel) => channel.name);
-
-  const channel = useSelector(channelByIdSelector(id));
+  }, [inputRef]);
 
   const validationSchema = Yup.object().shape({
     name: Yup
