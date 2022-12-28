@@ -52,6 +52,7 @@ const LoginForm = () => {
           toast.error(t('loginErrors.network'));
         }
         if (response.status === 401) {
+          console.log('setAuthFailed(true);');
           setAuthFailed(true);
           inputRef.current.select();
         } else {
@@ -136,39 +137,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-/*
-<Form.Floating className="mb-3">
-<Form.Control
-  id="floatingInputCustom"
-  type="email"
-  placeholder="name@example.com"
-/>
-<label htmlFor="floatingInputCustom">Email address</label>
-</Form.Floating> */
-
-/*
-        <Form.Group>
-          <Form.Label htmlFor="password" />
-          <FloatingLabel
-            htmlFor="password"
-            controlId="password"
-            label={t('login.password')}
-            className="mb-3"
-          >
-            <Form.Control
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              placeholder="password"
-              name="password"
-              autoComplete="current-password"
-              isInvalid={authFailed}
-              required
-            />
-            <Form.Control.Feedback type="invalid" tooltip>
-              {t('login.authFailed')}
-            </Form.Control.Feedback>
-          </FloatingLabel>
-
-        </Form.Group> */

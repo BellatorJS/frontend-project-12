@@ -33,7 +33,7 @@ const App = () => (
       <I18nextProvider>
         <AuthProvider>
           <SocketProvider>
-            <div className="App">
+            <div className="d-flex flex-column h-100">
               <Routes>
                 <Route path={routes.homePage()} element={<Layout />}>
                   <Route
@@ -44,10 +44,10 @@ const App = () => (
                       </PrivateRoute>
           )}
                   />
-                  <Route path={routes.loginPage()} element={<LoginPage />} />
-                  <Route path={routes.signupPage()} element={<SignUp />} />
-                  <Route path={routes.notFoundPage()} element={<NotFoundPage />} />
                 </Route>
+                <Route path={routes.loginPage()} element={<LoginPage />} />
+                <Route path={routes.signupPage()} element={<SignUp />} />
+                <Route path={routes.notFoundPage()} element={<NotFoundPage />} />
               </Routes>
               <ToastContainer />
             </div>

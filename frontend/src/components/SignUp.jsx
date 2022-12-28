@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import * as Yup from 'yup';
-import { FloatingLabel } from 'react-bootstrap';
+import { Row, Container } from 'react-bootstrap';
 import React, { useState, useRef, useEffect } from 'react';
-import { Formik } from 'formik';
+import { useFormik } from 'formik';
 import Card from 'react-bootstrap/Card';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import registration from '../assets/registration.jpg';
 import routes from '../routes/routes';
@@ -42,136 +42,98 @@ const SignUpForm = () => {
   const [registrationFailed, setRegistrationFailed] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      setRegistrationFailed(false);
+      try {
+        const res = await axios.post(routes.signupPath(), values);
+        const data = await res.data;
+        logIn(data);
+        navigate('/');
+      } catch (error) {
+        setRegistrationFailed(true);
+      }
+    },
+
+  });
 
   return (
-    <Formik
-      initialValues={{
-        username: '',
-        password: '',
-        confirmPassword: '',
-      }}
-      validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        setRegistrationFailed(false);
-        const { username, password } = values;
-        try {
-          const res = await axios.post(routes.signupPath, {
-            username,
-            password,
-          });
-          const data = await res.data;
-          logIn(data);
-          const { from } = location.state || { from: { pathname: '/' } };
-          navigate(from);
-        } catch (err) {
-          if (err.response.status === 409) {
-            setRegistrationFailed(true);
-          } else {
-            console.error(err);
-          }
-        }
-      }}
-
+    <Form
+      className="w-50"
+      onSubmit={formik.handleSubmit}
     >
-      {({
+      <Form.Group className=" form-floating mb-5 position-relative ">
+        <h1 className="text-center mb-3">{t('signup.registration')}</h1>
+        <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
+        <Form.Control
+          name="username"
+          isInvalid={(formik.touched.username && formik.errors.username) || registrationFailed}
+          required
+          onChange={formik.handleChange}
+          ref={inputRef}
+          onBlur={formik.handleBlur}
+          value={formik.values.username}
+        />
+        <Form.Control.Feedback type="invalid" tooltip>
+          {formik.errors.username}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className=" form-floating mb-5 position-relative">
+        <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
+        <Form.Control
+          type="password"
+          name="password"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.password}
+          isInvalid={(formik.touched.password && formik.errors.password) || registrationFailed}
+          required
+        />
+        <Form.Control.Feedback type="invalid" tooltip>
+          {formik.errors.password}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group className="form-floating mb-5 position-relative">
+        <Form.Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Form.Label>
+        <Form.Control
+          type="password"
+          name="confirmPassword"
+          onChange={formik.handleChange}
+          value={formik.values.confirmPassword}
+          onBlur={formik.handleBlur}
+          isInvalid={(formik.touched.confirmPassword
+            && formik.errors.confirmPassword)
+            || registrationFailed}
+          required
+        />
+        {registrationFailed && (
+        <Form.Control.Feedback type="invalid" tooltip>
+          {t('signup.isExists')}
+        </Form.Control.Feedback>
+        )}
+        <Form.Control.Feedback type="invalid" tooltip>
+          {formik.errors.confirmPassword}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Button type="submit" className="w-100 btn-primary">
+        {t('signup.submit')}
+      </Button>
+    </Form>
 
-        handleSubmit,
-        handleChange,
-        handleBlur,
-        values,
-        touched,
-        errors,
-      }) => (
-        <Form
-          className="w-50"
-          onSubmit={handleSubmit}
-        >
-          <Form.Group className=" form-floating mb-5 position-relative ">
-            <h1 className="text-center mb-3">{t('signup.registration')}</h1>
-            <Form.Label
-              htmlFor="username"
-            />
-            <FloatingLabel
-              controlId="username"
-              label={t('signup.username')}
-            >
-              <Form.Control
-                name="username"
-                isInvalid={(touched.username && errors.username) || registrationFailed}
-                required
-                onChange={handleChange}
-                ref={inputRef}
-                onBlur={handleBlur}
-                value={values.username}
-              />
-              <Form.Control.Feedback type="invalid" tooltip>
-                {errors.username}
-              </Form.Control.Feedback>
-            </FloatingLabel>
-          </Form.Group>
-          <Form.Group className=" form-floating mb-5 position-relative">
-            <Form.Label htmlFor="password" />
-            <FloatingLabel
-              controlId="password"
-              label={t('signup.password')}
-            >
-              <Form.Control
-                type="password"
-                name="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-                isInvalid={(touched.password && errors.password) || registrationFailed}
-                required
-              />
-              <Form.Control.Feedback type="invalid" tooltip>
-                {errors.password}
-              </Form.Control.Feedback>
-            </FloatingLabel>
-
-          </Form.Group>
-          <Form.Group className="form-floating mb-5 position-relative">
-            <Form.Label htmlFor="confirmPassword" />
-            <FloatingLabel
-              controlId="confirmPassword"
-              label={t('signup.confirmPassword')}
-            >
-              <Form.Control
-                type="password"
-                name="confirmPassword"
-                onChange={handleChange}
-                value={values.confirmPassword}
-                onBlur={handleBlur}
-                isInvalid={(touched.confirmPassword
-                  && errors.confirmPassword)
-                  || registrationFailed}
-                required
-              />
-              {registrationFailed && (
-              <Form.Control.Feedback type="invalid" tooltip>
-                {t('signup.isExists')}
-              </Form.Control.Feedback>
-              )}
-
-              <Form.Control.Feedback type="invalid" tooltip>
-                {errors.confirmPassword}
-              </Form.Control.Feedback>
-            </FloatingLabel>
-          </Form.Group>
-          <Button type="submit" class="w-100 btn btn-outline-primary mb-5 ">
-            {t('signup.submit')}
-          </Button>
-        </Form>
-      )}
-    </Formik>
   );
 };
 const SignUp = () => {
   const { t } = useTranslation();
   return (
-    <div className="container-fluid h-100">
-      <div className="row justify-content-center align-content-center h-100">
+    <Container fluid h-100>
+
+      <Row className="justify-content-center align-content-center h-100">
         <div className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row
@@ -189,8 +151,9 @@ const SignUp = () => {
             </Card.Body>
           </Card>
         </div>
-      </div>
-    </div>
+      </Row>
+
+    </Container>
   );
 };
 

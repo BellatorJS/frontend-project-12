@@ -1,47 +1,67 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { Col } from 'react-bootstrap';
 import { messagesSelectors } from '../feachers/messages-slice';
-import { channelsSelectors } from '../feachers/channels-slice';
+import MessagesHeader from './MesagesHeader';
+import FormMessage from './FormMessage';
+import { channelsSelectors, channelIdSelector } from '../feachers/channels-slice';
 
-const Messages = (props) => {
-  const msgRef = useRef();
-  const { t } = useTranslation();
-  const { id } = props;
+const Message = ({
+  username,
+  body,
+}) => (
+  <div className="text-break mb-2">
+    <b>
+      {username}
+    </b>
+
+    {': '}
+
+    {body}
+  </div>
+);
+
+const Messages = () => {
+  // const messages = useSelector(messagesSelectors.selectAll);
+  const dummy = useRef();
+  // const { t } = useTranslation();
+  const id = useSelector(channelIdSelector);
   const item = useSelector((state) => channelsSelectors.selectById(state, id));
   const allMsgs = useSelector((state) => messagesSelectors.selectEntities(state));
-  const msgs = Object.values(allMsgs).filter((x) => x.channelId === id);
+  const messages = Object.values(allMsgs).filter((x) => x.channelId === id);
+
+  useEffect(() => {
+    if (messages.length !== 0) {
+      dummy.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   return (
-    <>
-      <div className="bg-light mb-4 p-3 shadow-sm small ">
-        <p className="m-0">
-          <b>
-            #
-            {' '}
-            {item.name}
-          </b>
-        </p>
-        <span className="text-muted">
-          {' '}
-          {t('messages.counter.key', { count: msgs.length })}
-        </span>
-      </div>
-      <div
-        id="messages-box"
-        className="chat-messages overflow-auto px-5"
-      >
-        { (msgs.length !== 0) && msgs.map((message) => (
-          <div className="text-break mb-2" key={message.id}>
-            <b>{message.username}</b>
-            :
-            {message.body}
-            <span ref={msgRef} />
-          </div>
-        ))}
-      </div>
 
-    </>
+    <Col className="p-0 h-100">
+      <div className="d-flex flex-column h-100">
+        <MessagesHeader msgs={messages} item={item} />
+
+        <div
+          className="chat-messages overflow-auto px-5 "
+          id="messages-box"
+        >
+          {messages ? messages.map((m) => (
+            <Message
+              body={m.body}
+              key={m.id}
+              username={m.username}
+            />
+          )) : null}
+
+          <span ref={dummy} />
+        </div>
+
+        <FormMessage />
+      </div>
+    </Col>
+
   );
 };
+
 export default Messages;

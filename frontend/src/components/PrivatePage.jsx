@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
 import { useTranslation } from 'react-i18next';
-import { setFetchedMessages, messagesSelectors } from '../feachers/messages-slice';
-import { channelsSelectors, setFetchedChannels } from '../feachers/channels-slice';
+import { Container, Row } from 'react-bootstrap';
+import { setFetchedMessages } from '../feachers/messages-slice';
+import { setFetchedChannels } from '../feachers/channels-slice';
 import Channels from './Channels';
 import Messages from './Messages';
-import FormMessage from './FormMessage';
+
 import useAuth from '../hooks/useAuth';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,7 +24,7 @@ const LoadingPage = () => {
 
 const PrivatePage = () => {
   const { user, getAuthHeader } = useAuth();
-  console.log(user);
+  console.log(user, 'PrivatePage');
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
 
@@ -34,7 +35,6 @@ const PrivatePage = () => {
         headers: getAuthHeader(),
       });
       const { messages, channels, currentChannelId } = res.data;
-      console.log(messages, channels, currentChannelId);
       dispatch(setFetchedChannels({ channels, currentChannelId }));
       dispatch(setFetchedMessages({ messages }));
 
@@ -46,29 +46,20 @@ const PrivatePage = () => {
     fetchData();
   }, [dispatch, getAuthHeader]);
 
-  const currentChannelId = useSelector((state) => state.channels.currentChannelId);
-  const channels = useSelector(channelsSelectors.selectAll);
-  const messages = useSelector(messagesSelectors.selectAll);
+  
+  // const channels = useSelector(channelsSelectors.selectAll);
+  // const messages = useSelector(messagesSelectors.selectAll);
 
   return (
     loaded ? (
-      <div className="d-flex flex-column h-100">
-        <div className="container h-100 my-4 overflow-hidden rounded shadow">
-          <div className="row h-100 bg-white flex-md-row">
-            <Channels channels={channels} />
-            <div className="col p-0 h-100">
-              <div className="col p-0 h-100">
-                <div className="d-flex flex-column h-100">
-                  <Messages messages={messages} id={currentChannelId} />
-                  <div className="mt-auto px-5 py-3 h-100">
-                    <FormMessage currentChannelId={currentChannelId} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <Container className="h-100 my-4 overflow-hidden rounded shadow">
+        <Row className="h-100 bg-white flex-md-row">
+          <Channels />
+          <Messages />
+        </Row>
+      </Container>
+
     )
       : (<LoadingPage />)
 

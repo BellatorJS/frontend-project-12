@@ -4,12 +4,12 @@ import useAuth from '../hooks/useAuth';
 
 // eslint-disable-next-line import/prefer-default-export
 export const AuthButton = () => {
-  const auth = useAuth();
+  const { loggedIn, logOut } = useAuth();
   const location = useLocation();
 
   return (
-    auth.loggedIn
-      ? <Button onClick={auth.logOut}>Log out</Button>
+    loggedIn
+      ? <Button onClick={logOut}>Log out</Button>
       : <Button as={Link} to="/login" state={{ from: location }}>Log in</Button>
   );
 };

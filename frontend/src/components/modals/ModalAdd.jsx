@@ -17,14 +17,15 @@ const ModalAdd = () => {
   const { t } = useTranslation();
   const inputRef = useRef();
   const useSockets = useSocket();
-  const channelsNames = useSelector(channelsSelectors.selectAll).map((channel) => channel.name);
+  const channelsNames = useSelector(channelsSelectors.selectAll);
+  const uniqueNames = channelsNames.map((channel) => channel.name);
   const validationSchema = Yup.object().shape({
     name: Yup
       .string()
       .trim()
       .min(3, t('modalAdd.channelLength'))
       .max(20, t('modalAdd.channelLength'))
-      .notOneOf(channelsNames)
+      .notOneOf(uniqueNames, t('modalAdd.uniqueName'))
       .required(t('modalAdd.requiredField')),
 
   });

@@ -8,9 +8,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { channelsSelectors } from '../../feachers/channels-slice';
+import { channelsSelectors, channelByIdSelector } from '../../feachers/channels-slice';
 import useSocket from '../../hooks/useSockect';
-import { onHide } from '../../feachers/modals-slice';
+import { onHide, modalChannelIdSelector } from '../../feachers/modals-slice';
 
 const ModalRename = () => {
   const dispatch = useDispatch();
@@ -20,14 +20,18 @@ const ModalRename = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-  const id = useSelector((state) => state.modals.extra.channelId);
-  const channelsNames = useSelector(channelsSelectors.selectAll).map((channel) => channel.name);
-  const channel = useSelector((state) => channelsSelectors.selectById(state, id));
+
+  const id = useSelector(modalChannelIdSelector);
+
+  const channelsNames = useSelector(channelsSelectors.selectAll);
+  const uniqueNames = channelsNames.map((channel) => channel.name);
+
+  const channel = useSelector(channelByIdSelector(id));
 
   const validationSchema = Yup.object().shape({
     name: Yup
       .string()
-      .notOneOf(channelsNames, t('modalRename.uniqueName'))
+      .notOneOf(uniqueNames, t('modalRename.uniqueName'))
       .trim()
       .required(t('modalRename.requiredField'))
       .min(3, t('modalRename.channelLength'))

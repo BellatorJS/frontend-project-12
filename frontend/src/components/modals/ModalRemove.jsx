@@ -5,13 +5,11 @@ import Modal from 'react-bootstrap/Modal';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import useSocket from '../../hooks/useSockect';
-import { onHide } from '../../feachers/modals-slice';
+import { onHide, modalChannelIdSelector } from '../../feachers/modals-slice';
 
 const ModalRemove = () => {
   const dispatch = useDispatch();
-
-  const id = useSelector((state) => state.modals.extra.channelId);
-  console.log(id, 'sdffsdsfd');
+  const id = useSelector(modalChannelIdSelector);
   const useSockets = useSocket();
   const { t } = useTranslation();
 

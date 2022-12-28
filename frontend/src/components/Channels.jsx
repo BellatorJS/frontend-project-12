@@ -8,14 +8,17 @@ import {
   Col,
   Nav,
 } from 'react-bootstrap';
-import { setChannel } from '../feachers/channels-slice';
-import getModal from './modals/index';
-import { showModal } from '../feachers/modals-slice';
+import { PlusSquare } from 'react-bootstrap-icons';
 
-const Channels = ({ channels }) => {
+import { setChannel, channelsSelectors } from '../feachers/channels-slice';
+import getModal from './modals/index';
+import { showModal, modalStatusSelector } from '../feachers/modals-slice';
+
+const Channels = () => {
+  const channels = useSelector(channelsSelectors.selectAll);
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const modalInf = useSelector((state) => state.modals);
+  const modalStatus = useSelector(modalStatusSelector);
   const buttons = channels.reduce((acc, channel) => ({ ...acc, [channel.id]: false }), {});
 
   const [state, setActive] = useState(buttons);
@@ -54,10 +57,7 @@ const Channels = ({ channels }) => {
           type="button"
           className="p-0 text-primary btn btn-group-vertical"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
-            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-          </svg>
+          <PlusSquare />
           <span className="visually-hidden">+</span>
         </button>
       </div>
@@ -124,7 +124,6 @@ const Channels = ({ channels }) => {
                    }))}
                    >
                      {t('channels.rename')}
-
                    </Dropdown.Item>
                  </Dropdown.Menu>
 
@@ -134,7 +133,7 @@ const Channels = ({ channels }) => {
           </Nav.Item>
         ))}
       </Nav>
-      {renderModal(modalInf)}
+      {renderModal(modalStatus)}
 
     </Col>
 
