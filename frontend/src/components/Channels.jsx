@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,8 +9,7 @@ import {
   Nav,
 } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
-
-import { setChannel, channelsSelectors } from '../feachers/channels-slice';
+import { setChannel, channelsSelectors, channelIdSelector } from '../feachers/channels-slice';
 import getModal from './modals/index';
 import { showModal, modalStatusSelector } from '../feachers/modals-slice';
 
@@ -19,12 +18,11 @@ const Channels = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const modalStatus = useSelector(modalStatusSelector);
-  const buttons = channels.reduce((acc, channel) => ({ ...acc, [channel.id]: false }), {});
+  const currentChannelId = useSelector(channelIdSelector);
 
-  const [state, setActive] = useState(buttons);
+  console.log(currentChannelId, 'currentChannelId');
 
   const handleClick = (id) => {
-    setActive({ ...buttons, [id]: !state.id });
     dispatch(setChannel(id));
   };
 
@@ -33,9 +31,7 @@ const Channels = () => {
     if (!modalInfo.type) {
       return null;
     }
-
     const Component = getModal(modalInfo.type);
-
     return <Component modalInfo />;
   };
 
@@ -75,7 +71,7 @@ const Channels = () => {
                   type="button"
                   onClick={() => handleClick(channel.id)}
                   aria-expanded="false"
-                  variant={state[channel.id] ? 'secondary' : 'light'}
+                  variant={(channel.id === currentChannelId) ? 'secondary' : 'light'}
                   className="w-100 rounded-0 text-start text-truncate"
                 >
                   <span className="me-1"># </span>
@@ -88,7 +84,7 @@ const Channels = () => {
                  <Button
                    type="button"
                    onClick={() => handleClick(channel.id)}
-                   variant={state[channel.id] ? 'secondary' : 'light'}
+                   variant={(channel.id === currentChannelId) ? 'secondary' : 'light'}
                    className="w-100 rounded-0 text-start text-truncate"
                  >
                    <span className="me-1"># </span>
@@ -99,7 +95,7 @@ const Channels = () => {
                    id={channel.id}
                   // aria-expanded="false"
                    className="flex-grow-0  dropdown-toggle dropdown-toggle-split btn"
-                   variant={state[channel.id] ? 'secondary' : 'light'}
+                   variant={(channel.id === currentChannelId) ? 'secondary' : 'light'}
                  >
                    <span className="visually-hidden">{t('channels.management')}</span>
                  </Dropdown.Toggle>

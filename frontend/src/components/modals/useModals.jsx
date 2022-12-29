@@ -11,7 +11,9 @@ const useModals = () => {
   const inputRef = useRef();
 
   return (
-    [channelsNames, uniqueNames, channel, id, inputRef]
+    {
+      channelsNames, uniqueNames, channel, id, inputRef,
+    }
 
   );
 };

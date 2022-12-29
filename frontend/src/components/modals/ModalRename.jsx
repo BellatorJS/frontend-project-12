@@ -16,7 +16,9 @@ const ModalRename = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const useSockets = useSocket();
-  const [uniqueNames, inputRef, id, channel] = useModals();
+  const {
+    uniqueNames, inputRef, id, channel,
+  } = useModals();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -53,36 +55,37 @@ const ModalRename = () => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Control
+          <fieldset disabled={formik.isSubmitting}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Control
               // type="text"
-              ref={inputRef}
+                ref={inputRef}
               // placeholder="Введите имя канала"
-              onChange={formik.handleChange}
+                onChange={formik.handleChange}
               // onBlur={formik.handleBlur}
-              value={formik.values.name}
-              id="name"
-              name="name"
-              isInvalid={formik.errors.name && formik.touched.name}
-             // disabled={formik.isSubmitting}
-            />
-            <Form.Label className="visually-hidden" htmlFor="name">{t('modalRename.name')}</Form.Label>
-            <Form.Control.Feedback type="is-invalid">{formik.errors.name}</Form.Control.Feedback>
-          </Form.Group>
-          <div className="d-flex justify-content-between">
-            <Button
-              variant="secondary"
-              onClick={() => dispatch(onHide())}
-            >
-              {t('modalRename.cancel')}
-            </Button>
-            <Button
-              variant="primary"
-              type="submit"
-            >
-              {t('modalRename.send')}
-            </Button>
-          </div>
+                value={formik.values.name}
+                id="name"
+                name="name"
+                isInvalid={formik.errors.name && formik.touched.name}
+              />
+              <Form.Label className="visually-hidden" htmlFor="name">{t('modalRename.name')}</Form.Label>
+              <Form.Control.Feedback type="is-invalid">{formik.errors.name}</Form.Control.Feedback>
+            </Form.Group>
+            <div className="d-flex justify-content-between">
+              <Button
+                variant="secondary"
+                onClick={() => dispatch(onHide())}
+              >
+                {t('modalRename.cancel')}
+              </Button>
+              <Button
+                variant="primary"
+                type="submit"
+              >
+                {t('modalRename.send')}
+              </Button>
+            </div>
+          </fieldset>
         </Form>
       </Modal.Body>
 

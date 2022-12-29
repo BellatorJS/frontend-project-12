@@ -16,7 +16,7 @@ const ModalAdd = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const useSockets = useSocket();
-  const [uniqueNames, inputRef] = useModals();
+  const { uniqueNames, inputRef } = useModals();
   const validationSchema = Yup.object().shape({
     name: Yup
       .string()
@@ -53,34 +53,35 @@ const ModalAdd = () => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Control
-              id="name"
-              name="name"
-              ref={inputRef}
-              onChange={formik.handleChange}
+          <fieldset disabled={formik.isSubmitting}>
+            <Form.Group className="mb-3">
+              <Form.Control
+                id="name"
+                name="name"
+                ref={inputRef}
+                onChange={formik.handleChange}
              // onBlur={formik.handleBlur}
-              value={formik.values.name}
-              isInvalid={formik.errors.name && formik.touched.name}
-             // disabled={formik.isSubmitting}
-            />
-            <Form.Label className="visually-hidden" htmlFor="name">{t('modalAdd.name')}</Form.Label>
-            <Form.Control.Feedback type="invalid">{formik.errors.name }</Form.Control.Feedback>
-          </Form.Group>
-          <div className="d-flex justify-content-between">
-            <Button
-              variant="secondary"
-              onClick={() => dispatch(onHide())}
-            >
-              {t('modalAdd.cancel')}
-            </Button>
-            <Button
-              variant="primary"
-              type="submit"
-            >
-              {t('modalAdd.send')}
-            </Button>
-          </div>
+                value={formik.values.name}
+                isInvalid={formik.errors.name && formik.touched.name}
+              />
+              <Form.Label className="visually-hidden" htmlFor="name">{t('modalAdd.name')}</Form.Label>
+              <Form.Control.Feedback type="invalid">{formik.errors.name }</Form.Control.Feedback>
+            </Form.Group>
+            <div className="d-flex justify-content-between">
+              <Button
+                variant="secondary"
+                onClick={() => dispatch(onHide())}
+              >
+                {t('modalAdd.cancel')}
+              </Button>
+              <Button
+                variant="primary"
+                type="submit"
+              >
+                {t('modalAdd.send')}
+              </Button>
+            </div>
+          </fieldset>
         </Form>
       </Modal.Body>
     </Modal>
