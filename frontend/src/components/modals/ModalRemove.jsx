@@ -15,17 +15,19 @@ const ModalRemove = () => {
   const useSockets = useSocket();
   const { t } = useTranslation();
   const [removeDisabled, setRemoveDisabled] = useState(false);
+  const isSubmitting = () => setRemoveDisabled(!removeDisabled);
 
   const handleSubmit = () => {
-    setRemoveDisabled(false);
+    isSubmitting();
     useSockets.dispatchingSockets.removeChannel({ id });
     toast.success(t('modalRemove.removeCompleted'));
     dispatch(setChannel(1));
     dispatch(onHide());
+    isSubmitting();
   };
 
   return (
-    <Modal show>
+    <Modal show centered>
       <fieldset disabled={removeDisabled}>
         <Modal.Header closeButton onHide={() => dispatch(onHide())}>
           <Modal.Title>{t('modalRemove.removeChannel')}</Modal.Title>
@@ -34,8 +36,12 @@ const ModalRemove = () => {
           {' '}
           {t('modalRemove.confirm')}
           <Modal.Footer>
-            <div className="d-flex justify-content-between">
-              <Button variant="secondary" onClick={() => dispatch(onHide())}>
+            <div className="d-flex justify-content-end">
+              <Button
+                className="mx-2"
+                variant="secondary"
+                onClick={() => dispatch(onHide())}
+              >
                 {t('modalRemove.cancel')}
               </Button>
               <Button

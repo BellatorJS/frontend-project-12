@@ -47,7 +47,7 @@ const ModalAdd = () => {
   }, [inputRef]);
 
   return (
-    <Modal show>
+    <Modal show centered>
       <Modal.Header closeButton onHide={() => dispatch(onHide())}>
         <Modal.Title>{t('modalAdd.addChannel')}</Modal.Title>
       </Modal.Header>

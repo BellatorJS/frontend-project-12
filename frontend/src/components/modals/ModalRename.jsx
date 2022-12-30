@@ -49,7 +49,7 @@ const ModalRename = () => {
   });
 
   return (
-    <Modal show>
+    <Modal show centered>
       <Modal.Header closeButton onHide={() => dispatch(onHide())}>
         <Modal.Title>{t('modalRename.renameChannel')}</Modal.Title>
       </Modal.Header>
