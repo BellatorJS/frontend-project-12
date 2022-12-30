@@ -8,14 +8,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import useSocket from '../../hooks/useSockect';
+import useApi from '../../hooks/useApi';
 import { onHide } from '../../feachers/modals-slice';
 import useModals from './useModals';
 
 const ModalAdd = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const useSockets = useSocket();
+  const useSockets = useApi();
   const { uniqueNames, inputRef } = useModals();
   const validationSchema = Yup.object().shape({
     name: Yup

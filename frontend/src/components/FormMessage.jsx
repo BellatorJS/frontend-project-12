@@ -10,7 +10,7 @@ import leoProfanity from 'leo-profanity';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
-import useSocket from '../hooks/useSockect';
+import useApi from '../hooks/useApi';
 import { channelIdSelector } from '../feachers/channels-slice';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,7 +20,7 @@ const FormMessage = () => {
   const user = JSON.parse(window.localStorage.getItem('user'));
   const { username } = user;
   const inputRef = useRef();
-  const useSockets = useSocket();
+  const useSockets = useApi();
 
   const validationSchema = Yup.object().shape({
     message: Yup

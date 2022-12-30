@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { SocketContext } from '../contexts/SocketContext';
+import ApiContext from '../contexts/ApiContext';
 import {
   channelAdded, channelRemoved, setChannel, channelUpdated,
 } from '../feachers/channels-slice';
@@ -39,9 +39,9 @@ const SocketProvider = ({ children }) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <SocketContext.Provider value={{ dispatchingSockets }}>
+    <ApiContext.Provider value={{ dispatchingSockets }}>
       {children}
-    </SocketContext.Provider>
+    </ApiContext.Provider>
   );
 };
 
