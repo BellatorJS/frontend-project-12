@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { configureStore } from '@reduxjs/toolkit';
 import { channelsReducer } from './feachers/channels-slice';
 import { messageReducer } from './feachers/messages-slice';
@@ -12,3 +11,4 @@ export const store = configureStore({
   },
   devTools: true,
 });
+export default store;

@@ -46,13 +46,8 @@ const PrivatePage = () => {
     fetchData();
   }, [dispatch, getAuthHeader]);
 
-  
-  // const channels = useSelector(channelsSelectors.selectAll);
-  // const messages = useSelector(messagesSelectors.selectAll);
-
   return (
     loaded ? (
-
       <Container className="h-100 my-4 overflow-hidden rounded shadow">
         <Row className="h-100 bg-white flex-md-row">
           <Channels />
