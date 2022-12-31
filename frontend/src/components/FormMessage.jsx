@@ -5,8 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { nanoid } from '@reduxjs/toolkit';
-
-import leoProfanity from 'leo-profanity';
+import dictionaryFilter from 'leo-profanity';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -35,7 +34,7 @@ const FormMessage = () => {
     },
     validationSchema,
     onSubmit: (values, { resetForm }) => {
-      const filteredMsg = leoProfanity.clean(values.message);
+      const filteredMsg = dictionaryFilter.clean(values.message);
       const newMessage = {
         id: nanoid(),
         body: filteredMsg,

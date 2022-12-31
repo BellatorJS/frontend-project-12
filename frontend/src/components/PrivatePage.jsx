@@ -23,8 +23,7 @@ const LoadingPage = () => {
 };
 
 const PrivatePage = () => {
-  const { user, getAuthHeader } = useAuth();
-  console.log(user, 'PrivatePage');
+  const { getAuthHeader } = useAuth();
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
 

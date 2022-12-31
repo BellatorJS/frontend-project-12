@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import leoProfanity from 'leo-profanity';
+import dictionaryFilter from 'leo-profanity';
 import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -34,7 +34,7 @@ const ModalAdd = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      const filteredName = leoProfanity.clean(values.name);
+      const filteredName = dictionaryFilter.clean(values.name);
       toast.success(t('modalAdd.channelCreated'));
       const channel = { name: filteredName };
       useSockets.dispatchingSockets.addChanel(channel);

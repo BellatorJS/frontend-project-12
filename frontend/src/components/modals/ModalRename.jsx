@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import leoProfanity from 'leo-profanity';
+import dictionaryFilter from 'leo-profanity';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
@@ -40,7 +40,7 @@ const ModalRename = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      const filteredName = leoProfanity.clean(values.name);
+      const filteredName = dictionaryFilter.clean(values.name);
       useSockets.dispatchingSockets.renameChannel({ id, name: filteredName });
       toast.success(t('modalRename.renameCompleted'));
       formik.resetForm();
