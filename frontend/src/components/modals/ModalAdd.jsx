@@ -16,6 +16,7 @@ const ModalAdd = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const useSockets = useApi();
+  console.log(useSockets);
   const { uniqueNames, inputRef } = useModals();
   const validationSchema = Yup.object().shape({
     name: Yup
@@ -37,7 +38,7 @@ const ModalAdd = () => {
       const filteredName = dictionaryFilter.clean(values.name);
       toast.success(t('modalAdd.channelCreated'));
       const channel = { name: filteredName };
-      useSockets.dispatchingSockets.addChanel(channel);
+      useSockets.addChanel(channel);
       formik.resetForm();
       dispatch(onHide());
     },

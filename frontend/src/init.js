@@ -7,10 +7,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import i18next from 'i18next';
 import dictionaryFilter from 'leo-profanity';
 import AuthProvider from './providers/AuthProvider';
-import SocketProvider from './providers/SocketProvider';
 import App from './components/App.js';
 import { store } from './store';
 import resources from './locales/index.js';
+import ApiProvider from './providers/ApiProvider';
 
 const rollbarConfig = {
   accessToken: process.env.ACCESSTOKEN,
@@ -19,8 +19,7 @@ const rollbarConfig = {
   captureUnhandledRejections: true,
 };
 
-const init = async () => {
-  // const api = createAPI(socket);
+const init = async (socket) => {
   const i18n = i18next.createInstance();
 
   await i18n
@@ -38,7 +37,7 @@ const init = async () => {
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <StoreProvider store={store}>
-          <SocketProvider>
+          <ApiProvider socket={socket}>
             <I18nextProvider i18n={i18n}>
               <AuthProvider>
                 <Router>
@@ -46,7 +45,7 @@ const init = async () => {
                 </Router>
               </AuthProvider>
             </I18nextProvider>
-          </SocketProvider>
+          </ApiProvider>
         </StoreProvider>
       </ErrorBoundary>
     </RollbarProvider>

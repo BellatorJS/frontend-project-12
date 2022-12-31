@@ -19,7 +19,7 @@ const ModalRemove = () => {
 
   const handleSubmit = () => {
     isSubmitting();
-    useSockets.dispatchingSockets.removeChannel({ id });
+    useSockets.removeChannel({ id });
     toast.success(t('modalRemove.removeCompleted'));
     dispatch(setChannel(1));
     dispatch(onHide());

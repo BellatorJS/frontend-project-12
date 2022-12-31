@@ -41,7 +41,7 @@ const ModalRename = () => {
     validationSchema,
     onSubmit: (values) => {
       const filteredName = dictionaryFilter.clean(values.name);
-      useSockets.dispatchingSockets.renameChannel({ id, name: filteredName });
+      useSockets.renameChannel({ id, name: filteredName });
       toast.success(t('modalRename.renameCompleted'));
       formik.resetForm();
       dispatch(onHide());
