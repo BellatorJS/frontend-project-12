@@ -24,11 +24,13 @@ const SignUpForm = () => {
   const validationSchema = Yup.object().shape({
     username: Yup
       .string()
+      .trim()
       .required(t('signup.requiredField'))
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов'),
+      .min(3, t('signup.usernameLength'))
+      .max(20, t('signup.usernameLength')),
     password: Yup
       .string()
+      .trim()
       .required(t('signup.requiredField'))
       .min(6, t('signup.minPassLength')),
     confirmPassword: Yup
