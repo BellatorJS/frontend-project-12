@@ -4,8 +4,9 @@ import './index.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import init from './init';
 import { io } from 'socket.io-client';
+import init from './init';
+
 const app = async () => {
   const socket = io();
   const root = ReactDOM.createRoot(document.getElementById('root'));
