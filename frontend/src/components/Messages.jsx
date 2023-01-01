@@ -21,7 +21,6 @@ const Messages = () => {
   const [messages, item, dummy] = useMessage();
 
   return (
-
     <Col className="p-0 h-100">
       <div className="d-flex flex-column h-100">
         <MessagesHeader msgs={messages} item={item} />
@@ -36,10 +35,8 @@ const Messages = () => {
               username={m.username}
             />
           )) : null}
-
           <span ref={dummy} />
         </div>
-
         <FormMessage />
       </div>
     </Col>
