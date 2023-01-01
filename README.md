@@ -3,7 +3,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/b2af37b6d469d2a9d224/maintainability)](https://codeclimate.com/github/BellatorJS/frontend-project-12/maintainability)
 
-[![Node CI](https://github.com/BellatorJS/frontend-project-lvl12/actions/workflows/nodeci.yml/badge.svg)](https://github.com/BellatorJS/frontend-project-12/actions)
+[![Node CI](https://github.com/BellatorJS/frontend-project-12/actions/workflows/nodeci.yml/badge.svg)](https://github.com/BellatorJS/frontend-project-12/actions)
 
 ## Railway
 
