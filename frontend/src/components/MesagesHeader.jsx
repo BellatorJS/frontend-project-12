@@ -5,8 +5,6 @@ const MessagesHeader = (props) => {
   const { item, msgs } = props;
   const { t } = useTranslation();
 
-  console.log('HEADER');
-
   return (
     <div className="bg-light mb-4 p-3 shadow-sm small">
       <p className="m-0">

@@ -52,7 +52,6 @@ const LoginForm = () => {
           toast.error(t('loginErrors.network'));
         }
         if (response.status === 401) {
-          console.log('setAuthFailed(true);');
           setAuthFailed(true);
           inputRef.current.select();
         } else {

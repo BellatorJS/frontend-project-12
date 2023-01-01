@@ -73,6 +73,8 @@ const SignUpForm = () => {
       <fieldset disabled={formik.isSubmitting}>
         <Form.Group className=" form-floating mb-5 position-relative ">
           <Form.Control
+            autoComplete="username"
+            id="username"
             placeholder={t('signup.username')}
             name="username"
             isInvalid={(formik.touched.username && formik.errors.username) || registrationFailed}
@@ -92,6 +94,7 @@ const SignUpForm = () => {
           <Form.Control
             type="password"
             name="password"
+            autoComplete="new-password"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
@@ -108,6 +111,7 @@ const SignUpForm = () => {
           <Form.Control
             placeholder={t('signup.confirmPassword')}
             type="password"
+            autoComplete="new-password"
             name="confirmPassword"
             onChange={formik.handleChange}
             value={formik.values.confirmPassword}

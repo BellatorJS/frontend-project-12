@@ -25,7 +25,6 @@ const Channels = () => {
   };
 
   const renderModal = (modalInfo) => {
-    console.log(modalInfo);
     if (!modalInfo.type) {
       return null;
     }
