@@ -3,7 +3,6 @@ import React from 'react';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as StoreProvider } from 'react-redux';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
-import { BrowserRouter as Router } from 'react-router-dom';
 import i18next from 'i18next';
 import dictionaryFilter from 'leo-profanity';
 import AuthProvider from './providers/AuthProvider';
@@ -40,9 +39,7 @@ const init = async (socket) => {
           <ApiProvider socket={socket}>
             <I18nextProvider i18n={i18n}>
               <AuthProvider>
-                <Router>
-                  <App />
-                </Router>
+                <App />
               </AuthProvider>
             </I18nextProvider>
           </ApiProvider>

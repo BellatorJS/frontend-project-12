@@ -5,9 +5,9 @@ import Modal from 'react-bootstrap/Modal';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import useApi from '../../hooks/useApi';
-import { onHide } from '../../feachers/modals-slice';
+import { onHide } from '../../slices/modals-slice';
 import useModals from './useModals';
-import { setChannel } from '../../feachers/channels-slice';
+import { setChannel } from '../../slices/channels-slice';
 
 const ModalRemove = () => {
   const dispatch = useDispatch();

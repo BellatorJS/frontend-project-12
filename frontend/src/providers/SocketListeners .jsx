@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import {
   channelAdded, channelRemoved, setChannel, channelUpdated,
-} from '../feachers/channels-slice';
-import { messageAdded } from '../feachers/messages-slice';
+} from '../slices/channels-slice';
+import { messageAdded } from '../slices/messages-slice';
 
 const CreateSocketListeners = (socket) => {
   const defaultChannelId = 1;

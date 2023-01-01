@@ -45,7 +45,7 @@ const LoginForm = () => {
         const res = await axios.post(routes.loginPath(), values);
         const data = await res.data;
         logIn(data);
-        navigate('/');
+        navigate(routes.homePage());
       } catch (error) {
         const { message, response } = error;
         if (message === 'Network Error') {
@@ -61,7 +61,6 @@ const LoginForm = () => {
         }
       }
     },
-
   });
 
   return (
@@ -112,22 +111,20 @@ const LoginPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="d-flex flex-column h-100">
-      <div className="container-fluid h-100">
-        <div className="row justify-content-center align-content-center h-100">
-          <div className="col-12 col-md-8 col-xxl-6">
-            <div className="card shadow-sm">
-              <div className="card-body row p-5">
-                <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                  <img
-                    src={login}
-                    className="rounded-circle"
-                    alt={t('login.loginImage')}
-                  />
-                </div>
-                <LoginForm />
-                <Footer />
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center align-content-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <div className="card shadow-sm">
+            <div className="card-body row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <img
+                  src={login}
+                  className="rounded-circle"
+                  alt={t('login.loginImage')}
+                />
               </div>
+              <LoginForm />
+              <Footer />
             </div>
           </div>
         </div>

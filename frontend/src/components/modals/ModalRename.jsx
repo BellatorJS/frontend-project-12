@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi';
-import { onHide } from '../../feachers/modals-slice';
+import { onHide } from '../../slices/modals-slice';
 import useModals from './useModals';
 
 const ModalRename = () => {
@@ -58,11 +58,8 @@ const ModalRename = () => {
           <fieldset disabled={formik.isSubmitting}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control
-              // type="text"
                 ref={inputRef}
-              // placeholder="Введите имя канала"
                 onChange={formik.handleChange}
-              // onBlur={formik.handleBlur}
                 value={formik.values.name}
                 id="name"
                 name="name"

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import notfound from '../assets/notfound.svg';
+import routes from '../routes/routes';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ const NotFoundPage = () => {
         </h1>
         <p className="text-muted">
           {t('notFound.message')}
-          <Link to="/">
+          <Link to={routes.homePage()}>
             {t('notFound.linkText')}
             {' '}
           </Link>

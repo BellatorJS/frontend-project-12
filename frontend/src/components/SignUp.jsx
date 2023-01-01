@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import * as Yup from 'yup';
-import { Row, Container } from 'react-bootstrap';
+import { Row, Container, Col } from 'react-bootstrap';
 import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import Card from 'react-bootstrap/Card';
@@ -55,7 +55,7 @@ const SignUpForm = () => {
         const res = await axios.post(routes.signupPath(), values);
         const data = await res.data;
         logIn(data);
-        navigate('/');
+        navigate(routes.homePage());
       } catch (error) {
         setRegistrationFailed(true);
       }
@@ -140,7 +140,7 @@ const SignUp = () => {
   return (
     <Container fluid h-100>
       <Row className="justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
+        <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row
               justify-content-around align-items-center p-5"
@@ -156,7 +156,7 @@ const SignUp = () => {
               <div />
             </Card.Body>
           </Card>
-        </div>
+        </Col>
       </Row>
 
     </Container>

@@ -27,18 +27,9 @@ const channelsSlice = createSlice({
 
 export const channelsSelectors = chatAdapter.getSelectors((state) => state.channels);
 export const channelIdSelector = ((state) => state.channels.currentChannelId);
-// export const channelByIdSelector = (state, id) => channelsSelectors.selectById(state, id);
 
 export const {
   channelAdded, setFetchedChannels, channelUpdated, channelRemoved, setChannel,
 } = channelsSlice.actions;
 
 export const channelsReducer = channelsSlice.reducer;
-
-/* export const {
-    selectById: selectUserById,
-    selectIds: selectUserIds,
-    selectEntities: selectUserEntities,
-    selectAll: selectAllUsers,
-    selectTotal: selectTotalUsers
-  } = usersAdapter.getSelectors(state => state.users) */

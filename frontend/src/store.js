@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { channelsReducer } from './feachers/channels-slice';
-import { messageReducer } from './feachers/messages-slice';
-import { modalsReducer } from './feachers/modals-slice';
+import { channelsReducer } from './slices/channels-slice';
+import { messageReducer } from './slices/messages-slice';
+import { modalsReducer } from './slices/modals-slice';
 
 export const store = configureStore({
   reducer: {

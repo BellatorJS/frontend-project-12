@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { channelsSelectors } from '../../feachers/channels-slice';
-import { modalChannelIdSelector } from '../../feachers/modals-slice';
+import { channelsSelectors } from '../../slices/channels-slice';
+import { modalChannelIdSelector } from '../../slices/modals-slice';
 
 const useModals = () => {
   const id = useSelector(modalChannelIdSelector);

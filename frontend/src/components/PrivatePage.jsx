@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
 import { useTranslation } from 'react-i18next';
 import { Container, Row } from 'react-bootstrap';
-import { setFetchedMessages } from '../feachers/messages-slice';
-import { setFetchedChannels } from '../feachers/channels-slice';
+import { setFetchedMessages } from '../slices/messages-slice';
+import { setFetchedChannels } from '../slices/channels-slice';
 import Channels from './Channels';
 import Messages from './Messages';
 

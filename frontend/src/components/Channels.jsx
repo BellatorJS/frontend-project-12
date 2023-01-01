@@ -9,9 +9,9 @@ import {
   Nav,
 } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
-import { setChannel, channelsSelectors, channelIdSelector } from '../feachers/channels-slice';
+import { setChannel, channelsSelectors, channelIdSelector } from '../slices/channels-slice';
 import getModal from './modals/index';
-import { showModal, modalStatusSelector } from '../feachers/modals-slice';
+import { showModal, modalStatusSelector } from '../slices/modals-slice';
 
 const Channels = () => {
   const channels = useSelector(channelsSelectors.selectAll);
@@ -19,8 +19,6 @@ const Channels = () => {
   const dispatch = useDispatch();
   const modalStatus = useSelector(modalStatusSelector);
   const currentChannelId = useSelector(channelIdSelector);
-
-  console.log(currentChannelId, 'currentChannelId');
 
   const handleClick = (id) => {
     dispatch(setChannel(id));
@@ -93,7 +91,6 @@ const Channels = () => {
                  <Dropdown.Toggle
                    split
                    id={channel.id}
-                  // aria-expanded="false"
                    className="flex-grow-0  dropdown-toggle dropdown-toggle-split btn"
                    variant={(channel.id === currentChannelId) ? 'secondary' : 'light'}
                  >
@@ -109,7 +106,6 @@ const Channels = () => {
                    }))}
                    >
                      {t('channels.remove')}
-
                    </Dropdown.Item>
                    <Dropdown.Item onClick={() => dispatch(showModal({
                      isOpened: false,
@@ -130,7 +126,6 @@ const Channels = () => {
         ))}
       </Nav>
       {renderModal(modalStatus)}
-
     </Col>
 
   );

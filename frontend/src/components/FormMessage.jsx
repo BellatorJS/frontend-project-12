@@ -10,7 +10,7 @@ import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import useApi from '../hooks/useApi';
-import { channelIdSelector } from '../feachers/channels-slice';
+import { channelIdSelector } from '../slices/channels-slice';
 import 'react-toastify/dist/ReactToastify.css';
 
 const FormMessage = () => {
@@ -47,7 +47,7 @@ const FormMessage = () => {
       inputRef.current.focus();
     },
   });
-  // novalidate=""
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
