@@ -24,9 +24,9 @@ jobs:
           node-version: ${{ matrix.node-version}}
       - name: Install
         run: make install
-        - name: Rollbar deploy
-      uses: rollbar/github-deploy-action@2.1.1
-      with:
-        environment: production
-      env:
-          ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR }}
+      - name: start
+        run: make start
+      -name: build
+        run: make build
+      -name: lint
+        run make lint

@@ -14,7 +14,7 @@ import ApiProvider from './providers/ApiProvider';
 
 const rollbarConfig = {
   accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-  environment: 'production',
+  environment: process.env.ROLLBAR_ENVIRONMET,
   captureUncaught: true,
   captureUnhandledRejections: true,
 };

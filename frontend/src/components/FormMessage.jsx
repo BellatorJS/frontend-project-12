@@ -42,7 +42,7 @@ const FormMessage = () => {
         username,
 
       };
-      useSockets.dispatchingSockets.addMessage(newMessage);
+      useSockets.addMessage(newMessage);
       resetForm();
       inputRef.current.focus();
     },
