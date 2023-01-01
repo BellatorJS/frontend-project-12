@@ -13,7 +13,7 @@ import resources from './locales/index.js';
 import ApiProvider from './providers/ApiProvider';
 
 const rollbarConfig = {
-  accessToken: process.env.ACCESSTOKEN,
+  accessToken: process.env.Alexey,
   environment: 'production',
   captureUncaught: true,
   captureUnhandledRejections: true,
