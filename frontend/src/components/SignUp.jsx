@@ -8,6 +8,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 import registration from '../assets/registration.jpg';
 import routes from '../routes/routes';
@@ -35,7 +36,6 @@ const SignUpForm = () => {
       .min(6, t('signup.minPassLength')),
     confirmPassword: Yup
       .string()
-      .trim()
       .oneOf([Yup.ref('password')], t('signup.mustMatch')),
   });
 
@@ -60,7 +60,12 @@ const SignUpForm = () => {
         logIn(data);
         navigate(routes.homePage());
       } catch (error) {
-        setRegistrationFailed(true);
+        if (error.isAxiosError && error.response.status === 409) {
+          setRegistrationFailed(true);
+        } else {
+          toast.error(t('signupError.network'));
+          throw error;
+        }
       }
     },
 
@@ -75,6 +80,7 @@ const SignUpForm = () => {
       <h1 className="text-center mb-3">{t('signup.registration')}</h1>
       <fieldset disabled={formik.isSubmitting}>
         <Form.Group className=" form-floating mb-5 position-relative ">
+          <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
           <Form.Control
             autoComplete="username"
             id="username"
@@ -87,7 +93,6 @@ const SignUpForm = () => {
             onBlur={formik.handleBlur}
             value={formik.values.username}
           />
-          <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
           <Form.Control.Feedback type="invalid" tooltip>
             {formik.errors.username}
           </Form.Control.Feedback>

@@ -85,6 +85,9 @@ const ru = {
       isExists: 'Такой пользователь уже существует',
       usernameLength: 'От 3 до 20 символов',
       password: 'Пароль',
+    },
+    signupError: {
+      network: 'Ошибка соединения',
 
     },
   },
