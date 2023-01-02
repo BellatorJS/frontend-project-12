@@ -80,7 +80,7 @@ const SignUpForm = () => {
       <h1 className="text-center mb-3">{t('signup.registration')}</h1>
       <fieldset disabled={formik.isSubmitting}>
         <Form.Group className=" form-floating mb-5 position-relative ">
-          <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
+
           <Form.Control
             autoComplete="username"
             id="username"
@@ -93,13 +93,15 @@ const SignUpForm = () => {
             onBlur={formik.handleBlur}
             value={formik.values.username}
           />
-          <Form.Control.Feedback type="invalid" tooltip>
+          <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
+          <Form.Control.Feedback type="invalid" tooltip placement="right">
             {formik.errors.username}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className=" form-floating mb-5 position-relative">
 
           <Form.Control
+            id="password"
             type="password"
             name="password"
             autoComplete="new-password"
@@ -111,12 +113,13 @@ const SignUpForm = () => {
             required
           />
           <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
-          <Form.Control.Feedback type="invalid" tooltip>
+          <Form.Control.Feedback type="invalid" tooltip placement="right">
             {formik.errors.password}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="form-floating mb-5 position-relative">
           <Form.Control
+            id="confirmPassword"
             placeholder={t('signup.confirmPassword')}
             type="password"
             autoComplete="new-password"
