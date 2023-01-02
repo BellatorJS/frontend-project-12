@@ -15,8 +15,7 @@ import useModals from './useModals';
 const ModalAdd = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const useSockets = useApi();
-  console.log(useSockets);
+  const { addChanel } = useApi();
   const { uniqueNames, inputRef } = useModals();
   const validationSchema = Yup.object().shape({
     name: Yup
@@ -26,7 +25,6 @@ const ModalAdd = () => {
       .max(20, t('modalAdd.channelLength'))
       .notOneOf(uniqueNames, t('modalAdd.uniqueName'))
       .required(t('modalAdd.requiredField')),
-
   });
 
   const formik = useFormik({
@@ -38,7 +36,7 @@ const ModalAdd = () => {
       const filteredName = dictionaryFilter.clean(values.name);
       toast.success(t('modalAdd.channelCreated'));
       const channel = { name: filteredName };
-      useSockets.addChanel(channel);
+      addChanel(channel);
       formik.resetForm();
       dispatch(onHide());
     },

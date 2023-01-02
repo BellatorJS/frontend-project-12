@@ -19,7 +19,7 @@ const FormMessage = () => {
   const user = JSON.parse(window.localStorage.getItem('user'));
   const { username } = user;
   const inputRef = useRef();
-  const useSockets = useApi();
+  const { addMessage } = useApi();
 
   const validationSchema = Yup.object().shape({
     message: Yup
@@ -42,7 +42,7 @@ const FormMessage = () => {
         username,
 
       };
-      useSockets.addMessage(newMessage);
+      addMessage(newMessage);
       resetForm();
       inputRef.current.focus();
     },
@@ -60,8 +60,8 @@ const FormMessage = () => {
             <Form.Control
               ref={inputRef}
               id="form"
-              placeholder="Введите сообщение..."
-              aria-label="Новое сообщение"
+              placeholder={t('messages.enterMessage')}
+              aria-label={t('messages.newMessage')}
               className="border-0 p-0 ps-2 form-control"
               value={formik.values.message}
               onChange={formik.handleChange}

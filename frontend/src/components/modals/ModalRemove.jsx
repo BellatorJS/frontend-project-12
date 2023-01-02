@@ -12,14 +12,14 @@ import { setChannel } from '../../slices/channels-slice';
 const ModalRemove = () => {
   const dispatch = useDispatch();
   const { id } = useModals();
-  const useSockets = useApi();
+  const { removeChannel } = useApi();
   const { t } = useTranslation();
   const [removeDisabled, setRemoveDisabled] = useState(false);
   const isSubmitting = () => setRemoveDisabled(!removeDisabled);
 
   const handleSubmit = () => {
     isSubmitting();
-    useSockets.removeChannel({ id });
+    removeChannel({ id });
     toast.success(t('modalRemove.removeCompleted'));
     dispatch(setChannel(1));
     dispatch(onHide());

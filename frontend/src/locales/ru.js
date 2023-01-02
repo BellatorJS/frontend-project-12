@@ -36,8 +36,8 @@ const ru = {
         key_few: '{{count}} сообщения',
         key_many: '{{count}} сообщений',
       },
-
       send: 'Отправить',
+      enterMessage: 'Введите сообщение...',
     },
     modalAdd: {
       channelLength: 'От 3 до 20 символов',

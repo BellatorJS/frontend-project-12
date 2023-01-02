@@ -117,7 +117,6 @@ const Channels = () => {
                      {t('channels.rename')}
                    </Dropdown.Item>
                  </Dropdown.Menu>
-
                </Dropdown>
                )}
             </ButtonGroup>

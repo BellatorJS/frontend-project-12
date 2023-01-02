@@ -15,7 +15,7 @@ import useModals from './useModals';
 const ModalRename = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const useSockets = useApi();
+  const { renameChannel } = useApi();
   const {
     uniqueNames, inputRef, id, channel,
   } = useModals();
@@ -41,7 +41,7 @@ const ModalRename = () => {
     validationSchema,
     onSubmit: (values) => {
       const filteredName = dictionaryFilter.clean(values.name);
-      useSockets.renameChannel({ id, name: filteredName });
+      renameChannel({ id, name: filteredName });
       toast.success(t('modalRename.renameCompleted'));
       formik.resetForm();
       dispatch(onHide());
@@ -85,7 +85,6 @@ const ModalRename = () => {
           </fieldset>
         </Form>
       </Modal.Body>
-
     </Modal>
   );
 };
