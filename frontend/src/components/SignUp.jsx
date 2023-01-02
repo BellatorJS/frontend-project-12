@@ -36,7 +36,6 @@ const SignUpForm = () => {
     confirmPassword: Yup
       .string()
       .trim()
-      .required(t('signup.requiredField'))
       .oneOf([Yup.ref('password')], t('signup.mustMatch')),
   });
 
