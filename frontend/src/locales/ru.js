@@ -53,6 +53,7 @@ const ru = {
     loginErrors: {
       network: 'Ошибка соединения',
       unknown: 'Неизвестная ошибка',
+      authorization: 'Ошибка авторизации',
     },
     modalRename: {
       channelLength: 'От 3 до 20 символов',

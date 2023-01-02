@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
@@ -8,7 +9,7 @@ import { setFetchedMessages } from '../slices/messages-slice';
 import { setFetchedChannels } from '../slices/channels-slice';
 import Channels from './Channels';
 import Messages from './Messages';
-
+import routes from '../routes/routes';
 import useAuth from '../hooks/useAuth';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,27 +24,36 @@ const LoadingPage = () => {
 };
 
 const PrivatePage = () => {
-  const { getAuthHeader } = useAuth();
+  const { t } = useTranslation();
+  const { getAuthHeader, logOut } = useAuth();
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoaded(false);
-      const res = await axios.get('/api/v1/data', {
-        headers: getAuthHeader(),
-      });
-      const { messages, channels, currentChannelId } = res.data;
-      dispatch(setFetchedChannels({ channels, currentChannelId }));
-      dispatch(setFetchedMessages({ messages }));
-
-      if (res.data) {
-        setLoaded(true);
+      try {
+        setLoaded(false);
+        const res = await axios.get(routes.dataPath(), {
+          headers: getAuthHeader(),
+        });
+        const { messages, channels, currentChannelId } = await res.data;
+        dispatch(setFetchedChannels({ channels, currentChannelId }));
+        dispatch(setFetchedMessages({ messages }));
+        if (res.data) {
+          setLoaded(true);
+        }
+      } catch (error) {
+        if (error.response.status === 401) {
+          toast.error(t('loginErrors.authorization'));
+          logOut();
+        } else {
+          toast.error(t('loginErrors.unknown'));
+        }
       }
     };
 
     fetchData();
-  }, [dispatch, getAuthHeader]);
+  }, [dispatch, getAuthHeader, logOut, t]);
 
   return (
     loaded ? (
