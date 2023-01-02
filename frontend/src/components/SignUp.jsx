@@ -35,6 +35,7 @@ const SignUpForm = () => {
       .min(6, t('signup.minPassLength')),
     confirmPassword: Yup
       .string()
+      .trim()
       .required(t('signup.requiredField'))
       .oneOf([Yup.ref('password')], t('signup.mustMatch')),
   });
@@ -51,6 +52,7 @@ const SignUpForm = () => {
       confirmPassword: '',
     },
     validationSchema,
+    validateOnBlur: false,
     onSubmit: async (values) => {
       setRegistrationFailed(false);
       try {
