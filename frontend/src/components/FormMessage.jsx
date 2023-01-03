@@ -28,6 +28,14 @@ const FormMessage = () => {
       .required(),
   });
 
+  const handleResponseStatus = ({ status }) => {
+    if (status === 'ok') {
+      console.log(t('socketsStatus.success'));
+    } else {
+      console.log(t('socketsStatus.connectError'));
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       message: '',
@@ -40,9 +48,8 @@ const FormMessage = () => {
         body: filteredMsg,
         channelId: id,
         username,
-
       };
-      addMessage(newMessage);
+      addMessage(newMessage, handleResponseStatus);
       resetForm();
       inputRef.current.focus();
     },
@@ -61,7 +68,7 @@ const FormMessage = () => {
               ref={inputRef}
               id="form"
               placeholder={t('messages.enterMessage')}
-              aria-label={t('messages.newMessage')}
+              aria-label="Новое сообщение"
               className="border-0 p-0 ps-2 form-control"
               value={formik.values.message}
               onChange={formik.handleChange}

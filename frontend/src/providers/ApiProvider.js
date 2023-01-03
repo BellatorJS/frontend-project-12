@@ -3,15 +3,13 @@ import CreateSocketListeners from './SocketListeners ';
 import ApiContext from '../contexts/ApiContext';
 
 const ApiProvider = ({ socket, children }) => {
-  const getSocketStatus = (responce) => console.log(responce.status);
-
   CreateSocketListeners(socket);
 
   const dispatchingSockets = {
-    addChanel: (channel) => socket.emit('newChannel', channel, (getSocketStatus)),
-    removeChannel: (id) => socket.emit('removeChannel', id, (getSocketStatus)),
-    renameChannel: (newPayload) => socket.emit('renameChannel', newPayload, (getSocketStatus)),
-    addMessage: (newMessage) => socket.emit('newMessage', newMessage, (getSocketStatus)),
+    addChanel: (channel, cb) => socket.emit('newChannel', channel, (response) => cb(response)),
+    removeChannel: (id, cb) => socket.emit('removeChannel', id, (response) => cb(response)),
+    renameChannel: (newPayload, cb) => socket.emit('renameChannel', newPayload, (response) => cb(response)),
+    addMessage: (newMessage, cb) => socket.emit('newMessage', newMessage, (response) => cb(response)),
   };
 
   return (

@@ -38,6 +38,7 @@ const ru = {
       },
       send: 'Отправить',
       enterMessage: 'Введите сообщение...',
+      newMessage: 'Новое сообщение',
     },
     modalAdd: {
       channelLength: 'От 3 до 20 символов',
@@ -88,7 +89,11 @@ const ru = {
       password: 'Пароль',
     },
     signupError: {
-      network: 'Ошибка соединения',
+      connectError: 'Ошибка соединения',
+    },
+    socketsStatus: {
+      connectError: 'Ошибка соединения',
+      success: 'Cоединение установлно',
 
     },
   },

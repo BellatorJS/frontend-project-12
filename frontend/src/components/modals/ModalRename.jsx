@@ -33,7 +33,14 @@ const ModalRename = () => {
       .min(3, t('modalRename.channelLength'))
       .max(20, t('modalRename.channelLength')),
   });
-
+  const handleResponseStatus = ({ status }) => {
+    if (status === 'ok') {
+      console.log(t('socketsStatus.success'));
+      toast.success(t('modalRename.renameCompleted'));
+    } else {
+      console.log(t('socketsStatus.connectError'));
+    }
+  };
   const formik = useFormik({
     initialValues: {
       name: channel.name,
@@ -41,8 +48,7 @@ const ModalRename = () => {
     validationSchema,
     onSubmit: (values) => {
       const filteredName = dictionaryFilter.clean(values.name);
-      renameChannel({ id, name: filteredName });
-      toast.success(t('modalRename.renameCompleted'));
+      renameChannel({ id, name: filteredName }, handleResponseStatus);
       formik.resetForm();
       dispatch(onHide());
     },

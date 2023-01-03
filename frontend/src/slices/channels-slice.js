@@ -27,9 +27,11 @@ const channelsSlice = createSlice({
 
 export const channelsSelectors = chatAdapter.getSelectors((state) => state.channels);
 export const channelIdSelector = ((state) => state.channels.currentChannelId);
-
 export const {
-  channelAdded, setFetchedChannels, channelUpdated, channelRemoved, setChannel,
+  channelAdded,
+  setFetchedChannels,
+  channelUpdated,
+  channelRemoved,
+  setChannel,
 } = channelsSlice.actions;
-
 export const channelsReducer = channelsSlice.reducer;

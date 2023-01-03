@@ -17,6 +17,16 @@ const ModalAdd = () => {
   const { t } = useTranslation();
   const { addChanel } = useApi();
   const { uniqueNames, inputRef } = useModals();
+
+  const handleResponseStatus = ({ status }) => {
+    if (status === 'ok') {
+      console.log(t('socketsStatus.success'));
+      toast.success(t('modalAdd.channelCreated'));
+    } else {
+      console.log(t('socketsStatus.connectError'));
+    }
+  };
+
   const validationSchema = Yup.object().shape({
     name: Yup
       .string()
@@ -25,6 +35,7 @@ const ModalAdd = () => {
       .max(20, t('modalAdd.channelLength'))
       .notOneOf(uniqueNames, t('modalAdd.uniqueName'))
       .required(t('modalAdd.requiredField')),
+
   });
 
   const formik = useFormik({
@@ -32,11 +43,10 @@ const ModalAdd = () => {
       name: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      const filteredName = dictionaryFilter.clean(values.name);
-      toast.success(t('modalAdd.channelCreated'));
+    onSubmit: ({ name }) => {
+      const filteredName = dictionaryFilter.clean(name);
       const channel = { name: filteredName };
-      addChanel(channel);
+      addChanel(channel, handleResponseStatus);
       formik.resetForm();
       dispatch(onHide());
     },

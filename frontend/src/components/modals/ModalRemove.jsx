@@ -17,10 +17,18 @@ const ModalRemove = () => {
   const [removeDisabled, setRemoveDisabled] = useState(false);
   const isSubmitting = () => setRemoveDisabled(!removeDisabled);
 
+  const handleResponseStatus = ({ status }) => {
+    if (status === 'ok') {
+      console.log(t('socketsStatus.success'));
+      toast.success(t('modalRemove.removeCompleted'));
+    } else {
+      console.log(t('socketsStatus.connectError'));
+    }
+  };
+
   const handleSubmit = () => {
     isSubmitting();
-    removeChannel({ id });
-    toast.success(t('modalRemove.removeCompleted'));
+    removeChannel({ id }, handleResponseStatus);
     dispatch(setChannel(1));
     dispatch(onHide());
     isSubmitting();

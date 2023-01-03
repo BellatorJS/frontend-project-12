@@ -51,7 +51,6 @@ const PrivatePage = () => {
         }
       }
     };
-
     fetchData();
   }, [dispatch, getAuthHeader, logOut, t]);
 

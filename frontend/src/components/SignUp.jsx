@@ -63,7 +63,7 @@ const SignUpForm = () => {
         if (error.isAxiosError && error.response.status === 409) {
           setRegistrationFailed(true);
         } else {
-          toast.error(t('signupError.network'));
+          toast.error(t('signupError.connectError'));
           throw error;
         }
       }
