@@ -12,8 +12,8 @@ import resources from './locales/index.js';
 import ApiProvider from './providers/ApiProvider';
 
 const rollbarConfig = {
-  accessToken: '9ac3f8e0343b4e749d0d43a3dcb32e2a',
-  environment: 'production',
+  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+  environment: process.env.ROLLBAR_ENVIRONMET,
   captureUncaught: true,
   captureUnhandledRejections: true,
 };
