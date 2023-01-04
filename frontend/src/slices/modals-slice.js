@@ -6,6 +6,7 @@ const initialState = {
   isOpened: false,
   type: null,
   extra: null,
+  isOnline: true,
 };
 
 const modalsSlice = createSlice({
@@ -21,11 +22,17 @@ const modalsSlice = createSlice({
       state.isOpened = !state.isOpened;
       state.type = null;
     },
+    onLine: (state, { payload }) => {
+      console.log('VERSION');
+      console.log(state.isOnline);
+      state.isOnline = payload;
+    },
   },
 
 });
 
-export const { showModal, onHide } = modalsSlice.actions;
+export const { showModal, onHide, onLine } = modalsSlice.actions;
 export const modalStatusSelector = ((state) => state.modals);
+export const modalOnlineSelector = ((state) => state.modals.isOnline);
 export const modalChannelIdSelector = ((state) => state.modals?.extra?.channelId);
 export const modalsReducer = modalsSlice.reducer;

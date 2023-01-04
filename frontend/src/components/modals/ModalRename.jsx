@@ -17,13 +17,18 @@ const ModalRename = () => {
   const { t } = useTranslation();
   const { renameChannel } = useApi();
   const {
-    uniqueNames, inputRef, id, channel,
+    uniqueNames, inputRef, id, channel, online,
   } = useModals();
 
   useEffect(() => {
     inputRef.current.focus();
   }, [inputRef]);
 
+  useEffect(() => {
+    if (!online) {
+      toast.error(t('socketsStatus.connectError'));
+    }
+  }, [online, t]);
   const validationSchema = Yup.object().shape({
     name: Yup
       .string()
@@ -46,9 +51,13 @@ const ModalRename = () => {
       name: channel.name,
     },
     validationSchema,
-    onSubmit: (values) => {
-      const filteredName = dictionaryFilter.clean(values.name);
-      renameChannel({ id, name: filteredName }, handleResponseStatus);
+    onSubmit: ({ name }) => {
+      const filteredName = dictionaryFilter.clean(name);
+      if (!online) {
+        toast.error(t('socketsStatus.connectError'));
+      } else {
+        renameChannel({ id, name: filteredName }, handleResponseStatus);
+      }
       formik.resetForm();
       dispatch(onHide());
     },
@@ -61,7 +70,7 @@ const ModalRename = () => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <fieldset disabled={formik.isSubmitting}>
+          <fieldset disabled={formik.isSubmitting || !online}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control
                 ref={inputRef}

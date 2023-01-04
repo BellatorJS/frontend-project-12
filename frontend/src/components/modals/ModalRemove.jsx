@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,7 @@ import { setChannel } from '../../slices/channels-slice';
 
 const ModalRemove = () => {
   const dispatch = useDispatch();
-  const { id } = useModals();
+  const { id, online } = useModals();
   const { removeChannel } = useApi();
   const { t } = useTranslation();
   const [removeDisabled, setRemoveDisabled] = useState(false);
@@ -28,15 +28,25 @@ const ModalRemove = () => {
 
   const handleSubmit = () => {
     isSubmitting();
-    removeChannel({ id }, handleResponseStatus);
-    dispatch(setChannel(1));
+    if (!online) {
+      toast.error(t('socketsStatus.connectError'));
+    } else {
+      removeChannel({ id }, handleResponseStatus);
+      dispatch(setChannel(1));
+    }
+
     dispatch(onHide());
     isSubmitting();
   };
+  useEffect(() => {
+    if (!online) {
+      toast.error(t('socketsStatus.connectError'));
+    }
+  }, [online, t]);
 
   return (
     <Modal show centered>
-      <fieldset disabled={removeDisabled}>
+      <fieldset disabled={removeDisabled || !online}>
         <Modal.Header closeButton onHide={() => dispatch(onHide())}>
           <Modal.Title>{t('modalRemove.removeChannel')}</Modal.Title>
         </Modal.Header>

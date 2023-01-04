@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
+// eslint-disable-next-line react/jsx-no-constructed-context-values
 import CreateSocketListeners from './SocketListeners ';
 import ApiContext from '../contexts/ApiContext';
 

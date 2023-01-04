@@ -16,7 +16,7 @@ const ModalAdd = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { addChanel } = useApi();
-  const { uniqueNames, inputRef } = useModals();
+  const { uniqueNames, inputRef, online } = useModals();
 
   const handleResponseStatus = ({ status }) => {
     if (status === 'ok') {
@@ -38,6 +38,11 @@ const ModalAdd = () => {
 
   });
 
+  useEffect(() => {
+    if (!online) {
+      toast.error(t('socketsStatus.connectError'));
+    }
+  }, [online, t]);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -46,7 +51,11 @@ const ModalAdd = () => {
     onSubmit: ({ name }) => {
       const filteredName = dictionaryFilter.clean(name);
       const channel = { name: filteredName };
-      addChanel(channel, handleResponseStatus);
+      if (!online) {
+        toast.error(t('socketsStatus.connectError'));
+      } else {
+        addChanel(channel, handleResponseStatus);
+      }
       formik.resetForm();
       dispatch(onHide());
     },
@@ -62,7 +71,7 @@ const ModalAdd = () => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <fieldset disabled={formik.isSubmitting}>
+          <fieldset disabled={formik.isSubmitting || !online}>
             <Form.Group className="mb-3">
               <Form.Control
                 id="name"

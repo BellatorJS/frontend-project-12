@@ -3,6 +3,7 @@ import {
   channelAdded, channelRemoved, setChannel, channelUpdated,
 } from '../slices/channels-slice';
 import { messageAdded } from '../slices/messages-slice';
+import { onLine } from '../slices/modals-slice';
 
 const CreateSocketListeners = (socket) => {
   const defaultChannelId = 1;
@@ -23,6 +24,12 @@ const CreateSocketListeners = (socket) => {
   socket.on('renameChannel', (renamedChannel) => {
     const { id, name } = renamedChannel;
     dispatch(channelUpdated({ id, changes: { name } }));
+  });
+  socket.on('disconnect', () => {
+    dispatch(onLine(false));
+  });
+  socket.on('connect', () => {
+    dispatch(onLine(true));
   });
 };
 

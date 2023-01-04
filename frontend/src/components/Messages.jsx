@@ -19,7 +19,6 @@ const Message = ({
 
 const Messages = () => {
   const [messages, item, dummy] = useMessage();
-
   return (
     <Col className="p-0 h-100">
       <div className="d-flex flex-column h-100">
