@@ -18,11 +18,12 @@ const Message = ({
 );
 
 const Messages = () => {
-  const [messages, item, dummy] = useMessage();
+  const [messages, channel, dummy] = useMessage();
+
   return (
     <Col className="p-0 h-100">
       <div className="d-flex flex-column h-100">
-        <MessagesHeader msgs={messages} item={item} />
+        <MessagesHeader msgs={messages} channel={channel} />
         <div
           className="chat-messages overflow-auto px-5 "
           id="messages-box"

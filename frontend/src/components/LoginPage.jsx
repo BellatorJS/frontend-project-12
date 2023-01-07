@@ -79,7 +79,6 @@ const LoginForm = () => {
             isInvalid={authFailed}
             required
             ref={inputRef}
-
           />
           <Form.Label htmlFor="username">{t('login.nickname')}</Form.Label>
         </Form.Group>
@@ -93,14 +92,13 @@ const LoginForm = () => {
             autoComplete="current-password"
             type="password"
             required
-
           />
           <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
           <Form.Control.Feedback type="invalid" tooltip>
             {t('login.authFailed')}
           </Form.Control.Feedback>
         </Form.Group>
-        <Button type="submit" variant="outline-primary">{t('login.submit')}</Button>
+        <Button type="submit" className="w-100 mb-4" variant="outline-primary">{t('login.submit')}</Button>
       </fieldset>
     </Form>
   );

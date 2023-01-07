@@ -18,7 +18,7 @@ const FormMessage = () => {
   const { t } = useTranslation();
   const user = JSON.parse(window.localStorage.getItem('user'));
   const { username } = user;
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const { addMessage } = useApi();
 
   const validationSchema = Yup.object().shape({
@@ -51,13 +51,12 @@ const FormMessage = () => {
       };
       addMessage(newMessage, handleResponseStatus);
       resetForm();
-      inputRef.current.focus();
     },
   });
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  });
 
   return (
     <div className="mt-auto px-5 py-3">

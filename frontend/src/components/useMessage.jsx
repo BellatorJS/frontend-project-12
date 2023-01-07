@@ -7,17 +7,16 @@ import { channelIdSelector, channelsSelectors } from '../slices/channels-slice';
 const useMessage = () => {
   const dummy = useRef();
   const id = useSelector(channelIdSelector);
-  const item = useSelector((state) => channelsSelectors.selectById(state, id));
   const allMsgs = useSelector((state) => messagesSelectors.selectEntities(state));
   const messages = Object.values(allMsgs).filter((x) => x.channelId === id);
-
+  const channel = useSelector((state) => channelsSelectors.selectById(state, id));
   useEffect(() => {
     if (messages.length !== 0) {
       dummy.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages]);
+  }, [messages, channel, id]);
 
-  return ([messages, item, dummy]);
+  return ([messages, channel, dummy]);
 };
 
 export default useMessage;

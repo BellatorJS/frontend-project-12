@@ -1,22 +1,25 @@
 import { useDispatch } from 'react-redux';
 import {
-  channelAdded, channelRemoved, setChannel, channelUpdated,
+  channelAdded, channelRemoved, channelUpdated,
 } from '../slices/channels-slice';
 import { messageAdded } from '../slices/messages-slice';
 import { onLine } from '../slices/modals-slice';
 
 const CreateSocketListeners = (socket) => {
-  const defaultChannelId = 1;
   const dispatch = useDispatch();
 
+  // const cb = (id) => dispatch(setChannel(id));
+
+  /* socket.on('newChannel', (channel, cb) => {
+    dispatch(channelAdded(channel));
+    cb(channel.id);
+  }); */
   socket.on('newChannel', (channel) => {
     dispatch(channelAdded(channel));
-    dispatch(setChannel(channel.id));
   });
   socket.on('removeChannel', (data) => {
     const { id } = data;
     dispatch(channelRemoved(id));
-    dispatch(setChannel(defaultChannelId));
   });
   socket.on('newMessage', (newMessage) => {
     dispatch(messageAdded(newMessage));

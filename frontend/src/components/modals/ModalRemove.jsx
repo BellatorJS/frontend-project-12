@@ -11,7 +11,7 @@ import { setChannel } from '../../slices/channels-slice';
 
 const ModalRemove = () => {
   const dispatch = useDispatch();
-  const { id, online } = useModals();
+  const { id, online, currentId } = useModals();
   const { removeChannel } = useApi();
   const { t } = useTranslation();
   const [removeDisabled, setRemoveDisabled] = useState(false);
@@ -31,7 +31,8 @@ const ModalRemove = () => {
     if (!online) {
       toast.error(t('socketsStatus.connectError'));
     } else {
-      removeChannel({ id }, handleResponseStatus);
+      console.log(currentId, id);
+      removeChannel({ currentId, id }, handleResponseStatus);
       dispatch(setChannel(1));
     }
 

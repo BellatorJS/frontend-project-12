@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import useApi from '../../hooks/useApi';
 import { onHide } from '../../slices/modals-slice';
 import useModals from './useModals';
+import { setChannel } from '../../slices/channels-slice';
 
 const ModalAdd = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,12 @@ const ModalAdd = () => {
   const { addChanel } = useApi();
   const { uniqueNames, inputRef, online } = useModals();
 
-  const handleResponseStatus = ({ status }) => {
+  const handleResponseStatus = ({ status, data }) => {
     if (status === 'ok') {
+      console.log(data.id);
       console.log(t('socketsStatus.success'));
       toast.success(t('modalAdd.channelCreated'));
+      dispatch(setChannel(data.id));
     } else {
       console.log(t('socketsStatus.connectError'));
     }
@@ -43,6 +46,7 @@ const ModalAdd = () => {
       toast.error(t('socketsStatus.connectError'));
     }
   }, [online, t]);
+
   const formik = useFormik({
     initialValues: {
       name: '',
