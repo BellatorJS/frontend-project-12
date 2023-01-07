@@ -7,13 +7,6 @@ import { onLine } from '../slices/modals-slice';
 
 const CreateSocketListeners = (socket) => {
   const dispatch = useDispatch();
-
-  // const cb = (id) => dispatch(setChannel(id));
-
-  /* socket.on('newChannel', (channel, cb) => {
-    dispatch(channelAdded(channel));
-    cb(channel.id);
-  }); */
   socket.on('newChannel', (channel) => {
     dispatch(channelAdded(channel));
   });
