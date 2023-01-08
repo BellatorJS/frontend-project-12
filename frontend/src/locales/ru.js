@@ -94,7 +94,8 @@ const ru = {
     socketsStatus: {
       connectError: 'Ошибка соединения',
       success: 'Cоединение установлно',
-
+      OffLine: 'OffLine',
+      OnLine: 'Online',
     },
   },
 };

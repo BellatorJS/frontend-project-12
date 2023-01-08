@@ -6,6 +6,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import useAuth from '../hooks/useAuth';
 import routes from '../routes/routes';
+import IsOnline from './isOnline';
 
 const ChatHeader = () => {
   const { t } = useTranslation();
@@ -16,7 +17,9 @@ const ChatHeader = () => {
         <Navbar.Brand>
           <Nav.Link href={routes.homePage()}>{t('navbar.chatName')}</Nav.Link>
         </Navbar.Brand>
+        <IsOnline />
         {user && <Button onClick={logOut}>{t('navbar.logout')}</Button>}
+
       </Container>
 
     </Navbar>
