@@ -3,9 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 const MessagesHeader = (props) => {
   const { channel, msgs } = props;
-
   const { t } = useTranslation();
-  console.log(channel, '@@@@@@@@@@@@@@@@@');
   return (
     <div className="bg-light mb-4 p-3 shadow-sm small">
       <p className="m-0">

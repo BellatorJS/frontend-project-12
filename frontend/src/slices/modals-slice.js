@@ -23,8 +23,6 @@ const modalsSlice = createSlice({
       state.type = null;
     },
     onLine: (state, { payload }) => {
-      console.log('VERSION');
-      console.log(state.isOnline);
       state.isOnline = payload;
     },
   },

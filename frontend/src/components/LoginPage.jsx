@@ -111,7 +111,7 @@ const LoginPage = () => {
   const { t } = useTranslation();
 
   return (
-    <Container h-100>
+    <Container>
       <Row className="justify-content-center align-content-center h-100">
         <Col md={8} xxl={6} xs={12}>
           <Card className="shadow-sm">

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as StoreProvider } from 'react-redux';
 import { I18nextProvider, initReactI18next } from 'react-i18next';

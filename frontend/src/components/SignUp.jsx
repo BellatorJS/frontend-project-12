@@ -131,13 +131,12 @@ const SignUpForm = () => {
             required
           />
           <Form.Label htmlFor="confirmPassword">{t('signup.confirmPassword')}</Form.Label>
-          {registrationFailed && (
           <Form.Control.Feedback type="invalid" tooltip>
-            {t('signup.isExists')}
-          </Form.Control.Feedback>
-          )}
-          <Form.Control.Feedback type="invalid" tooltip>
-            {formik.errors.confirmPassword}
+            {
+            (registrationFailed)
+              ? t('signup.isExists')
+              : formik.errors.confirmPassword
+}
           </Form.Control.Feedback>
         </Form.Group>
         <Button type="submit" className="w-100 btn-primary">
@@ -151,7 +150,7 @@ const SignUpForm = () => {
 const SignUp = () => {
   const { t } = useTranslation();
   return (
-    <Container fluid h-100>
+    <Container fluid>
       <Row className="justify-content-center align-content-center h-100">
         <Col md={8} xxl={6} xs={12}>
           <Card className="shadow-sm">

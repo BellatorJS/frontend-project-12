@@ -1,23 +1,23 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
-const chatAdapter = createEntityAdapter();
+const channelsAdapter = createEntityAdapter();
 
 const channelsSlice = createSlice({
   name: 'channels',
-  initialState: chatAdapter.getInitialState({
+  initialState: channelsAdapter.getInitialState({
     currentChannelId: '1',
   }),
   reducers: {
-    channelAdded: chatAdapter.addOne,
-    channelRemoved: chatAdapter.removeOne,
-    channelUpdated: chatAdapter.updateOne,
+    channelAdded: channelsAdapter.addOne,
+    channelRemoved: channelsAdapter.removeOne,
+    channelUpdated: channelsAdapter.updateOne,
     setChannel(state, { payload }) {
       state.currentChannelId = payload;
     },
     setFetchedChannels: (state, { payload }) => {
       const { channels: entities, currentChannelId } = payload;
-      chatAdapter.setAll(state, entities);
+      channelsAdapter.setAll(state, entities);
       state.currentChannelId = currentChannelId;
     },
 
@@ -25,7 +25,7 @@ const channelsSlice = createSlice({
 
 });
 
-export const channelsSelectors = chatAdapter.getSelectors((state) => state.channels);
+export const channelsSelectors = channelsAdapter.getSelectors((state) => state.channels);
 export const channelIdSelector = ((state) => state.channels.currentChannelId);
 export const {
   channelAdded,

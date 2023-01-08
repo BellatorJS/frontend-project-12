@@ -75,7 +75,6 @@ const FormMessage = () => {
             />
             <Button
               type="submit"
-              fixed-bottom
               disabled={!(formik.isValid && formik.dirty)}
               className="btn btn-group-vertical"
             >
