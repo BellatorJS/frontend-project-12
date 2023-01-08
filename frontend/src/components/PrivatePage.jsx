@@ -57,7 +57,7 @@ const PrivatePage = () => {
   return (
     loaded ? (
       <Container className="h-100 my-4 overflow-hidden rounded shadow">
-        <Row className="h-100 bg-white flex-md-row">
+        <Row bg="white" className="h-100 flex-md-row">
           <Channels />
           <Messages />
         </Row>

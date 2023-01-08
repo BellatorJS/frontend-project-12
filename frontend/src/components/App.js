@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import routes from '../routes/routes';
 
 const App = () => (
-  <div className="d-flex flex-column h-100">
+  <div data-bs-theme="dark" className="d-flex flex-column h-100 dark">
     <Router>
 
       <Routes>

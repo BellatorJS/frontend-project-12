@@ -4,8 +4,10 @@ import Form from 'react-bootstrap/Form';
 import { useFormik } from 'formik';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import {
+  Col, Card, Container, Row,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Card from 'react-bootstrap/Card';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 import login from '../assets/login.jpg';
@@ -34,6 +36,7 @@ const LoginForm = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -108,25 +111,25 @@ const LoginPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="container-fluid h-100">
-      <div className="row justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
-          <div className="card shadow-sm">
-            <div className="card-body row p-5">
-              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+    <Container h-100>
+      <Row className="justify-content-center align-content-center h-100">
+        <Col md={8} xxl={6} xs={12}>
+          <Card className="shadow-sm">
+            <Card.Body className="row p-5">
+              <Col md={6} xs={12} className="d-flex align-items-center justify-content-center">
                 <img
                   src={login}
                   className="rounded-circle"
                   alt={t('login.loginImage')}
                 />
-              </div>
+              </Col>
               <LoginForm />
               <Footer />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

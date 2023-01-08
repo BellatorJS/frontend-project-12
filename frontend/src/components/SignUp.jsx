@@ -80,7 +80,6 @@ const SignUpForm = () => {
       <h1 className="text-center mb-3">{t('signup.registration')}</h1>
       <fieldset disabled={formik.isSubmitting}>
         <Form.Group className=" form-floating mb-5 position-relative ">
-
           <Form.Control
             autoComplete="username"
             id="username"
@@ -99,7 +98,6 @@ const SignUpForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className=" form-floating mb-5 position-relative">
-
           <Form.Control
             id="password"
             type="password"
@@ -155,7 +153,7 @@ const SignUp = () => {
   return (
     <Container fluid h-100>
       <Row className="justify-content-center align-content-center h-100">
-        <Col className="col-12 col-md-8 col-xxl-6">
+        <Col md={8} xxl={6} xs={12}>
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row
               justify-content-around align-items-center p-5"
